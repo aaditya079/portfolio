@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaditya Srinivasan | AI & Data Science Engineer</title>
+    
+    <!-- Google Fonts: Outfit for tech headers, Space Grotesk for military/Soviet cyber styling, and Inter for slate copy -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- BoxIcons for robust vector icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="cafe-mode">
+    <!-- Ambient Atmospheric Background (Supports GIF or image drop-in) -->
+    <div class="ambient-bg-container">
+        <div class="ambient-bg cafe-bg"></div>
+        <div class="ambient-bg bomb-bg"></div>
+        <div class="ambient-mask"></div>
+    </div>
+
+    <!-- Custom Dual-Aesthetic Cursor -->
+    <div class="custom-cursor" id="custom-cursor"></div>
+    <div class="custom-cursor-trail" id="custom-cursor-trail"></div>
+
+    <!-- Dual Particle Engine Canvas (Apircot blossoms or explosive sparks) -->
+    <canvas id="ambient-canvas"></canvas>
+    
+    <!-- Screen detonate radial shockwave element -->
+    <div class="detonation-flash" id="detonation-flash"></div>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <a href="#home" class="logo" id="header-logo" data-text="A.S.">A.S<span class="logo-dot">.</span></a>
+        
+        <!-- Center custom Choker Ring Detonator Toggle -->
+        <div class="choker-toggle-wrapper" id="choker-toggle" title="Pull choker ring to detonate!">
+            <span class="toggle-mode-label cafe-label">Café Crossroads</span>
+            <div class="choker-control">
+                <div class="choker-strap"></div>
+                <div class="choker-ring"></div>
+            </div>
+            <span class="toggle-mode-label bomb-label">Bomb Devil</span>
+        </div>
+        
+        <i class='bx bx-menu' id="menu-icon"></i>
+        
+        <nav class="navbar">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">Dossier</a>
+            <a href="#education" class="nav-link">Intel</a>
+            <a href="#projects" class="nav-link">Operations</a>
+        </nav>
+    </header>
+
+    <!-- Home / Hero Section -->
+    <section class="home" id="home">
+        <!-- Ambient Radial Glow Backdrops -->
+        <div class="glow-orb" id="hero-glow-1"></div>
+        <div class="glow-orb" id="hero-glow-2"></div>
+        
+        <div class="home-content">
+            <div class="codename-badge">[ SUBJECT ID: AADITYA_SRINIVASAN ]</div>
+            <p class="subtitle" data-text="Hi, I am">Hi, I am</p>
+            <h1 class="glitch-title" data-text="Aaditya Srinivasan">
+                <span class="first-name" data-text="Aaditya">Aaditya</span>
+                <span class="last-name" data-text="Srinivasan">Srinivasan</span>
+            </h1>
+            
+            <h3 class="role">
+                <span class="role-line"></span>
+                <span class="role-text" data-text="AI & Data Science Student">AI & Data Science Student</span>
+            </h3>
+            
+            <p class="description">
+                Currently pursuing my B.Tech at SRM Madurai. I specialize in building data-driven systems, Python development, and exploring the frontiers of AI research and ML pipelines.
+            </p>
+            
+            <div class="action-group">
+                <a href="Aaditya_Srinivasan_Resume.pdf" download class="btn primary-btn" id="download-btn">
+                    <span>Download Resume</span>
+                    <i class='bx bx-download'></i>
+                </a>
+                
+                <button class="btn secondary-btn" id="copy-email-btn">
+                    <span class="btn-text">Copy Email</span>
+                    <i class='bx bx-copy' id="copy-icon"></i>
+                </button>
+                
+                <div class="social-links">
+                    <a href="mailto:aadityasrinivasan079@gmail.com" aria-label="Email Address" class="social-link-btn"><i class='bx bx-envelope'></i></a>
+                    <a href="https://linkedin.com/in/fwaadi" target="_blank" aria-label="LinkedIn Profile" class="social-link-btn"><i class='bx bxl-linkedin'></i></a>
+                    <a href="https://github.com/aaditya079" target="_blank" aria-label="GitHub Profile" class="social-link-btn"><i class='bx bxl-github'></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Double-sided transitionable Hero Image Frame -->
+        <div class="home-image">
+            <div class="home-image-wrapper shadow-premium">
+                <!-- Cafe Mode Graphic -->
+                <div class="image-slide active" id="cafe-hero-image">
+                    <img src="reze-hero.jpg" alt="Aaditya Srinivasan | Café Crossroads Mode" class="hero-image-asset">
+                </div>
+                <!-- Bomb Mode Graphic -->
+                <div class="image-slide" id="bomb-hero-image">
+                    <img src="bomb-devil.jpg" alt="Aaditya Srinivasan | Bomb Devil Mode" class="hero-image-asset">
+                </div>
+                <!-- Soviet Cyber Grate overlay decoration -->
+                <div class="grate-overlay"></div>
+                <!-- Volatile danger light flashing decoration -->
+                <div class="warning-light"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Dossier Section -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="section-badge">[ FILE: AGENT_DOSSIER ]</div>
+            <h2 class="section-title" data-text="Background & Skills">Background & Skills</h2>
+            
+            <div class="about-grid">
+                <div class="about-text card-glass">
+                    <div class="card-glow-edge"></div>
+                    <p class="typewriter-text">
+                        I have hands-on experience with Python-based development, IoT-integrated systems, and data tooling. I am eager to contribute to real-world ML pipelines and research projects while building deeper domain expertise.
+                    </p>
+                    <!-- Typewriter cursors and visual grid grids -->
+                    <div class="terminal-decor">
+                        <span class="status-marker">SYSTEM STATE: ACTIVE</span>
+                        <span class="loc-marker">LOC: CAFE_CROSSROADS</span>
+                    </div>
+                </div>
+                
+                <div class="skills-wrapper">
+                    <!-- Category 1 -->
+                    <div class="skill-category card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="category-header">
+                            <i class='bx bx-code-alt'></i>
+                            <h4>Languages & Core</h4>
+                        </div>
+                        <div class="tags">
+                            <span>Python</span>
+                            <span>SQL</span>
+                            <span>Java</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Category 2 -->
+                    <div class="skill-category card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="category-header">
+                            <i class='bx bx-brain'></i>
+                            <h4>AI & Data Science</h4>
+                        </div>
+                        <div class="tags">
+                            <span>scikit-learn</span>
+                            <span>Pandas</span>
+                            <span>NumPy</span>
+                            <span>Matplotlib</span>
+                            <span>Seaborn</span>
+                            <span>Power BI</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Category 3 -->
+                    <div class="skill-category card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="category-header">
+                            <i class='bx bx-git-branch'></i>
+                            <h4>Web & Tools</h4>
+                        </div>
+                        <div class="tags">
+                            <span>Django</span>
+                            <span>Streamlit</span>
+                            <span>REST APIs</span>
+                            <span>Git / GitHub</span>
+                            <span>Google Cloud</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education / Sector Intel Section -->
+    <section class="education" id="education">
+        <div class="section-container">
+            <div class="section-badge">[ INTEL: TRAINING & ENCOUNTERS ]</div>
+            <h2 class="section-title" data-text="Education & Achievements">Education & Achievements</h2>
+            
+            <div class="timeline">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item">
+                    <div class="time-container">
+                        <div class="time">2024 — 2028</div>
+                    </div>
+                    <div class="timeline-info card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="timeline-meta">ACADEMIC FOUNDATION</div>
+                        <h3>B.Tech Artificial Intelligence & Data Science</h3>
+                        <h4>SRM Madurai College of Engineering and Technology</h4>
+                        <p>Currently in 2nd Year, 4th Semester. Focused on foundational AI principles, advanced data structures, and practical machine learning applications.</p>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <div class="time-container">
+                        <div class="time">2025</div>
+                    </div>
+                    <div class="timeline-info card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="timeline-meta">TACTICAL TRIUMPH</div>
+                        <h3>3rd Place — Bug Busters Coding Competition</h3>
+                        <h4>Dr. N.G.P. Institute of Technology</h4>
+                        <p>Secured 3rd place in a competitive coding event featuring custom problem sets, competing as a 2-member team against participants from multiple institutions.</p>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item">
+                    <div class="time-container">
+                        <div class="time">2025</div>
+                    </div>
+                    <div class="timeline-info card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="timeline-meta">COMMENDATIONS</div>
+                        <h3>NPTEL Certifications</h3>
+                        <h4>IIT / NPTEL</h4>
+                        <p>Completed comprehensive coursework in Programming in Java, Basic Blockchain and Its Applications, and Web Based Technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects / Operations Section -->
+    <section class="projects" id="projects">
+        <div class="section-container">
+            <div class="section-badge">[ OPERATIONS: FIELD DEPLOYMENTS ]</div>
+            <h2 class="section-title" data-text="Selected Projects">Selected Projects</h2>
+            
+            <div class="project-grid">
+                <!-- Project Card 1 -->
+                <div class="project-card card-glass">
+                    <div class="card-glow-edge"></div>
+                    <div class="project-header">
+                        <h3>Steam Games EDA</h3>
+                        <a href="https://github.com/aaditya079/steam-eda" target="_blank" aria-label="Steam Games EDA GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
+                    </div>
+                    <p class="project-desc">Analyzed a dataset of 114k+ Steam games across genres, pricing, user ratings, and review volume. Discovered near-zero correlation between price and ratings. Published findings to GitHub with a documented README.</p>
+                    <div class="tech-tags">
+                        <span>Python</span>
+                        <span>Pandas</span>
+                        <span>Seaborn</span>
+                        <span>Matplotlib</span>
+                    </div>
+                </div>
+                
+                <!-- Project Card 2 -->
+                <div class="project-card card-glass">
+                    <div class="card-glow-edge"></div>
+                    <div class="project-header">
+                        <h3>GitSynth</h3>
+                        <a href="https://github.com/aaditya079/gitsynth" target="_blank" aria-label="GitSynth GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
+                    </div>
+                    <p class="project-desc">An AI-powered command-line interface (CLI) tool designed to resolve Git merge conflicts instantly. Integrates directly with Anthropic's Claude API to parse conflicting code hunks, analyze local code history, and automatically synthesize clean, context-aware merges on the fly.</p>
+                    <div class="tech-tags">
+                        <span>Node.js</span>
+                        <span>JavaScript</span>
+                        <span>Anthropic API</span>
+                        <span>Git CLI</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="project-card card-glass">
+                    <div class="card-glow-edge"></div>
+                    <div class="project-header">
+                        <h3>ImgSeek</h3>
+                        <a href="https://github.com/aaditya079/ImgSeek" target="_blank" aria-label="ImgSeek GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
+                    </div>
+                    <p class="project-desc">A Windows tool that scans any folder of images using the native Windows OCR engine and finds all photos where a given name or keyword appears — in chat screenshots, Discord messages, captions, and more. Auto-generates a beautiful HTML gallery of all matches with a click-to-enlarge lightbox. No API keys or internet required.</p>
+                    <div class="tech-tags">
+                        <span>C#</span>
+                        <span>.NET</span>
+                        <span>Windows OCR</span>
+                        <span>WinRT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Aaditya Srinivasan. Theme concept: Reze (The Bomb Devil) • Crafted with volatile energy and atmospheric depth.</p>
+        <div class="footer-badge">[ STATUS: STEADY_APRICOT ]</div>
+    </footer>
+
+    <!-- Scroll Reveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
