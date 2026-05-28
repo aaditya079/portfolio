@@ -1336,13 +1336,13 @@ body.bomb-mode .glitch-title .last-name::after {
     position: fixed;
     bottom: 3.5rem;
     left: 3.5rem;
-    height: 64px;
-    width: 64px;
-    border-radius: 40px;
+    height: 76px;
+    width: 76px;
+    border-radius: 50%;
     z-index: 999;
     display: flex;
     align-items: center;
-    padding: 0 8px;
+    padding: 0 14px;
     cursor: pointer;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
     transition: width 0.55s cubic-bezier(0.25, 1, 0.5, 1), 
@@ -1352,8 +1352,9 @@ body.bomb-mode .glitch-title .last-name::after {
 
 .music-player-widget:hover,
 .music-player-widget.expanded {
-    width: 335px;
-    border-radius: 18px;
+    width: 340px;
+    height: 76px;
+    border-radius: 20px;
     padding: 0 16px;
 }
 
@@ -1440,7 +1441,7 @@ body.bomb-mode .glitch-title .last-name::after {
 .music-player-widget.expanded .music-player-panel {
     opacity: 1;
     pointer-events: auto;
-    width: 225px;
+    width: 235px;
 }
 
 .music-info-scroll {
@@ -1477,7 +1478,7 @@ body.bomb-mode .glitch-title .last-name::after {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 .music-btn {
@@ -1512,7 +1513,7 @@ body.bomb-mode .glitch-title .last-name::after {
 }
 
 .music-volume-slider {
-    width: 75px;
+    width: 85px;
     height: 4px;
     border-radius: 2px;
     background: var(--border-color);

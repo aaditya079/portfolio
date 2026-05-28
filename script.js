@@ -518,11 +518,26 @@ if (musicWidget && bgmPlayer && playBtn) {
     discToggle.addEventListener('click', (e) => {
         e.stopPropagation();
         togglePlayback();
-        musicWidget.classList.toggle('expanded');
+        if (!musicWidget.classList.contains('expanded')) {
+            musicWidget.classList.add('expanded');
+        }
     });
 
     musicWidget.addEventListener('click', () => {
-        musicWidget.classList.add('expanded');
+        if (!musicWidget.classList.contains('expanded')) {
+            musicWidget.classList.add('expanded');
+            if (!isPlaying) {
+                bgmPlayer.play().then(() => {
+                    isPlaying = true;
+                    initialUserInteraction = true;
+                    musicWidget.classList.add('playing');
+                    playIcon.className = 'bx bx-pause';
+                    pulsePrompt.classList.remove('visible');
+                }).catch(err => {
+                    console.log("Play failed: ", err);
+                });
+            }
+        }
     });
     
     musicWidget.addEventListener('mouseleave', () => {
