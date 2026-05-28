@@ -822,23 +822,43 @@ body.bomb-mode .choker-ring {
 }
 
 @media (max-width: 991px) {
+    html, body {
+        height: auto !important;
+        overflow: auto !important;
+        overflow-x: hidden !important;
+    }
+    
     .crt-overlay {
         display: none; 
     }
+    
     .deck-container {
         flex-direction: column;
         height: auto;
-        overflow-y: auto;
-        padding-bottom: 4rem;
+        padding: 2rem 4%;
+        gap: 2rem;
+        margin-top: 70px;
     }
-    .deck-left, .deck-right {
-        height: 550px;
+    
+    .deck-left {
+        height: 480px;
         flex: none;
+    }
+    
+    .deck-right {
+        height: auto;
+        flex: none;
+    }
+    
+    .scrollable-dossier {
+        height: auto;
+        overflow: visible;
+        padding: 2rem 1.5rem;
     }
 }
 
-@media (max-width: 520px) {
-    .tuner-deck {
+@media (max-width: 768px) {
+    .system-status, .header-right {
         display: none !important;
     }
 }
