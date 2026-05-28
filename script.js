@@ -1,6 +1,4 @@
-// ==========================================
-// 1. MOBILE MENU TOGGLE & STICKY HEADER
-// ==========================================
+// mobile menu
 const menuIcon = document.querySelector('#menu-icon');
 const navbar = document.querySelector('.navbar');
 const header = document.querySelector('.header');
@@ -12,17 +10,15 @@ if (menuIcon && navbar) {
     };
 }
 
-// Active NavLink Highlighting on Scroll
+// active link highlight on scroll
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.navbar a.nav-link');
 
 window.addEventListener('scroll', () => {
-    // Sticky Header toggle
     if (header) {
         header.classList.toggle('sticky', window.scrollY > 50);
     }
 
-    // Scroll active link detection
     let current = '';
     sections.forEach(sec => {
         const sectionTop = sec.offsetTop;
@@ -40,9 +36,7 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// ==========================================
-// 2. COPY TO CLIPBOARD EMAIL CTA
-// ==========================================
+// copy email clip cta
 const copyEmailBtn = document.getElementById('copy-email-btn');
 if (copyEmailBtn) {
     const copyText = copyEmailBtn.querySelector('.btn-text');
@@ -57,7 +51,6 @@ if (copyEmailBtn) {
                 copyIcon.className = 'bx bx-check';
             }
 
-            // Restore original CTA button state after 2.5s
             setTimeout(() => {
                 copyEmailBtn.classList.remove('copied');
                 if (copyText) copyText.textContent = 'Copy Email';
@@ -66,14 +59,12 @@ if (copyEmailBtn) {
                 }
             }, 2500);
         }).catch(err => {
-            console.error('Failed to copy email: ', err);
+            console.error('Copy failed: ', err);
         });
     });
 }
 
-// ==========================================
-// 3. ADVANCED DETONATION SEQUENCE (CHOKER TOGGLE)
-// ==========================================
+// choker detonation toggle sequence
 const chokerToggle = document.getElementById('choker-toggle');
 const flashOverlay = document.getElementById('detonation-flash');
 const body = document.body;
@@ -85,27 +76,25 @@ let isBombMode = false;
 
 if (chokerToggle && flashOverlay) {
     chokerToggle.addEventListener('click', () => {
-        // 1. Trigger Screen Flash Overlay
+        // screen flash
         flashOverlay.classList.remove('flash-active');
-        void flashOverlay.offsetWidth; // Force CSS reflow to restart animation
+        void flashOverlay.offsetWidth;
         flashOverlay.classList.add('flash-active');
 
-        // 2. Trigger Structural Screen Shake
+        // screen shake
         body.classList.remove('shake-active');
-        void body.offsetWidth; // Force reflow
+        void body.offsetWidth;
         body.classList.add('shake-active');
 
-        // Auditory Detonation Distortion: Pitch-drop/glitch the BGM during the flash
+        // audio glitch on pull
         const bgmPlayer = document.getElementById('bgm-player');
         if (bgmPlayer && !bgmPlayer.paused) {
             const originalRate = bgmPlayer.playbackRate;
             const originalVol = bgmPlayer.volume;
             
-            // Drop playback speed and volume simulating explosion shockwave compression
             bgmPlayer.playbackRate = 0.45;
             bgmPlayer.volume = originalVol * 0.2;
             
-            // Glitch slide back to normal
             setTimeout(() => {
                 let interval = setInterval(() => {
                     if (bgmPlayer.playbackRate < originalRate) {
@@ -124,7 +113,6 @@ if (chokerToggle && flashOverlay) {
             }, 550);
         }
 
-        // Clean up classes after animations conclude
         setTimeout(() => {
             body.classList.remove('shake-active');
         }, 550);
@@ -133,7 +121,7 @@ if (chokerToggle && flashOverlay) {
             flashOverlay.classList.remove('flash-active');
         }, 800);
 
-        // 3. Swap Active Modes & States (Immediate styling swap behind the flash cover)
+        // mode swap behind flash
         setTimeout(() => {
             isBombMode = !isBombMode;
             
@@ -162,13 +150,11 @@ if (chokerToggle && flashOverlay) {
                     footerBadge.textContent = '[ STATUS: STEADY_APRICOT ]';
                 }
             }
-        }, 150); // Small offset so swap happens exactly when screen goes white
+        }, 150);
     });
 }
 
-// ==========================================
-// 4. DUAL ENGINE PARTICLE SYSTEM (CANVAS)
-// ==========================================
+// canvas particles (blossoms / sparks)
 const canvas = document.getElementById('ambient-canvas');
 let mouseX = 0;
 let mouseY = 0;
@@ -188,7 +174,6 @@ if (canvas) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         
-        // Optimize density for display sizes
         if (window.innerWidth < 768) {
             particleCount = 18;
         } else {
@@ -204,44 +189,39 @@ if (canvas) {
         particleCount = 18;
     }
 
-    // Interactive Particle Blueprint
     class InteractiveParticle {
         constructor() {
             this.reset(true);
         }
 
         reset(initial = false) {
-            // General coordinate sizing
             this.radius = Math.random() * 4 + 2;
             
             if (isBombMode) {
-                // Sparks rise from bottom up
+                // rising sparks
                 this.x = Math.random() * canvas.width;
                 this.y = initial ? Math.random() * canvas.height : canvas.height + 20;
                 this.vx = (Math.random() - 0.5) * 1.5;
                 this.vy = -(Math.random() * 1.8 + 0.8);
                 
-                // Nuclear orange/red embers
-                this.hue = Math.random() > 0.45 ? Math.random() * 15 + 10 : Math.random() * 20 + 35; // Red/Orange/Yellow
-                this.lightness = Math.random() * 30 + 50; // Spark glowing brightness
+                this.hue = Math.random() > 0.45 ? Math.random() * 15 + 10 : Math.random() * 20 + 35;
+                this.lightness = Math.random() * 30 + 50;
                 this.baseAlpha = Math.random() * 0.7 + 0.3;
                 this.alpha = this.baseAlpha;
                 this.decay = Math.random() * 0.008 + 0.003;
             } else {
-                // Apricot flower petals fall from top down
+                // falling petals
                 this.x = Math.random() * canvas.width;
                 this.y = initial ? Math.random() * canvas.height : -20;
-                this.vx = Math.random() * 0.8 + 0.2; // Soft diagonal breeze drift
-                this.vy = Math.random() * 1.0 + 0.5; // Weightless slide down
+                this.vx = Math.random() * 0.8 + 0.2;
+                this.vy = Math.random() * 1.0 + 0.5;
                 
-                // Lilac pink flower tone
-                this.hue = Math.random() > 0.6 ? 335 : 345; // Soft apricot pinks
+                this.hue = Math.random() > 0.6 ? 335 : 345;
                 this.baseAlpha = Math.random() * 0.45 + 0.18;
                 this.alpha = this.baseAlpha;
                 this.rotation = Math.random() * Math.PI * 2;
                 this.rotSpeed = (Math.random() - 0.5) * 0.015;
                 
-                // Drift variables
                 this.waveOffset = Math.random() * Math.PI * 2;
                 this.waveSpeed = Math.random() * 0.01 + 0.005;
             }
@@ -253,7 +233,6 @@ if (canvas) {
             ctx.globalAlpha = this.alpha;
             
             if (isBombMode) {
-                // Draw crackling sparks (glowing diamonds)
                 ctx.beginPath();
                 ctx.moveTo(0, -this.radius * 1.2);
                 ctx.lineTo(this.radius * 0.7, 0);
@@ -265,15 +244,12 @@ if (canvas) {
                 ctx.shadowBlur = 12;
                 ctx.fill();
             } else {
-                // Draw rotating organic flower petals
                 ctx.rotate(this.rotation);
                 ctx.beginPath();
-                // Custom heart/petal path geometry
                 ctx.ellipse(0, 0, this.radius * 1.6, this.radius, 0, 0, Math.PI * 2);
                 ctx.fillStyle = `hsla(${this.hue}, 85%, 82%, ${this.alpha})`;
                 ctx.fill();
                 
-                // Add soft petal shadow
                 ctx.strokeStyle = `hsla(${this.hue}, 90%, 72%, ${this.alpha * 0.5})`;
                 ctx.lineWidth = 0.5;
                 ctx.stroke();
@@ -283,12 +259,11 @@ if (canvas) {
 
         update() {
             if (isBombMode) {
-                // Rise Upwards
                 this.x += this.vx;
                 this.y += this.vy;
                 this.alpha -= this.decay;
 
-                // Repel violently from hover cursor (fleeing sparks)
+                // cursor repel
                 if (canHover) {
                     const dx = mouseX - this.x;
                     const dy = mouseY - this.y;
@@ -302,22 +277,18 @@ if (canvas) {
                     }
                 }
 
-                // Reset when dead or offscreen
                 if (this.alpha <= 0 || this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
                     this.reset();
                 }
             } else {
-                // Fall Downwards
                 this.rotation += this.rotSpeed;
                 this.waveOffset += this.waveSpeed;
                 
-                // Organic side-to-side wavy breeze drift
                 const wind = Math.sin(this.waveOffset) * 0.4;
                 
                 this.x += this.vx + wind;
                 this.y += this.vy;
 
-                // Soft cursor repulsion (petals getting brushed away)
                 if (canHover) {
                     const dx = mouseX - this.x;
                     const dy = mouseY - this.y;
@@ -330,7 +301,6 @@ if (canvas) {
                     }
                 }
 
-                // Reset when falling off screen borders
                 if (this.y > canvas.height + 10 || this.x > canvas.width + 10 || this.x < -10) {
                     this.reset();
                 }
@@ -347,7 +317,6 @@ if (canvas) {
     
     initParticles();
 
-    // High refresh animation loop
     function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -356,9 +325,8 @@ if (canvas) {
             p.draw();
         });
 
-        // Mode-specific line grids or connectors
+        // lines linking petals
         if (!isBombMode) {
-            // Draw extremely soft, elegant connecting threads in Cafe mode (constellations)
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -383,22 +351,18 @@ if (canvas) {
     
     requestAnimationFrame(animateParticles);
 
-    // Dynamic mode shift canvas wipe listener
     chokerToggle.addEventListener('click', () => {
-        // Instant shock wipe: make current particles scatter/combust
         particles.forEach(p => {
             p.vx *= 5;
             p.vy *= 5;
             if (!isBombMode) {
-                p.alpha = 0; // instantly dissolve
+                p.alpha = 0;
             }
         });
     });
 }
 
-// ==========================================
-// 5. PREMIUM MAGNETIC DUAL CURSOR
-// ==========================================
+// custom cursor
 const cursor = document.getElementById('custom-cursor');
 const cursorTrail = document.getElementById('custom-cursor-trail');
 
@@ -419,13 +383,10 @@ if (canHover && cursor && cursorTrail) {
         cursorTrail.style.opacity = '0';
     });
 
-    // Interpolation (lerp) for physics cursor delay
     function tickCursor() {
-        // Fast tracking dot (35% snap lerp)
         cursorX += (mouseX - cursorX) * 0.35;
         cursorY += (mouseY - cursorY) * 0.35;
 
-        // Fluid outer ring spring delay (15% lerp)
         trailX += (mouseX - trailX) * 0.15;
         trailY += (mouseY - trailY) * 0.15;
 
@@ -439,7 +400,6 @@ if (canHover && cursor && cursorTrail) {
     }
     requestAnimationFrame(tickCursor);
 
-    // Expand cursor ring on interactive element hover
     const hoverSelectors = 'a, button, .choker-toggle-wrapper, .card-glass, .tags span, .social-link-btn';
     
     function initCursorHovers() {
@@ -460,14 +420,11 @@ if (canHover && cursor && cursorTrail) {
     window.addEventListener('DOMContentLoaded', initCursorHovers);
 }
 
-// ==========================================
-// 6. 3D CARD HOVER TILT WITH SPECULAR GLOW SHINE
-// ==========================================
+// 3D card tilt
 if (canHover) {
     const glassCards = document.querySelectorAll('.card-glass');
 
     glassCards.forEach(card => {
-        // Inject shine overlay if missing
         if (!card.querySelector('.shine')) {
             const shineDiv = document.createElement('div');
             shineDiv.className = 'shine';
@@ -482,7 +439,6 @@ if (canHover) {
             const px = (x / rect.width) - 0.5;
             const py = (y / rect.height) - 0.5;
 
-            // Fluid 3D rotation (up to 8 degrees limit)
             const tiltX = -py * 8;
             const tiltY = px * 8;
 
@@ -499,16 +455,14 @@ if (canHover) {
     });
 }
 
-// ==========================================
-// 7. SCROLL REVEAL (ELEGANT SLIDE IN TRANSITIONS)
-// ==========================================
+// ScrollReveal setup
 if (typeof ScrollReveal !== 'undefined') {
     ScrollReveal({ 
         reset: false,
         distance: '40px',
         duration: 1000,
         delay: 50,
-        easing: 'cubic-bezier(0.25, 1, 0.5, 1)' // Clean spatial curve
+        easing: 'cubic-bezier(0.25, 1, 0.5, 1)'
     });
 
     ScrollReveal().reveal('.section-badge, .subtitle, .codename-badge', { origin: 'bottom', delay: 100 });
@@ -521,9 +475,7 @@ if (typeof ScrollReveal !== 'undefined') {
     ScrollReveal().reveal('.project-card', { origin: 'bottom', interval: 120 });
 }
 
-// ==========================================
-// 8. INTERACTIVE GLASSMORPHIC BGM PLAYER
-// ==========================================
+// BGM Music Widget
 const musicWidget = document.getElementById('music-widget');
 const bgmPlayer = document.getElementById('bgm-player');
 const playBtn = document.getElementById('music-play-btn');
@@ -534,13 +486,11 @@ const discToggle = document.getElementById('music-disc-toggle');
 const pulsePrompt = document.getElementById('music-pulse-prompt');
 
 if (musicWidget && bgmPlayer && playBtn) {
-    // Set standard default starting volume
     bgmPlayer.volume = 0.5;
     
     let isPlaying = false;
     let initialUserInteraction = false;
     
-    // Play / Pause toggle function
     function togglePlayback() {
         if (isPlaying) {
             bgmPlayer.pause();
@@ -555,14 +505,13 @@ if (musicWidget && bgmPlayer && playBtn) {
                 playIcon.className = 'bx bx-pause';
                 pulsePrompt.classList.remove('visible');
             }).catch(err => {
-                console.log("Autoplay blocked by browser policy. Prompting click.", err);
+                console.log("Play failed: ", err);
             });
         }
     }
     
-    // Bind click events on disc and play button
     playBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent expanding the panel on control click
+        e.stopPropagation();
         togglePlayback();
     });
     
@@ -572,23 +521,19 @@ if (musicWidget && bgmPlayer && playBtn) {
         musicWidget.classList.toggle('expanded');
     });
 
-    // Handle clicks inside widget itself (expansion behavior)
     musicWidget.addEventListener('click', () => {
         musicWidget.classList.add('expanded');
     });
     
-    // Collapse when mouse leaves
     musicWidget.addEventListener('mouseleave', () => {
         musicWidget.classList.remove('expanded');
     });
     
-    // Volume slider control
     if (volumeSlider) {
         volumeSlider.addEventListener('input', (e) => {
             const vol = parseFloat(e.target.value);
             bgmPlayer.volume = vol;
             
-            // Dynamic volume icon state
             if (vol === 0) {
                 volumeIcon.className = 'bx bx-volume-mute';
             } else if (vol < 0.4) {
@@ -598,11 +543,10 @@ if (musicWidget && bgmPlayer && playBtn) {
             }
         });
         
-        // Prevent slider clicks from triggering disc toggles
         volumeSlider.addEventListener('click', (e) => e.stopPropagation());
     }
 
-    // Try immediate native autoplay on load
+    // native autoplay attempt
     bgmPlayer.play().then(() => {
         isPlaying = true;
         initialUserInteraction = true;
@@ -610,19 +554,16 @@ if (musicWidget && bgmPlayer && playBtn) {
         playIcon.className = 'bx bx-pause';
         pulsePrompt.classList.remove('visible');
     }).catch(err => {
-        console.log("Immediate autoplay blocked by browser policy. Setting up seamless micro-interaction listeners.", err);
+        console.log("Autoplay blocked. Setting fallback listeners.");
     });
     
-    // Browser Autoplay Workaround Prompt:
-    // Display the pulse prompt after a tiny delay if the track is still paused
     setTimeout(() => {
         if (!initialUserInteraction && bgmPlayer.paused) {
             pulsePrompt.classList.add('visible');
         }
     }, 2800);
     
-    // Global fallback autoplay click & interaction listeners:
-    // Plays the music automatically on any minimal interaction (mouse move, tap, keypress, etc.)
+    // global interaction triggers to simulate instant play
     function triggerAutoplayOnInteraction() {
         if (!initialUserInteraction) {
             bgmPlayer.play().then(() => {
@@ -631,12 +572,8 @@ if (musicWidget && bgmPlayer && playBtn) {
                 musicWidget.classList.add('playing');
                 playIcon.className = 'bx bx-pause';
                 pulsePrompt.classList.remove('visible');
-                
-                // Dissolve listeners once active
                 removeAutoplayListeners();
-            }).catch(() => {
-                // If still blocked, wait for explicit play btn click
-            });
+            }).catch(() => {});
         }
     }
 
