@@ -107,7 +107,7 @@ body.bomb-mode .crt-overlay {
 }
 
 body.cafe-mode .cafe-bg {
-    opacity: 0.18;
+    opacity: 0.42;
 }
 
 .bomb-bg {
@@ -115,14 +115,14 @@ body.cafe-mode .cafe-bg {
 }
 
 body.bomb-mode .bomb-bg {
-    opacity: 0.22;
+    opacity: 0.48;
 }
 
 .ambient-mask {
     position: absolute;
     inset: 0;
     background: var(--bg-color);
-    opacity: 0.65;
+    opacity: 0.45;
     transition: background 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
