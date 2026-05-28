@@ -42,21 +42,16 @@ body.bomb-mode {
     list-style: none;
 }
 
-html {
-    background: var(--bg-color);
-    background-image: var(--bg-gradient);
-    transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1), background-image 0.8s ease;
-}
-
-body {
+html, body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    background: transparent !important;
-    background-image: none !important;
+    background: var(--bg-color);
+    background-image: var(--bg-gradient);
     color: var(--text-primary);
     font-family: var(--font-body);
     font-size: 62.5%;
+    transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1), background-image 0.8s ease;
 }
 
 .crt-overlay {
@@ -90,7 +85,7 @@ body.bomb-mode .crt-overlay {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -2;
+    z-index: 1;
     pointer-events: none;
     overflow: hidden;
 }
@@ -138,7 +133,7 @@ body.bomb-mode .bomb-bg {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
+    z-index: 2;
     pointer-events: none;
 }
 
@@ -296,6 +291,8 @@ body.bomb-mode .choker-ring {
     padding: 2rem 4%;
     gap: 3rem;
     margin-top: 70px;
+    position: relative;
+    z-index: 5;
 }
 
 .deck-left, .deck-right {
