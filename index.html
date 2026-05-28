@@ -252,14 +252,16 @@
                 <div class="project-card card-glass">
                     <div class="card-glow-edge"></div>
                     <div class="project-header">
-                        <h3>Steam Games EDA</h3>
-                        <a href="https://github.com/aaditya079/steam-eda" target="_blank" aria-label="Steam Games EDA GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
+                        <h3>Steam EDA & Dashboard</h3>
+                        <a href="https://github.com/aaditya079/steam-eda" target="_blank" aria-label="Steam EDA GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
                     </div>
-                    <p class="project-desc">Analyzed a dataset of 114k+ Steam games across genres, pricing, user ratings, and review volume. Discovered near-zero correlation between price and ratings. Published findings to GitHub with a documented README.</p>
+                    <p class="project-desc">An interactive Python & Flask dashboard analyzing 114k+ Steam games using ApexCharts. Discovered and resolved a critical comma-shift header bug in the Kaggle CSV dataset that had previously caused incorrect pricing-to-rating correlations in other analyses.</p>
                     <div class="tech-tags">
                         <span>Python</span>
+                        <span>Flask</span>
                         <span>Pandas</span>
-                        <span>Seaborn</span>
+                        <span>ApexCharts</span>
+                        <span>JavaScript</span>
                         <span>Matplotlib</span>
                     </div>
                 </div>
@@ -304,6 +306,39 @@
         <p>&copy; 2026 Aaditya Srinivasan. Theme concept: Reze (The Bomb Devil) • Crafted with volatile energy and atmospheric depth.</p>
         <div class="footer-badge">[ STATUS: STEADY_APRICOT ]</div>
     </footer>
+
+    <!-- Premium Glassmorphic Music Player Widget (Kenshi Yonezu x Hikaru Utada - Jane Doe) -->
+    <div class="music-player-widget card-glass" id="music-widget">
+        <audio id="bgm-player" src="jane-doe.mp3" loop></audio>
+        
+        <div class="music-disc-wrapper" id="music-disc-toggle">
+            <div class="music-disc">
+                <div class="disc-grooves"></div>
+                <div class="disc-label"></div>
+            </div>
+            <!-- Pulse prompt for first interaction -->
+            <div class="music-pulse-prompt" id="music-pulse-prompt">Click to play BGM 🎵</div>
+        </div>
+        
+        <div class="music-player-panel">
+            <div class="music-info-scroll">
+                <span class="music-title">JANE DOE</span>
+                <span class="music-artist">Kenshi Yonezu × Hikaru Utada</span>
+                <span class="music-credits">[ Chainsaw Man: Reze Arc ED ]</span>
+            </div>
+            
+            <div class="music-controls">
+                <button class="music-btn" id="music-play-btn" aria-label="Play Music">
+                    <i class='bx bx-play' id="music-play-icon"></i>
+                </button>
+                
+                <div class="music-volume-container">
+                    <i class='bx bx-volume-low' id="music-volume-icon"></i>
+                    <input type="range" class="music-volume-slider" id="music-volume-slider" min="0" max="1" step="0.05" value="0.5" aria-label="Volume Control">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scroll Reveal -->
     <script src="https://unpkg.com/scrollreveal"></script>

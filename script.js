@@ -95,6 +95,35 @@ if (chokerToggle && flashOverlay) {
         void body.offsetWidth; // Force reflow
         body.classList.add('shake-active');
 
+        // Auditory Detonation Distortion: Pitch-drop/glitch the BGM during the flash
+        const bgmPlayer = document.getElementById('bgm-player');
+        if (bgmPlayer && !bgmPlayer.paused) {
+            const originalRate = bgmPlayer.playbackRate;
+            const originalVol = bgmPlayer.volume;
+            
+            // Drop playback speed and volume simulating explosion shockwave compression
+            bgmPlayer.playbackRate = 0.45;
+            bgmPlayer.volume = originalVol * 0.2;
+            
+            // Glitch slide back to normal
+            setTimeout(() => {
+                let interval = setInterval(() => {
+                    if (bgmPlayer.playbackRate < originalRate) {
+                        bgmPlayer.playbackRate += 0.05;
+                    }
+                    if (bgmPlayer.volume < originalVol) {
+                        bgmPlayer.volume += 0.05;
+                    }
+                    
+                    if (bgmPlayer.playbackRate >= originalRate && bgmPlayer.volume >= originalVol) {
+                        bgmPlayer.playbackRate = originalRate;
+                        bgmPlayer.volume = originalVol;
+                        clearInterval(interval);
+                    }
+                }, 30);
+            }, 550);
+        }
+
         // Clean up classes after animations conclude
         setTimeout(() => {
             body.classList.remove('shake-active');
@@ -490,4 +519,117 @@ if (typeof ScrollReveal !== 'undefined') {
     ScrollReveal().reveal('.skill-category', { origin: 'bottom', interval: 100 });
     ScrollReveal().reveal('.timeline-item', { origin: 'bottom', interval: 120 });
     ScrollReveal().reveal('.project-card', { origin: 'bottom', interval: 120 });
+}
+
+// ==========================================
+// 8. INTERACTIVE GLASSMORPHIC BGM PLAYER
+// ==========================================
+const musicWidget = document.getElementById('music-widget');
+const bgmPlayer = document.getElementById('bgm-player');
+const playBtn = document.getElementById('music-play-btn');
+const playIcon = document.getElementById('music-play-icon');
+const volumeSlider = document.getElementById('music-volume-slider');
+const volumeIcon = document.getElementById('music-volume-icon');
+const discToggle = document.getElementById('music-disc-toggle');
+const pulsePrompt = document.getElementById('music-pulse-prompt');
+
+if (musicWidget && bgmPlayer && playBtn) {
+    // Set standard default starting volume
+    bgmPlayer.volume = 0.5;
+    
+    let isPlaying = false;
+    let initialUserInteraction = false;
+    
+    // Play / Pause toggle function
+    function togglePlayback() {
+        if (isPlaying) {
+            bgmPlayer.pause();
+            isPlaying = false;
+            musicWidget.classList.remove('playing');
+            playIcon.className = 'bx bx-play';
+        } else {
+            bgmPlayer.play().then(() => {
+                isPlaying = true;
+                initialUserInteraction = true;
+                musicWidget.classList.add('playing');
+                playIcon.className = 'bx bx-pause';
+                pulsePrompt.classList.remove('visible');
+            }).catch(err => {
+                console.log("Autoplay blocked by browser policy. Prompting click.", err);
+            });
+        }
+    }
+    
+    // Bind click events on disc and play button
+    playBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent expanding the panel on control click
+        togglePlayback();
+    });
+    
+    discToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePlayback();
+        musicWidget.classList.toggle('expanded');
+    });
+
+    // Handle clicks inside widget itself (expansion behavior)
+    musicWidget.addEventListener('click', () => {
+        musicWidget.classList.add('expanded');
+    });
+    
+    // Collapse when mouse leaves
+    musicWidget.addEventListener('mouseleave', () => {
+        musicWidget.classList.remove('expanded');
+    });
+    
+    // Volume slider control
+    if (volumeSlider) {
+        volumeSlider.addEventListener('input', (e) => {
+            const vol = parseFloat(e.target.value);
+            bgmPlayer.volume = vol;
+            
+            // Dynamic volume icon state
+            if (vol === 0) {
+                volumeIcon.className = 'bx bx-volume-mute';
+            } else if (vol < 0.4) {
+                volumeIcon.className = 'bx bx-volume-low';
+            } else {
+                volumeIcon.className = 'bx bx-volume-full';
+            }
+        });
+        
+        // Prevent slider clicks from triggering disc toggles
+        volumeSlider.addEventListener('click', (e) => e.stopPropagation());
+    }
+    
+    // Browser Autoplay Workaround Prompt:
+    // Display the pulse prompt after a tiny delay so the user is aware of the music.
+    setTimeout(() => {
+        if (!initialUserInteraction && bgmPlayer.paused) {
+            pulsePrompt.classList.add('visible');
+        }
+    }, 2800);
+    
+    // Global fallback autoplay click listener:
+    // If the user clicks anywhere on the body, try to play the music automatically
+    function triggerAutoplayOnInteraction() {
+        if (!initialUserInteraction) {
+            bgmPlayer.play().then(() => {
+                isPlaying = true;
+                initialUserInteraction = true;
+                musicWidget.classList.add('playing');
+                playIcon.className = 'bx bx-pause';
+                pulsePrompt.classList.remove('visible');
+                
+                // Dissolve listeners once active
+                document.removeEventListener('click', triggerAutoplayOnInteraction);
+                document.removeEventListener('scroll', triggerAutoplayOnInteraction);
+            }).catch(() => {
+                // If still blocked, wait for explicit play btn click
+            });
+        }
+    }
+    
+    document.addEventListener('click', triggerAutoplayOnInteraction);
+    document.addEventListener('scroll', triggerAutoplayOnInteraction);
 }
