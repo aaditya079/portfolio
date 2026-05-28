@@ -86,32 +86,7 @@ if (chokerToggle && flashOverlay) {
         void body.offsetWidth;
         body.classList.add('shake-active');
 
-        // audio glitch on pull
-        const bgmPlayer = document.getElementById('bgm-player');
-        if (bgmPlayer && !bgmPlayer.paused) {
-            const originalRate = bgmPlayer.playbackRate;
-            const originalVol = bgmPlayer.volume;
-            
-            bgmPlayer.playbackRate = 0.45;
-            bgmPlayer.volume = originalVol * 0.2;
-            
-            setTimeout(() => {
-                let interval = setInterval(() => {
-                    if (bgmPlayer.playbackRate < originalRate) {
-                        bgmPlayer.playbackRate += 0.05;
-                    }
-                    if (bgmPlayer.volume < originalVol) {
-                        bgmPlayer.volume += 0.05;
-                    }
-                    
-                    if (bgmPlayer.playbackRate >= originalRate && bgmPlayer.volume >= originalVol) {
-                        bgmPlayer.playbackRate = originalRate;
-                        bgmPlayer.volume = originalVol;
-                        clearInterval(interval);
-                    }
-                }, 30);
-            }, 550);
-        }
+        // audio playback remains steady and uninterrupted during transition
 
         setTimeout(() => {
             body.classList.remove('shake-active');
