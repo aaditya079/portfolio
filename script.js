@@ -592,7 +592,7 @@ if (musicWidget && bgmPlayer && playBtn) {
         }
     }
 
-    const autoplayEvents = ['click', 'scroll', 'keydown', 'touchstart', 'pointerdown', 'mousemove'];
+    const autoplayEvents = ['click', 'keydown', 'touchstart', 'pointerdown'];
     
     function addAutoplayListeners() {
         autoplayEvents.forEach(evt => {
