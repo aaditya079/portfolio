@@ -601,17 +601,28 @@ if (musicWidget && bgmPlayer && playBtn) {
         // Prevent slider clicks from triggering disc toggles
         volumeSlider.addEventListener('click', (e) => e.stopPropagation());
     }
+
+    // Try immediate native autoplay on load
+    bgmPlayer.play().then(() => {
+        isPlaying = true;
+        initialUserInteraction = true;
+        musicWidget.classList.add('playing');
+        playIcon.className = 'bx bx-pause';
+        pulsePrompt.classList.remove('visible');
+    }).catch(err => {
+        console.log("Immediate autoplay blocked by browser policy. Setting up seamless micro-interaction listeners.", err);
+    });
     
     // Browser Autoplay Workaround Prompt:
-    // Display the pulse prompt after a tiny delay so the user is aware of the music.
+    // Display the pulse prompt after a tiny delay if the track is still paused
     setTimeout(() => {
         if (!initialUserInteraction && bgmPlayer.paused) {
             pulsePrompt.classList.add('visible');
         }
     }, 2800);
     
-    // Global fallback autoplay click listener:
-    // If the user clicks anywhere on the body, try to play the music automatically
+    // Global fallback autoplay click & interaction listeners:
+    // Plays the music automatically on any minimal interaction (mouse move, tap, keypress, etc.)
     function triggerAutoplayOnInteraction() {
         if (!initialUserInteraction) {
             bgmPlayer.play().then(() => {
@@ -622,14 +633,26 @@ if (musicWidget && bgmPlayer && playBtn) {
                 pulsePrompt.classList.remove('visible');
                 
                 // Dissolve listeners once active
-                document.removeEventListener('click', triggerAutoplayOnInteraction);
-                document.removeEventListener('scroll', triggerAutoplayOnInteraction);
+                removeAutoplayListeners();
             }).catch(() => {
                 // If still blocked, wait for explicit play btn click
             });
         }
     }
+
+    const autoplayEvents = ['click', 'scroll', 'keydown', 'touchstart', 'pointerdown', 'mousemove'];
     
-    document.addEventListener('click', triggerAutoplayOnInteraction);
-    document.addEventListener('scroll', triggerAutoplayOnInteraction);
+    function addAutoplayListeners() {
+        autoplayEvents.forEach(evt => {
+            document.addEventListener(evt, triggerAutoplayOnInteraction, { passive: true });
+        });
+    }
+
+    function removeAutoplayListeners() {
+        autoplayEvents.forEach(evt => {
+            document.removeEventListener(evt, triggerAutoplayOnInteraction);
+        });
+    }
+    
+    addAutoplayListeners();
 }
