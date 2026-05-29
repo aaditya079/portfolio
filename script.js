@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isBombMode = false;
     let isCrtActive = true; // CRT scanner active by default
     const body = document.body;
-    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const canHover = window.matchMedia('(hover: hover)').matches || !('ontouchstart' in window || navigator.maxTouchPoints > 0);
     
     // Global mouse tracking
     let mouseX = 0;
@@ -522,19 +522,46 @@ document.addEventListener('DOMContentLoaded', () => {
     if (canHover && cursor && cursorTrail) {
         let cursorX = 0, cursorY = 0;
         let trailX = 0, trailY = 0;
+        let cursorActive = false;
         
         cursor.style.opacity = '0';
         cursorTrail.style.opacity = '0';
 
+        function showCursor() {
+            if (!cursorActive) {
+                cursor.style.opacity = '1';
+                cursorTrail.style.opacity = '1';
+                body.classList.add('custom-cursor-enabled');
+                cursorActive = true;
+            }
+        }
+
+        function hideCursor() {
+            if (cursorActive) {
+                cursor.style.opacity = '0';
+                cursorTrail.style.opacity = '0';
+                body.classList.remove('custom-cursor-enabled');
+                cursorActive = false;
+            }
+        }
+
+        // Enable on mouse movement
+        document.addEventListener('mousemove', () => {
+            showCursor();
+        }, { passive: true });
+
         document.addEventListener('mouseenter', () => {
-            cursor.style.opacity = '1';
-            cursorTrail.style.opacity = '1';
+            showCursor();
         });
 
         document.addEventListener('mouseleave', () => {
-            cursor.style.opacity = '0';
-            cursorTrail.style.opacity = '0';
+            hideCursor();
         });
+
+        // Hide cursor if touch occurs to avoid glitches on touch devices/screens
+        document.addEventListener('touchstart', () => {
+            hideCursor();
+        }, { passive: true });
 
         function tickCursor() {
             cursorX += (mouseX - cursorX) * 0.35;

@@ -243,7 +243,7 @@ body.bomb-mode .bomb-bg {
     left: 0;
     transform: translate3d(0, 0, 0) translate(-50%, -50%);
     pointer-events: none;
-    z-index: 10000;
+    z-index: 2147483647;
     transition: width 0.25s, height 0.25s, background-color 0.4s;
     box-shadow: 0 0 10px var(--cursor-dot);
     display: none;
@@ -259,7 +259,7 @@ body.bomb-mode .bomb-bg {
     left: 0;
     transform: translate3d(0, 0, 0) translate(-50%, -50%);
     pointer-events: none;
-    z-index: 9999;
+    z-index: 2147483646;
     transition: width 0.25s, height 0.25s, border-color 0.4s, background-color 0.4s;
     display: none;
 }
@@ -278,13 +278,29 @@ body.bomb-mode .bomb-bg {
     background-color: rgba(var(--accent-rgb), 0.04);
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .custom-cursor, .custom-cursor-trail {
-        display: block;
-    }
-    html, body, a, button, input, select, textarea, label, [role="button"], .btn, .social-link-btn, .choker-toggle-wrapper, .music-disc-wrapper, .lock-shell-btn, .lock-shell-btn-terminal, .project-link, .proj-link {
-        cursor: none !important;
-    }
+/* Enabled cursor state from JS */
+body.custom-cursor-enabled .custom-cursor,
+body.custom-cursor-enabled .custom-cursor-trail {
+    display: block;
+}
+
+body.custom-cursor-enabled,
+body.custom-cursor-enabled a,
+body.custom-cursor-enabled button,
+body.custom-cursor-enabled input,
+body.custom-cursor-enabled select,
+body.custom-cursor-enabled textarea,
+body.custom-cursor-enabled label,
+body.custom-cursor-enabled [role="button"],
+body.custom-cursor-enabled .btn,
+body.custom-cursor-enabled .social-link-btn,
+body.custom-cursor-enabled .choker-toggle-wrapper,
+body.custom-cursor-enabled .music-disc-wrapper,
+body.custom-cursor-enabled .lock-shell-btn,
+body.custom-cursor-enabled .lock-shell-btn-terminal,
+body.custom-cursor-enabled .project-link,
+body.custom-cursor-enabled .proj-link {
+    cursor: none !important;
 }
 
 /* Header */
