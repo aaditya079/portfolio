@@ -3,34 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aaditya Srinivasan | Classified Dossier</title>
+    <title>Aaditya Srinivasan | Classified Shell</title>
     
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
     
+    <!-- Boxicons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     
+    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="cafe-mode">
-    <div class="crt-overlay"></div>
+    <!-- Retro CRT Visual Overlay -->
+    <div class="crt-overlay" id="crt-overlay"></div>
     
+    <!-- Ambient Thematic Backgrounds -->
     <div class="ambient-bg-container">
         <div class="ambient-bg cafe-bg"></div>
         <div class="ambient-bg bomb-bg"></div>
         <div class="ambient-mask"></div>
     </div>
 
+    <!-- Custom Floating Cursor (Desktop only) -->
+    <div class="custom-cursor" id="custom-cursor"></div>
+    <div class="custom-cursor-trail" id="custom-cursor-trail"></div>
+
+    <!-- Dual Particle Engine Canvas -->
     <canvas id="ambient-canvas"></canvas>
+    
+    <!-- Shockwave Detonation Overlay -->
     <div class="detonation-flash" id="detonation-flash"></div>
 
+    <!-- Header Navigation Section -->
     <header class="header">
         <div class="header-left">
-            <span class="logo">[ REZE_OS v1.9 ]</span>
+            <a href="#home" class="logo" id="header-logo" data-text="A.S.">A.S<span class="logo-dot">.</span></a>
+            <span class="logo-version">[ REZE_OS v2.0 ]</span>
             <span class="system-status">// STATE: NOMINAL</span>
         </div>
         
+        <!-- Detonator Mode Switch -->
         <div class="choker-toggle-wrapper" id="choker-toggle" title="Pull choker ring to detonate!">
             <span class="toggle-mode-label cafe-label">Café Crossroads</span>
             <div class="choker-control">
@@ -40,165 +55,497 @@
             <span class="toggle-mode-label bomb-label">Bomb Devil</span>
         </div>
         
+        <!-- Navigation Menu (Only shown when unlocked) -->
+        <nav class="navbar" id="navbar-nav">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">Dossier</a>
+            <a href="#projects" class="nav-link">Operations</a>
+            <a href="#education" class="nav-link">Timeline</a>
+            
+            <!-- Quick Lock Shell CTA -->
+            <button class="lock-shell-btn" id="header-lock-btn" title="Re-lock OS Shell Console">
+                <i class='bx bx-lock-alt'></i>
+                <span>Lock Shell</span>
+            </button>
+        </nav>
+        
         <div class="header-right">
-            <span id="system-clock">00:00:00 UTC</span>
+            <span id="system-clock">00:00:00 LOCAL</span>
+            <i class='bx bx-menu' id="menu-icon"></i>
         </div>
     </header>
 
-    <main class="deck-container">
-        <section class="deck-left">
-            <div class="terminal-panel card-glass">
-                <div class="terminal-bar">
-                    <div class="terminal-dots">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
+    <!-- VIEW 1: SECURE COCKPIT DASHBOARD (Default main view) -->
+    <div id="secure-dashboard-view" class="view-active">
+        <main class="deck-container">
+            <!-- Left Column: Interactive Terminal Shell -->
+            <section class="deck-left">
+                <div class="terminal-panel card-glass">
+                    <div class="card-glow-edge"></div>
+                    <div class="terminal-bar">
+                        <div class="terminal-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="terminal-title">REZE_OS_SHELL.EXE // GUEST_SESSION</span>
+                        <button class="crt-toggle-btn" id="crt-toggle-btn" title="Toggle global CRT screen overlay">
+                            <i class='bx bx-desktop' id="crt-btn-icon"></i>
+                        </button>
                     </div>
-                    <span class="terminal-title">REZE_OS_SHELL.EXE // GUEST_SESSION</span>
+                    
+                    <div class="terminal-output" id="terminal-output"></div>
+                    
+                    <div class="terminal-input-line">
+                        <span class="terminal-prompt">guest@reze_os:~$</span>
+                        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type 'help' to start..." aria-label="Terminal Input">
+                    </div>
                 </div>
-                <div class="terminal-output" id="terminal-output"></div>
-                <div class="terminal-input-line">
-                    <span class="terminal-prompt">guest@reze_os:~$</span>
-                    <input type="text" id="terminal-input" autofocus autocomplete="off" spellcheck="false" aria-label="Terminal Input">
+            </section>
+            
+            <!-- Right Column: Scrollable Classified Dossier -->
+            <section class="deck-right">
+                <div class="dossier-panel card-glass scrollable-dossier">
+                    <div class="card-glow-edge"></div>
+                    
+                    <div class="dossier-header">
+                        <span class="badge">[ FILE: AGENT_DOSSIER ]</span>
+                        <h2>Aaditya Srinivasan</h2>
+                        <p class="role-subtitle">AI & DATA SCIENCE ENGINEER // SRM MADURAI</p>
+                    </div>
+                    
+                    <div class="dossier-section bio-section">
+                        <p class="bio-text">
+                            2nd-year AI & Data Science B.Tech student. I write code that breaks things, then build better tools to fix them. Specializing in offline data processing, custom CLI engines, and ML pipelines.
+                        </p>
+                    </div>
+                    
+                    <div class="dossier-section tech-stats">
+                        <h3 class="section-title-dossier">// TACTICAL TECH SKILLS</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">LANGUAGES:</span>
+                                <span class="stat-value">Python, SQL, C#, Java, JS</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">AI & DATA:</span>
+                                <span class="stat-value">Pandas, NumPy, scikit-learn, Seaborn, Power BI</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">INFRA/WEB:</span>
+                                <span class="stat-value">Django, Flask, Streamlit, Google Cloud, Git</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dossier-section projects-section">
+                        <h3 class="section-title-dossier">// KEY OPERATIONS (STANDOUT PROJECTS)</h3>
+                        
+                        <div class="project-module">
+                            <div class="project-module-header">
+                                <h4>ImgSeek</h4>
+                                <a href="https://github.com/aaditya079/ImgSeek" target="_blank" class="proj-link"><i class="bx bx-link-external"></i></a>
+                            </div>
+                            <p class="project-module-desc">
+                                Offline Windows CLI/GUI tool scanning directory images using the native Windows OCR engine. Auto-generates a clean HTML lightbox gallery of all matching image queries. Zero APIs required.
+                            </p>
+                            <div class="module-tags">
+                                <span>C#</span>
+                                <span>.NET</span>
+                                <span>WinRT OCR</span>
+                            </div>
+                        </div>
+                        
+                        <div class="project-module">
+                            <div class="project-module-header">
+                                <h4>Steam Games EDA</h4>
+                                <a href="https://github.com/aaditya079/steam-eda" target="_blank" class="proj-link"><i class="bx bx-link-external"></i></a>
+                            </div>
+                            <p class="project-module-desc">
+                                Discovered and hot-fixed a critical comma-shift pricing data bug in a raw Kaggle CSV of 114k+ titles that had skewed price-to-rating correlations in other studies. Built a Flask web dashboard featuring interactive ApexCharts.
+                            </p>
+                            <div class="module-tags">
+                                <span>Python</span>
+                                <span>Flask</span>
+                                <span>ApexCharts</span>
+                                <span>Pandas</span>
+                            </div>
+                        </div>
+                        
+                        <div class="project-module">
+                            <div class="project-module-header">
+                                <h4>GitSynth</h4>
+                                <a href="https://github.com/aaditya079/gitsynth" target="_blank" class="proj-link"><i class="bx bx-link-external"></i></a>
+                            </div>
+                            <p class="project-module-desc">
+                                An AI CLI tool that hooks directly with Claude's API to parse git conflict markers, analyze local code history, and automatically synthesize clean, context-aware merge resolutions on the fly.
+                            </p>
+                            <div class="module-tags">
+                                <span>Node.js</span>
+                                <span>Anthropic API</span>
+                                <span>Git CLI</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dossier-section education-section">
+                        <h3 class="section-title-dossier">// TRAINING HISTORY</h3>
+                        <div class="training-item">
+                            <span class="training-title">B.Tech AI & Data Science (SRM Madurai)</span>
+                            <span class="training-date">2024 - 2028</span>
+                        </div>
+                        <div class="training-item">
+                            <span class="training-title">3rd Place — Bug Busters Competition (Dr. N.G.P. Tech)</span>
+                            <span class="training-date">2025</span>
+                        </div>
+                        <div class="training-item">
+                            <span class="training-title">Certifications: Java, Blockchain, Web Tech (IIT/NPTEL)</span>
+                            <span class="training-date">2025</span>
+                        </div>
+                    </div>
+                    
+                    <div class="tuner-deck">
+                        <div class="tuner-label">// BGM TUNER TAPE DECK</div>
+                        <div class="tuner-row">
+                            <div class="music-disc-wrapper" id="tuner-disc-toggle">
+                                <div class="music-disc">
+                                    <div class="disc-grooves"></div>
+                                    <div class="disc-label"></div>
+                                </div>
+                            </div>
+                            <div class="tuner-controls">
+                                <div class="tuner-meta">
+                                    <span class="tuner-track">JANE DOE</span>
+                                    <span class="tuner-artist">Kenshi Yonezu × Hikaru Utada</span>
+                                </div>
+                                <div class="tuner-buttons">
+                                    <button class="tuner-btn" id="tuner-play-btn" aria-label="Play Music">
+                                        <i class="bx bx-play" id="tuner-play-icon"></i>
+                                    </button>
+                                    <div class="tuner-volume">
+                                        <i class="bx bx-volume-low" id="tuner-volume-icon"></i>
+                                        <input type="range" class="music-volume-slider" id="tuner-volume-slider" min="0" max="1" step="0.05" value="0.5" aria-label="Volume">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="Aaditya_Srinivasan_Resume.pdf" download class="btn primary-btn download-resume-btn" id="dossier-download-btn">
+                        <span>DOWNLOAD CLASSIFIED RESUME</span>
+                        <i class="bx bx-download"></i>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- VIEW 2: FULL SPACIOUS SCROLLABLE PORTFOLIO (Hidden easter egg revealed by passcode) -->
+    <div id="full-portfolio-view" class="view-hidden">
+        <!-- Hero / Home Section -->
+        <section class="home" id="home">
+            <div class="glow-orb" id="hero-glow-1"></div>
+            <div class="glow-orb" id="hero-glow-2"></div>
+            
+            <div class="home-content">
+                <div class="codename-badge">[ SUBJECT ID: AADITYA_SRINIVASAN ]</div>
+                <p class="subtitle" data-text="Hi, I am">Hi, I am</p>
+                <h1 class="glitch-title" data-text="Aaditya Srinivasan">
+                    <span class="first-name" data-text="Aaditya">Aaditya</span>
+                    <span class="last-name" data-text="Srinivasan">Srinivasan</span>
+                </h1>
+                
+                <h3 class="role">
+                    <span class="role-line"></span>
+                    <span class="role-text" data-text="AI & Data Science Student">AI & Data Science Student</span>
+                </h3>
+                
+                <p class="description">
+                    Currently pursuing my B.Tech at SRM Madurai. I specialize in building data-driven offline systems, custom CLI engines, and exploring the frontiers of ML pipelines and AI integration.
+                </p>
+                
+                <div class="action-group">
+                    <a href="Aaditya_Srinivasan_Resume.pdf" download class="btn primary-btn" id="download-btn">
+                        <span>Classified Resume</span>
+                        <i class='bx bx-download'></i>
+                    </a>
+                    
+                    <button class="btn secondary-btn" id="copy-email-btn">
+                        <span class="btn-text">Copy Email</span>
+                        <i class='bx bx-copy' id="copy-icon"></i>
+                    </button>
+                    
+                    <div class="social-links">
+                        <a href="mailto:aadityasrinivasan079@gmail.com" aria-label="Email Address" class="social-link-btn"><i class='bx bx-envelope'></i></a>
+                        <a href="https://linkedin.com/in/fwaadi" target="_blank" aria-label="LinkedIn Profile" class="social-link-btn"><i class='bx bxl-linkedin'></i></a>
+                        <a href="https://github.com/aaditya079" target="_blank" aria-label="GitHub Profile" class="social-link-btn"><i class='bx bxl-github'></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Premium Dual Hero Image -->
+            <div class="home-image">
+                <div class="home-image-wrapper shadow-premium">
+                    <div class="image-slide active" id="cafe-hero-image">
+                        <img src="reze-hero.jpg" alt="Aaditya Srinivasan | Café Crossroads Mode" class="hero-image-asset">
+                    </div>
+                    <div class="image-slide" id="bomb-hero-image">
+                        <img src="bomb-devil.jpg" alt="Aaditya Srinivasan | Bomb Devil Mode" class="hero-image-asset">
+                    </div>
+                    <div class="grate-overlay"></div>
+                    <div class="warning-light"></div>
                 </div>
             </div>
         </section>
 
-        <section class="deck-right">
-            <div class="dossier-panel card-glass scrollable-dossier">
-                <div class="dossier-header">
-                    <span class="badge">[ FILE: AGENT_DOSSIER ]</span>
-                    <h2>Aaditya Srinivasan</h2>
-                    <p class="role-subtitle">AI & DATA SCIENCE ENGINEER // SRM MADURAI</p>
-                </div>
+        <!-- About / Dossier Background & Skills Section -->
+        <section class="about" id="about">
+            <div class="section-container">
+                <div class="section-badge">[ FILE: AGENT_DOSSIER ]</div>
+                <h2 class="section-title" data-text="Personnel Dossier">Personnel Dossier</h2>
                 
-                <div class="dossier-section bio-section">
-                    <p class="bio-text">
-                        2nd-year AI & Data Science student. I write code that breaks things, then build better tools to fix them. Specializing in offline data processing, custom CLI engines, and ML pipelines.
-                    </p>
-                </div>
-
-                <div class="dossier-section tech-stats">
-                    <h3 class="section-title-dossier">// TACTICAL TECH SKILLS</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <span class="stat-label">LANGUAGES:</span>
-                            <span class="stat-value">Python, SQL, C#, Java, JS</span>
+                <div class="about-grid">
+                    <!-- Left Column: Background Info -->
+                    <div class="about-dossier-card card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="dossier-card-header">
+                            <span class="badge">// PERSONNEL SUMMARY</span>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-label">AI & DATA:</span>
-                            <span class="stat-value">Pandas, NumPy, scikit-learn, Seaborn</span>
+                        
+                        <p class="bio-text">
+                            I am a 2nd-year AI & Data Science B.Tech student with hands-on experience in building practical, high-efficiency offline systems and ML pipelines. I believe in writing code that solves real-world annoyances—without bloating projects with unnecessary external cloud APIs.
+                        </p>
+                        
+                        <div class="skills-mini-wrapper">
+                            <div class="skill-mini-cat">
+                                <span class="mini-cat-title"><i class='bx bx-code-alt'></i> Languages:</span>
+                                <div class="tags">
+                                    <span>Python</span>
+                                    <span>SQL</span>
+                                    <span>C#</span>
+                                    <span>Java</span>
+                                    <span>JS</span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-mini-cat">
+                                <span class="mini-cat-title"><i class='bx bx-brain'></i> AI & Data Science:</span>
+                                <div class="tags">
+                                    <span>scikit-learn</span>
+                                    <span>Pandas</span>
+                                    <span>NumPy</span>
+                                    <span>Matplotlib</span>
+                                    <span>Seaborn</span>
+                                    <span>Power BI</span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-mini-cat">
+                                <span class="mini-cat-title"><i class='bx bx-git-branch'></i> Web & Tools:</span>
+                                <div class="tags">
+                                    <span>Django</span>
+                                    <span>Flask</span>
+                                    <span>Streamlit</span>
+                                    <span>REST APIs</span>
+                                    <span>Git</span>
+                                    <span>GCP</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-label">INFRA/WEB:</span>
-                            <span class="stat-value">Django, Flask, Streamlit, Google Cloud, Git</span>
+                        
+                        <div class="terminal-decor">
+                            <span class="status-marker">SYSTEM STATE: ACTIVE</span>
+                            <span class="loc-marker">LOC: MADURAI, IN</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Interactive Embedded Reze_OS Terminal Console -->
+                    <div class="terminal-panel card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="terminal-bar">
+                            <div class="terminal-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="terminal-title">REZE_OS_SHELL.EXE // GUEST_SESSION</span>
+                            <button class="lock-shell-btn-terminal" id="terminal-lock-btn" title="Re-lock OS Shell Console">
+                                <i class='bx bx-lock-alt'></i>
+                            </button>
+                        </div>
+                        
+                        <div class="terminal-output" id="embedded-terminal-output"></div>
+                        
+                        <div class="terminal-input-line">
+                            <span class="terminal-prompt">guest@reze_os:~$</span>
+                            <input type="text" id="embedded-terminal-input" autocomplete="off" spellcheck="false" placeholder="Type 'help' to start..." aria-label="Terminal Input">
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="dossier-section projects-section">
-                    <h3 class="section-title-dossier">// KEY OPERATIONS (STANDOUT PROJECTS)</h3>
-                    
-                    <div class="project-module">
-                        <div class="project-module-header">
-                            <h4>ImgSeek</h4>
-                            <a href="https://github.com/aaditya079/ImgSeek" target="_blank" class="proj-link"><i class="bx bx-link-external"></i></a>
+        <!-- Selected Projects Section -->
+        <section class="projects" id="projects">
+            <div class="section-container">
+                <div class="section-badge">[ OPERATIONS: FIELD DEPLOYMENTS ]</div>
+                <h2 class="section-title" data-text="Selected Operations">Selected Operations</h2>
+                
+                <div class="project-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="project-header">
+                            <h3>ImgSeek</h3>
+                            <a href="https://github.com/aaditya079/ImgSeek" target="_blank" aria-label="ImgSeek GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
                         </div>
-                        <p class="project-module-desc">
-                            Offline Windows CLI/GUI tool scanning directory images using the native Windows OCR engine. Auto-generates a clean HTML lightbox gallery of all matching image screens. Built because searching manually through Discord receipt backups is a waste of human life. Zero APIs required.
+                        <p class="project-desc">
+                            A robust offline Windows tool that scans local image directories using the native Windows OCR engine. It allows instant keyword searches across screenshot dumps and Discord backups, auto-generating a premium visual HTML lightbox gallery. No API keys or network connection required.
                         </p>
-                        <div class="module-tags">
+                        <div class="tech-tags">
                             <span>C#</span>
                             <span>.NET</span>
-                            <span>WinRT OCR</span>
+                            <span>Windows OCR</span>
+                            <span>WinRT</span>
                         </div>
                     </div>
-
-                    <div class="project-module">
-                        <div class="project-module-header">
-                            <h4>Steam Games EDA</h4>
-                            <a href="https://github.com/aaditya079/steam-eda" target="_blank" class="proj-link"><i class="bx bx-link-external"></i></a>
+                    
+                    <!-- Project 2 -->
+                    <div class="project-card card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="project-header">
+                            <h3>Steam EDA & Dashboard</h3>
+                            <a href="https://github.com/aaditya079/steam-eda" target="_blank" aria-label="Steam EDA GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
                         </div>
-                        <p class="project-module-desc">
-                            Discovered and hot-fixed a critical comma-shift pricing data bug in a raw Kaggle CSV of 114k+ titles that had skewed price-to-rating correlations in other studies. Built a Flask web dashboard featuring interactive ApexCharts to prove the correct pricing correlation models.
+                        <p class="project-desc">
+                            An interactive Python & Flask analytics dashboard analyzing 114k+ Steam games. Discovered, analyzed, and hot-fixed a critical comma-shift pricing bug in the Kaggle CSV dataset that had skewed pricing-to-rating correlations in prior student research, plotting correct correlations using ApexCharts.
                         </p>
-                        <div class="module-tags">
+                        <div class="tech-tags">
                             <span>Python</span>
                             <span>Flask</span>
-                            <span>ApexCharts</span>
                             <span>Pandas</span>
+                            <span>ApexCharts</span>
+                            <span>JavaScript</span>
                         </div>
                     </div>
-
-                    <div class="project-module">
-                        <div class="project-module-header">
-                            <h4>GitSynth</h4>
-                            <a href="https://github.com/aaditya079/gitsynth" target="_blank" class="proj-link"><i class="bx bx-link-external"></i></a>
+                    
+                    <!-- Project 3 -->
+                    <div class="project-card card-glass">
+                        <div class="card-glow-edge"></div>
+                        <div class="project-header">
+                            <h3>GitSynth</h3>
+                            <a href="https://github.com/aaditya079/gitsynth" target="_blank" aria-label="GitSynth GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
                         </div>
-                        <p class="project-module-desc">
-                            An AI CLI tool that hooks directly with Claude's API to parse git conflict markers, analyze local code history, and automatically synthesize clean, context-aware merge resolutions dynamically.
+                        <p class="project-desc">
+                            An AI-powered command-line interface (CLI) tool designed to resolve Git merge conflicts dynamically. Hooking directly to Anthropic's Claude API, it parses local merge conflict markers, cross-references local code history context, and automatically synthesizes clean, context-aware resolves.
                         </p>
-                        <div class="module-tags">
+                        <div class="tech-tags">
                             <span>Node.js</span>
+                            <span>JavaScript</span>
                             <span>Anthropic API</span>
                             <span>Git CLI</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="dossier-section education-section">
-                    <h3 class="section-title-dossier">// TRAINING HISTORY</h3>
-                    <div class="training-item">
-                        <span class="training-title">B.Tech AI & Data Science (SRM Madurai)</span>
-                        <span class="training-date">2024 - 2028</span>
-                    </div>
-                    <div class="training-item">
-                        <span class="training-title">3rd Place — Bug Busters Competition (Dr. N.G.P. Tech)</span>
-                        <span class="training-date">2025</span>
-                    </div>
-                    <div class="training-item">
-                        <span class="training-title">Certifications: Java, Blockchain, Web Tech (IIT/NPTEL)</span>
-                        <span class="training-date">2025</span>
-                    </div>
-                </div>
-
-                <div class="tuner-deck">
-                    <div class="tuner-label">// BGM TAPE DECK</div>
-                    <div class="tuner-row">
-                        <div class="music-disc-wrapper" id="music-disc-toggle">
-                            <div class="music-disc">
-                                <div class="disc-grooves"></div>
-                                <div class="disc-label"></div>
-                            </div>
-                            <div class="music-pulse-prompt" id="music-pulse-prompt">TAP DECK 🎵</div>
-                        </div>
-                        <div class="tuner-controls">
-                            <div class="tuner-meta">
-                                <span class="tuner-track">JANE DOE - INSTRUMENTAL</span>
-                                <span class="tuner-artist">Kenshi Yonezu × Hikaru Utada</span>
-                            </div>
-                            <div class="tuner-buttons">
-                                <button class="tuner-btn" id="music-play-btn" aria-label="Play Music">
-                                    <i class="bx bx-play" id="music-play-icon"></i>
-                                </button>
-                                <div class="tuner-volume">
-                                    <i class="bx bx-volume-low" id="music-volume-icon"></i>
-                                    <input type="range" class="music-volume-slider" id="music-volume-slider" min="0" max="1" step="0.05" value="0.5" aria-label="Volume">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <audio id="bgm-player" src="jane-doe.mp3" loop autoplay></audio>
-                </div>
-                
-                <a href="Aaditya_Srinivasan_Resume.pdf" download class="btn primary-btn download-resume-btn" id="download-btn">
-                    <span>DOWNLOAD CLASSIFIED RESUME</span>
-                    <i class="bx bx-download"></i>
-                </a>
             </div>
         </section>
-    </main>
 
+        <!-- Education & Timeline Section -->
+        <section class="education" id="education">
+            <div class="section-container">
+                <div class="section-badge">[ INTEL: TRAINING & ENCOUNTERS ]</div>
+                <h2 class="section-title" data-text="Education & Achievements">Education & Achievements</h2>
+                
+                <div class="timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-info card-glass">
+                            <div class="card-glow-edge"></div>
+                            <div class="timeline-header-row">
+                                <span class="timeline-meta">ACADEMIC FOUNDATION</span>
+                                <span class="time-badge">2024 — 2028</span>
+                            </div>
+                            <h3>B.Tech Artificial Intelligence & Data Science</h3>
+                            <h4>SRM Madurai College of Engineering and Technology</h4>
+                            <p>Currently in 2nd Year, 4th Semester. Focusing on core AI paradigms, data structures and algorithms, mathematical statistics, and machine learning pipelines.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-info card-glass">
+                            <div class="card-glow-edge"></div>
+                            <div class="timeline-header-row">
+                                <span class="timeline-meta">TACTICAL TRIUMPH</span>
+                                <span class="time-badge">2025</span>
+                            </div>
+                            <h3>3rd Place — Bug Busters Coding Competition</h3>
+                            <h4>Dr. N.G.P. Institute of Technology</h4>
+                            <p>Competed against multiple engineering colleges in a highly technical debugging challenge, identifying and patching custom bugs under tight time constraints.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-info card-glass">
+                            <div class="card-glow-edge"></div>
+                            <div class="timeline-header-row">
+                                <span class="timeline-meta">COMMENDATIONS</span>
+                                <span class="time-badge">2025</span>
+                            </div>
+                            <h3>IIT / NPTEL Certifications</h3>
+                            <h4>IIT Madras / IIT Kharagpur</h4>
+                            <p>Successfully achieved credentials in Programming in Java, Web Based Technologies, and Basic Blockchain and Its Applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Aaditya Srinivasan. Theme Concept: Reze (The Bomb Devil) • Consolidated and refined with high-fidelity atmospheric depth.</p>
+            <div class="footer-badge">[ STATUS: STEADY_APRICOT ]</div>
+        </footer>
+    </div>
+
+    <!-- High-Fidelity Floating Vinyl Music Player Widget (Accessible in both layouts) -->
+    <div class="music-player-widget card-glass" id="music-widget">
+        <audio id="bgm-player" src="jane-doe.mp3" loop autoplay></audio>
+        
+        <div class="music-disc-wrapper" id="music-disc-toggle">
+            <div class="music-disc">
+                <div class="disc-grooves"></div>
+                <div class="disc-label"></div>
+            </div>
+            <div class="music-pulse-prompt" id="music-pulse-prompt">TAP DECK 🎵</div>
+        </div>
+        
+        <!-- Expanded Panel Controls -->
+        <div class="music-player-panel">
+            <div class="music-info-scroll">
+                <span class="music-title">JANE DOE</span>
+                <span class="music-artist">Kenshi Yonezu × Hikaru Utada</span>
+                <span class="music-credits">[ Chainsaw Man: Reze Arc ED ]</span>
+            </div>
+            
+            <div class="music-controls">
+                <button class="music-btn" id="music-play-btn" aria-label="Play Music">
+                    <i class='bx bx-play' id="music-play-icon"></i>
+                </button>
+                
+                <div class="music-volume-container">
+                    <i class='bx bx-volume-low' id="music-volume-icon"></i>
+                    <input type="range" class="music-volume-slider" id="music-volume-slider" min="0" max="1" step="0.05" value="0.5" aria-label="Volume Control">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ScrollReveal Framework -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
+    <!-- Combined Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
