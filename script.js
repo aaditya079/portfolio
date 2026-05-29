@@ -691,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'about':
                 writer("SUBJECT PROFILE: AADITYA SRINIVASAN");
                 writer("ACADEMICS: Pursuing B.Tech AI & Data Science (2nd Year) at SRM Madurai.");
-                writer("TACTICAL REPUTATION: Developer who focuses on creating offline receipt indexers, Kaggle bug fixes, and custom AI CLI conflict synthesisers.");
+                writer("TACTICAL REPUTATION: Developer who focuses on creating offline receipt indexers, Kaggle bug fixes, and scratch-built neural network engines.");
                 break;
             case 'skills':
                 writer("// COMPETENCY DATA SHEET");
@@ -705,8 +705,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 writer("     - Windows native OCR scanner indexing directories offline for keyword matches. Generates galleries.");
                 writer("  2. Steam Games EDA");
                 writer("     - Flask dashboards verifying pricing modeling after patching pricing header CSV bug on Kaggle.");
-                writer("  3. GitSynth");
-                writer("     - AI Command CLI hook utilizing Anthropic Claude API to synthesize clean git merge markers.");
+                writer("  3. NEURALIS");
+                writer("     - Lightweight dependency-free neural network engine simulating custom ML topologies from scratch.");
                 break;
             case 'resume':
                 writer("Initiating file transfer to local receiver...");
