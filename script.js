@@ -702,32 +702,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch (cmd) {
             case 'help':
-                writer("Classified protocols authorized for this grid:");
-                writer("  about      - Personal personnel summary info");
-                writer("  skills     - Technical competency breakdown");
-                writer("  projects   - Selected operations logs summary");
-                writer("  resume     - Fetch classified PDF resume");
-                writer("  detonate   - Trigger emergency mode detonation");
+                writer("Available commands for this terminal:");
+                writer("  about      - Quick info about me");
+                writer("  skills     - Technical skills and languages");
+                writer("  projects   - Key featured projects");
+                writer("  resume     - Download resume PDF");
+                writer("  detonate   - Trigger Bomb Devil detonation effect");
                 if (sourceConsole === 'main') {
-                    writer("  reveal     - Unlock secure bypass to personal dossier database (v1)");
+                    writer("  reveal     - Bypass terminal & open full portfolio website");
                 } else {
-                    writer("  lock       - Re-secure shell core cockpit dashboard (v2)");
+                    writer("  lock       - Lock portfolio and return to cockpit");
                 }
                 writer("  clear      - Wipe shell output buffers");
                 break;
             case 'about':
-                writer("SUBJECT PROFILE: AADITYA SRINIVASAN");
-                writer("ACADEMICS: Pursuing B.Tech AI & Data Science (2nd Year) at SRM Madurai.");
-                writer("TACTICAL REPUTATION: Developer who focuses on creating offline receipt indexers, Kaggle bug fixes, and scratch-built neural network engines.");
+                writer("PROFILE: Aaditya Srinivasan");
+                writer("ACADEMICS: B.Tech AI & Data Science (2nd Year) @ SRM Madurai.");
+                writer("ABOUT ME: Developer focused on offline utilities, Kaggle dataset patches, and scratch-built deep learning engines.");
                 break;
             case 'skills':
-                writer("// COMPETENCY DATA SHEET");
+                writer("// TECHNICAL SKILLS");
                 writer("  Languages:  [====================] Python, SQL, C#, Java, JS");
                 writer("  AI & Data:  [==================  ] Pandas, NumPy, scikit-learn, Power BI");
                 writer("  Web/Infra:  [===============     ] Django, Flask, Streamlit, Git");
                 break;
             case 'projects':
-                writer("// SELECTED FIELD OPERATIONS LOGS");
+                writer("// SELECTED PROJECTS");
                 writer("  1. ImgSeek (Offline OCR Screenshot Scanner)");
                 writer("     - Windows native OCR scanner indexing directories offline for keyword matches. Generates galleries.");
                 writer("  2. Steam Games EDA");
@@ -736,23 +736,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 writer("     - Lightweight dependency-free neural network engine simulating custom ML topologies from scratch.");
                 break;
             case 'resume':
-                writer("Initiating file transfer to local receiver...");
+                writer("Downloading resume PDF...");
                 const downloadLink = document.getElementById('download-btn');
                 if (downloadLink) {
                     downloadLink.click();
-                    writer("Transfer success. Resume PDF downloaded.", 'system');
+                    writer("Resume PDF downloaded successfully.", 'system');
                 } else {
                     window.open('Aaditya_Srinivasan_Resume.pdf', '_blank');
-                    writer("Classified document displayed in external viewport.", 'system');
+                    writer("Resume displayed in a new window.", 'system');
                 }
                 break;
             case 'detonate':
-                writer("Pulling detonator sequence pin alert...", 'error');
+                writer("Triggering detonation effect...", 'error');
                 triggerDetonation();
                 break;
             case 'reveal':
                 if (sourceConsole === 'main') {
-                    writer("BYPASS DECRYPTION SUCCESS. UNLOCKING PORTS...", 'system');
+                    writer("ACCESS GRANTED. Opening portfolio website...", 'system');
                     unlockPortfolio();
                 } else {
                     writer("Bypass database already compromised.", 'system');
