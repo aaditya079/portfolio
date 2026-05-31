@@ -718,7 +718,8 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'about':
                 writer("PROFILE: Aaditya Srinivasan");
                 writer("ACADEMICS: B.Tech AI & Data Science (2nd Year) @ SRM Madurai.");
-                writer("ABOUT ME: Developer focused on offline utilities, Kaggle dataset patches, and scratch-built deep learning engines.");
+                writer("OBSESSION: Custom offline search systems, local vector-level automation, and scratch-built ML engines.");
+                writer("PERSONALITY: Built four AI projects. Three were garbage. One was worth shipping.");
                 break;
             case 'skills':
                 writer("// TECHNICAL SKILLS");
@@ -728,12 +729,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case 'projects':
                 writer("// SELECTED PROJECTS");
-                writer("  1. ImgSeek (Offline OCR Screenshot Scanner)");
-                writer("     - Windows native OCR scanner indexing directories offline for keyword matches. Generates galleries.");
+                writer("  1. ImgSeek (Featured Project)");
+                writer("     - Indexed 10,000+ local screenshots with WinRT OCR, reducing keyword searches from hours to under 1.5s offline.");
                 writer("  2. Steam Games EDA");
-                writer("     - Flask dashboards verifying pricing modeling after patching pricing header CSV bug on Kaggle.");
+                writer("     - Hot-fixed a critical comma-shift parsing bug in a 114k game dataset, resolving rating skews with interactive Flask/ApexCharts.");
                 writer("  3. NEURALIS");
-                writer("     - Lightweight dependency-free neural network engine simulating custom ML topologies from scratch.");
+                writer("     - Modular, dependency-free deep learning engine built in pure Python/NumPy with live telemetry.");
                 break;
             case 'resume':
                 writer("Downloading resume PDF...");
