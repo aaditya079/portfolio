@@ -1815,15 +1815,22 @@ body.bomb-mode .lock-shell-btn:hover {
 #secure-dashboard-view .terminal-output,
 #secure-dashboard-view #terminal-input,
 #secure-dashboard-view .terminal-prompt {
-    font-size: 1.55rem !important; /* Boost text readability in the terminal */
+    font-size: 1.45rem !important; /* Optimized font size to guarantee single-line help menu listings */
 }
 
 .deck-left, .deck-right {
-    flex: 1;
     height: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+.deck-left {
+    flex: 1.25; /* Expanded width for terminal to fit CLI lines beautifully */
+}
+
+.deck-right {
+    flex: 1;
 }
 
 .scrollable-dossier {
