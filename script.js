@@ -1,18 +1,22 @@
 /*
- * REZE_OS v2.0 - Combined & Refined Script Engine
- * Integrates dual-view controls, double interactive terminal shells,
- * synchronized vinyl players, and cinematic detonator overrides.
+ * REZE_OS v3.0 - Unified & Premium Script Engine
+ * Integrates lofi vinyl synchronizer, canvas particle engine,
+ * interactive terminal widget, 3D card tilt, custom cursor trail,
+ * and cinematic detonator overrides.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Core State & Navigation Views
-    let isPortfolioUnlocked = false;
+    // ==========================================
+    // 1. Core State & Global Selectors
+    // ==========================================
     let isBombMode = false;
-    let isCrtActive = true; // CRT scanner active by default
+    let isCrtActive = false; // Scanlines inactive by default, toggleable
     const body = document.body;
+    
+    // Check if device supports hover interactions
     const canHover = window.matchMedia('(hover: hover)').matches || !('ontouchstart' in window || navigator.maxTouchPoints > 0);
     
-    // Global mouse tracking
+    // Mouse Coordinates
     let mouseX = 0;
     let mouseY = 0;
     document.addEventListener('mousemove', (e) => {
@@ -20,187 +24,67 @@ document.addEventListener('DOMContentLoaded', () => {
         mouseY = e.clientY;
     });
 
-    // Elements Selectors
     const flashOverlay = document.getElementById('detonation-flash');
-    const secureDashboard = document.getElementById('secure-dashboard-view');
-    const fullPortfolio = document.getElementById('full-portfolio-view');
-    const headerLockBtn = document.getElementById('header-lock-btn');
-    const terminalLockBtn = document.getElementById('terminal-lock-btn');
+    const chokerToggle = document.getElementById('choker-toggle');
+    const footerBadge = document.querySelector('.footer-badge');
+    const systemClock = document.getElementById('system-clock');
     
-    // 2. View Toggle Transitions
-    function unlockPortfolio() {
-        if (isPortfolioUnlocked) return;
-
-        // Visual flash & screen shake
-        if (flashOverlay) {
-            flashOverlay.classList.remove('flash-active');
-            void flashOverlay.offsetWidth;
-            flashOverlay.classList.add('flash-active');
-        }
-        body.classList.remove('shake-active');
-        void body.offsetWidth;
-        body.classList.add('shake-active');
-
-        setTimeout(() => {
-            body.classList.remove('shake-active');
-        }, 550);
-
-        // Transition views behind the flash
-        setTimeout(() => {
-            isPortfolioUnlocked = true;
-            body.classList.add('portfolio-unlocked');
-            document.documentElement.classList.add('portfolio-unlocked');
-            
-            if (secureDashboard) {
-                secureDashboard.classList.remove('view-active');
-                secureDashboard.classList.add('view-hidden');
-            }
-            if (fullPortfolio) {
-                fullPortfolio.classList.remove('view-hidden');
-                fullPortfolio.classList.add('view-active');
-            }
-
-            // Scroll to home section top
-            window.scrollTo(0, 0);
-
-            // Print overrides in embedded console
-            printLineEmbedded('>>> ACCESS COMPROMISED. SECURE OS SHELL CODE OVERRIDDEN.', 'system');
-            printLineEmbedded('>>> Dossier file database unlocked. Scroll to explore.', 'system');
-            printLineEmbedded('>>> Type "lock", "exit", or click header padlock to reboot shell.', 'system');
-
-            // Force refocus on embedded console prompt
-            const embeddedInput = document.getElementById('embedded-terminal-input');
-            if (embeddedInput) {
-                embeddedInput.value = '';
-                embeddedInput.focus();
-            }
-
-            // Re-trigger scroll reveal animations
-            if (typeof ScrollReveal !== 'undefined') {
-                ScrollReveal().reveal('.section-badge, .subtitle, .codename-badge', { origin: 'bottom', delay: 80 });
-                ScrollReveal().reveal('.home-content h1, .section-title', { origin: 'bottom', delay: 140 });
-                ScrollReveal().reveal('.role, .description, .action-group', { origin: 'bottom', delay: 200 });
-                ScrollReveal().reveal('.home-image', { origin: 'right', delay: 280 });
-            }
-        }, 150);
-    }
-
-    function lockPortfolio() {
-        if (!isPortfolioUnlocked) return;
-
-        // Visual flash & screen shake
-        if (flashOverlay) {
-            flashOverlay.classList.remove('flash-active');
-            void flashOverlay.offsetWidth;
-            flashOverlay.classList.add('flash-active');
-        }
-        body.classList.remove('shake-active');
-        void body.offsetWidth;
-        body.classList.add('shake-active');
-
-        setTimeout(() => {
-            body.classList.remove('shake-active');
-        }, 550);
-
-        // Transition views behind the flash
-        setTimeout(() => {
-            isPortfolioUnlocked = false;
-            body.classList.remove('portfolio-unlocked');
-            document.documentElement.classList.remove('portfolio-unlocked');
-            
-            if (secureDashboard) {
-                secureDashboard.classList.remove('view-hidden');
-                secureDashboard.classList.add('view-active');
-            }
-            if (fullPortfolio) {
-                fullPortfolio.classList.remove('view-active');
-                fullPortfolio.classList.add('view-hidden');
-            }
-
-            // Reset scroll positions
-            window.scrollTo(0, 0);
-
-            // Re-trigger standard logs in main cockpit terminal
-            printLine('>>> SYSTEM BUFFER RESTORED. CORE LOCKED.', 'system');
-            
-            const termInput = document.getElementById('terminal-input');
-            if (termInput) {
-                termInput.value = '';
-                termInput.focus();
-            }
-        }, 150);
-    }
-
-    // Connect trigger button overrides
-    if (headerLockBtn) headerLockBtn.addEventListener('click', lockPortfolio);
-    if (terminalLockBtn) terminalLockBtn.addEventListener('click', lockPortfolio);
-
-    // Dynamic sticky header status clocks
-    const crtOverlay = document.getElementById('crt-overlay');
-    const crtToggleBtn = document.getElementById('crt-toggle-btn');
-    const crtBtnIcon = document.getElementById('crt-btn-icon');
-    
-    if (crtOverlay) {
-        if (isCrtActive) {
-            crtOverlay.classList.add('active');
-            if (crtBtnIcon) crtBtnIcon.className = 'bx bx-tv';
-        }
-        
-        if (crtToggleBtn) {
-            crtToggleBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                isCrtActive = !isCrtActive;
-                if (isCrtActive) {
-                    crtOverlay.classList.add('active');
-                    crtBtnIcon.className = 'bx bx-tv';
-                    printLine('>>> Global CRT Monitor overlay enabled.', 'system');
-                } else {
-                    crtOverlay.classList.remove('active');
-                    crtBtnIcon.className = 'bx bx-desktop';
-                    printLine('>>> Global CRT Monitor overlay disabled.', 'system');
-                }
-            });
+    // ==========================================
+    // 2. Navigation & Sticky Header Clock
+    // ==========================================
+    // Clock tick
+    function updateClock() {
+        if (systemClock) {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour12: false }) + ' LOCAL';
+            systemClock.textContent = timeStr;
         }
     }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-    // Sticky Navigation links active highlight
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.navbar a.nav-link');
-    const menuIcon = document.querySelector('#menu-icon');
-    const navbar = document.querySelector('.navbar');
+    // Mobile Navbar Toggle
+    const menuIcon = document.getElementById('menu-icon');
+    const navbar = document.getElementById('navbar-nav');
     const header = document.querySelector('.header');
 
     if (menuIcon && navbar) {
-        menuIcon.onclick = () => {
+        menuIcon.addEventListener('click', () => {
             menuIcon.classList.toggle('bx-x');
             navbar.classList.toggle('active');
-        };
+        });
     }
 
+    // Scroll Sticky Header & Nav Link Highlights
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.navbar a.nav-link');
+
     window.addEventListener('scroll', () => {
+        // Sticky header
         if (header) {
             header.classList.toggle('sticky', window.scrollY > 50);
         }
 
-        if (!isPortfolioUnlocked) return; // scroll highlights only active in scroll mode
-        
-        let current = '';
+        // Section link highlight
+        let currentSectionId = '';
         sections.forEach(sec => {
             const sectionTop = sec.offsetTop;
             const sectionHeight = sec.offsetHeight;
-            if (window.scrollY >= (sectionTop - 180)) {
-                current = sec.getAttribute('id');
+            // Highlight link if scroll position is within the section
+            if (window.scrollY >= (sectionTop - 200)) {
+                currentSectionId = sec.getAttribute('id');
             }
         });
 
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
+            if (link.getAttribute('href').includes(currentSectionId)) {
                 link.classList.add('active');
             }
         });
     });
 
+    // Close menu when clicking link
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (navbar && navbar.classList.contains('active')) {
@@ -210,34 +94,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Clock
-    function updateClock() {
-        const clockEl = document.getElementById('system-clock');
-        if (clockEl) {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-US', { hour12: false }) + ' LOCAL';
-            clockEl.textContent = timeStr;
-        }
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Copy email CTA
+    // Copy Email Functionality
     const copyEmailBtn = document.getElementById('copy-email-btn');
     if (copyEmailBtn) {
-        const copyText = copyEmailBtn.querySelector('.btn-text');
+        const btnText = copyEmailBtn.querySelector('.btn-text');
         const copyIcon = document.getElementById('copy-icon');
 
         copyEmailBtn.addEventListener('click', () => {
             const email = 'aadityasrinivasan079@gmail.com';
             navigator.clipboard.writeText(email).then(() => {
                 copyEmailBtn.classList.add('copied');
-                if (copyText) copyText.textContent = 'Email Copied!';
+                if (btnText) btnText.textContent = 'Email Copied!';
                 if (copyIcon) copyIcon.className = 'bx bx-check';
 
                 setTimeout(() => {
                     copyEmailBtn.classList.remove('copied');
-                    if (copyText) copyText.textContent = 'Copy Email';
+                    if (btnText) btnText.textContent = 'Copy Email';
                     if (copyIcon) copyIcon.className = 'bx bx-copy';
                 }, 2500);
             }).catch(err => {
@@ -246,21 +118,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Detonator Mode Switch Logic
-    const chokerToggle = document.getElementById('choker-toggle');
-    const cafeHeroImage = document.getElementById('cafe-hero-image');
-    const bombHeroImage = document.getElementById('bomb-hero-image');
-    const footerBadge = document.querySelector('.footer-badge');
-
+    // ==========================================
+    // 3. Detonator Theme Override Switcher
+    // ==========================================
     function triggerDetonation() {
         if (!flashOverlay) return;
 
+        // Flash and screen shake trigger
         flashOverlay.classList.remove('flash-active');
-        void flashOverlay.offsetWidth;
+        void flashOverlay.offsetWidth; // Reflow trigger
         flashOverlay.classList.add('flash-active');
 
         body.classList.remove('shake-active');
-        void body.offsetWidth;
+        void body.offsetWidth; // Reflow trigger
         body.classList.add('shake-active');
 
         setTimeout(() => {
@@ -271,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             flashOverlay.classList.remove('flash-active');
         }, 800);
 
-        // Core mode swap behind flash
+        // Swap state classes and text behind the flash
         setTimeout(() => {
             isBombMode = !isBombMode;
             const statusEl = document.querySelector('.system-status');
@@ -283,13 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (statusEl) statusEl.textContent = '// STATE: VOLATILE';
                 if (footerBadge) footerBadge.textContent = '[ STATUS: BOMB_DEVIL_ACTIVE ]';
                 
-                if (cafeHeroImage && bombHeroImage) {
-                    cafeHeroImage.classList.remove('active');
-                    bombHeroImage.classList.add('active');
-                }
-
-                printLine('>>> WARNING: BOMB_DEVIL_CORE DETONATED. RADIATION CRITICAL.', 'error');
-                printLineEmbedded('>>> WARNING: BOMB_DEVIL_CORE DETONATED. RADIATION CRITICAL.', 'error');
+                printLine('>>> WARNING: BOMB_DEVIL_CORE DETONATED. RADIATION VOLATILE.', 'error');
             } else {
                 body.classList.remove('bomb-mode');
                 body.classList.add('cafe-mode');
@@ -297,14 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (statusEl) statusEl.textContent = '// STATE: NOMINAL';
                 if (footerBadge) footerBadge.textContent = '[ STATUS: STEADY_APRICOT ]';
                 
-                if (cafeHeroImage && bombHeroImage) {
-                    bombHeroImage.classList.remove('active');
-                    cafeHeroImage.classList.add('active');
-                }
-
-                printLine('>>> Radiation cleared. Reze-OS stabilized in Cafe Crossroads mode.', 'system');
-                printLineEmbedded('>>> Radiation cleared. Reze-OS stabilized in Cafe Crossroads mode.', 'system');
+                printLine('>>> Core cooled. Reze-OS stabilized in Café Crossroads mode.', 'system');
             }
+            
+            // Recalculate particles for the new theme
+            initParticles();
         }, 150);
     }
 
@@ -312,64 +173,92 @@ document.addEventListener('DOMContentLoaded', () => {
         chokerToggle.addEventListener('click', triggerDetonation);
     }
 
-    // 4. Dual Canvas Ambient Particle Engine
+    // ==========================================
+    // 4. CRT Overlay Manager
+    // ==========================================
+    const crtOverlay = document.getElementById('crt-overlay');
+    const crtToggleBtn = document.getElementById('crt-toggle-btn');
+    const crtBtnIcon = document.getElementById('crt-btn-icon');
+
+    if (crtOverlay && crtToggleBtn) {
+        // Toggle action
+        crtToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isCrtActive = !isCrtActive;
+            if (isCrtActive) {
+                crtOverlay.classList.add('active');
+                if (crtBtnIcon) crtBtnIcon.className = 'bx bx-tv';
+                printLine('>>> Global CRT Scanline overlay enabled.', 'system');
+            } else {
+                crtOverlay.classList.remove('active');
+                if (crtBtnIcon) crtBtnIcon.className = 'bx bx-desktop';
+                printLine('>>> Global CRT Scanline overlay disabled.', 'system');
+            }
+        });
+    }
+
+    // ==========================================
+    // 5. Interactive Particle Canvas Engine
+    // ==========================================
     const canvas = document.getElementById('ambient-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let particleCount = 45;
+        let particleCount = 40;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            particleCount = window.innerWidth < 768 ? 18 : 45;
+            particleCount = window.innerWidth < 768 ? 15 : 40;
             initParticles();
         }
         window.addEventListener('resize', resizeCanvas);
+        
+        // Initial setup
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        if (window.innerWidth < 768) {
-            particleCount = 18;
-        }
+        particleCount = window.innerWidth < 768 ? 15 : 40;
 
-        class InteractiveParticle {
+        class Particle {
             constructor() {
                 this.reset(true);
             }
 
             reset(initial = false) {
-                this.radius = Math.random() * 4 + 1.5;
+                this.radius = Math.random() * 4 + 1.2;
                 
                 if (isBombMode) {
+                    // Volatile rising sparks
                     this.type = 'spark';
                     this.x = Math.random() * canvas.width;
                     this.y = initial ? Math.random() * canvas.height : canvas.height + 20;
-                    this.vx = (Math.random() - 0.5) * 1.5;
-                    this.vy = -(Math.random() * 2.0 + 0.8);
-                    this.hue = Math.random() > 0.45 ? Math.random() * 15 + 10 : Math.random() * 20 + 35; // Fire
-                    this.lightness = Math.random() * 30 + 50;
+                    this.vx = (Math.random() - 0.5) * 1.8;
+                    this.vy = -(Math.random() * 2.2 + 0.8);
+                    this.hue = Math.random() > 0.5 ? Math.random() * 15 + 12 : Math.random() * 20 + 38; // Red/Orange/Yellow
+                    this.lightness = Math.random() * 30 + 55;
                     this.baseAlpha = Math.random() * 0.7 + 0.3;
                     this.alpha = this.baseAlpha;
-                    this.decay = Math.random() * 0.008 + 0.003;
+                    this.decay = Math.random() * 0.007 + 0.003;
                 } else {
-                    this.type = Math.random() > 0.4 ? 'petal' : 'binary';
+                    // Falling cherry blossom petals and matrix binary elements
+                    this.type = Math.random() > 0.45 ? 'petal' : 'binary';
                     this.x = Math.random() * canvas.width;
                     this.y = initial ? Math.random() * canvas.height : -20;
                     
                     if (this.type === 'petal') {
-                        this.vx = Math.random() * 0.8 + 0.2;
-                        this.vy = Math.random() * 1.0 + 0.5;
-                        this.hue = Math.random() > 0.6 ? 335 : 345; // Pink
-                        this.baseAlpha = Math.random() * 0.45 + 0.18;
+                        this.vx = Math.random() * 0.6 + 0.2;
+                        this.vy = Math.random() * 1.0 + 0.4;
+                        this.hue = Math.random() > 0.6 ? 335 : 348; // Amethyst pinks
+                        this.baseAlpha = Math.random() * 0.4 + 0.15;
                         this.rotation = Math.random() * Math.PI * 2;
                         this.rotSpeed = (Math.random() - 0.5) * 0.015;
                         this.waveOffset = Math.random() * Math.PI * 2;
-                        this.waveSpeed = Math.random() * 0.01 + 0.005;
+                        this.waveSpeed = Math.random() * 0.008 + 0.004;
                     } else {
                         this.vx = (Math.random() - 0.5) * 0.2;
-                        this.vy = Math.random() * 1.2 + 0.6;
-                        this.hue = 280; // Violet code
-                        this.baseAlpha = Math.random() * 0.35 + 0.12;
+                        this.vy = Math.random() * 1.0 + 0.5;
+                        this.hue = 275; // Purple code
+                        this.baseAlpha = Math.random() * 0.3 + 0.1;
                         this.binaryVal = Math.random() > 0.5 ? '1' : '0';
                     }
                     this.alpha = this.baseAlpha;
@@ -390,20 +279,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     ctx.closePath();
                     ctx.fillStyle = `hsla(${this.hue}, 100%, ${this.lightness}%, ${this.alpha})`;
                     ctx.shadowColor = `hsla(${this.hue}, 100%, 55%, 0.8)`;
-                    ctx.shadowBlur = 10;
+                    ctx.shadowBlur = 8;
                     ctx.fill();
                 } else if (this.type === 'petal') {
                     ctx.translate(this.x, this.y);
                     ctx.rotate(this.rotation);
                     ctx.beginPath();
-                    ctx.ellipse(0, 0, this.radius * 1.5, this.radius, 0, 0, Math.PI * 2);
+                    ctx.ellipse(0, 0, this.radius * 1.6, this.radius, 0, 0, Math.PI * 2);
                     ctx.fillStyle = `hsla(${this.hue}, 85%, 82%, ${this.alpha})`;
                     ctx.fill();
                     ctx.strokeStyle = `hsla(${this.hue}, 90%, 72%, ${this.alpha * 0.4})`;
                     ctx.lineWidth = 0.5;
                     ctx.stroke();
                 } else {
-                    ctx.font = `${this.radius * 2.8 + 6}px monospace`;
+                    ctx.font = `${this.radius * 2.5 + 6}px monospace`;
                     ctx.fillStyle = `hsla(${this.hue}, 80%, 75%, ${this.alpha})`;
                     ctx.fillText(this.binaryVal, this.x, this.y);
                 }
@@ -422,10 +311,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dx = mouseX - this.x;
                         const dy = mouseY - this.y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 150) {
-                            const force = (150 - dist) / 150;
-                            this.x -= (dx / dist) * force * 3.5;
-                            this.y -= (dy / dist) * force * 3.5;
+                        if (dist < 130) {
+                            const force = (130 - dist) / 130;
+                            this.x -= (dx / dist) * force * 3.0;
+                            this.y -= (dy / dist) * force * 3.0;
                             this.alpha = Math.min(this.alpha + 0.05, 1.0);
                         }
                     }
@@ -439,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (this.type === 'petal') {
                         this.rotation += this.rotSpeed;
                         this.waveOffset += this.waveSpeed;
-                        const wind = Math.sin(this.waveOffset) * 0.35;
+                        const wind = Math.sin(this.waveOffset) * 0.3;
                         this.x += this.vx + wind;
                         this.y += this.vy;
                     } else {
@@ -451,8 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dx = mouseX - this.x;
                         const dy = mouseY - this.y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 120) {
-                            const force = (120 - dist) / 120;
+                        if (dist < 100) {
+                            const force = (100 - dist) / 100;
                             this.x -= (dx / dist) * force * 1.5;
                             this.y -= (dy / dist) * force * 1.5;
                         }
@@ -468,10 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
         function initParticles() {
             particles = [];
             for (let i = 0; i < particleCount; i++) {
-                particles.push(new InteractiveParticle());
+                particles.push(new Particle());
             }
         }
-        initParticles();
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -480,6 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 p.draw();
             });
 
+            // Draw connecting lines between petals for a premium cyber-organic look
             if (!isBombMode) {
                 for (let i = 0; i < particles.length; i++) {
                     if (particles[i].type !== 'petal') continue;
@@ -490,8 +379,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dy = particles[i].y - particles[j].y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
 
-                        if (dist < 120) {
-                            const opacity = ((120 - dist) / 120) * 0.07 * Math.min(particles[i].alpha, particles[j].alpha);
+                        if (dist < 100) {
+                            const opacity = ((100 - dist) / 100) * 0.05 * Math.min(particles[i].alpha, particles[j].alpha);
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
@@ -504,18 +393,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             requestAnimationFrame(animateParticles);
         }
-        requestAnimationFrame(animateParticles);
 
+        initParticles();
+        animateParticles();
+
+        // Speed up particles temporarily on switch click
         chokerToggle.addEventListener('click', () => {
             particles.forEach(p => {
-                p.vx *= 4;
-                p.vy *= 4;
+                p.vx *= 3.5;
+                p.vy *= 3.5;
                 if (!isBombMode) p.alpha = 0;
             });
         });
     }
 
-    // 5. Custom Trailing cursor (Desktop)
+    // ==========================================
+    // 6. Custom Trailing Cursor (Desktop Only)
+    // ==========================================
     const cursor = document.getElementById('custom-cursor');
     const cursorTrail = document.getElementById('custom-cursor-trail');
     
@@ -545,30 +439,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Enable on mouse movement
-        document.addEventListener('mousemove', () => {
-            showCursor();
-        }, { passive: true });
-
-        document.addEventListener('mouseenter', () => {
-            showCursor();
-        });
-
-        document.addEventListener('mouseleave', () => {
-            hideCursor();
-        });
-
-        // Hide cursor if touch occurs to avoid glitches on touch devices/screens
-        document.addEventListener('touchstart', () => {
-            hideCursor();
-        }, { passive: true });
+        document.addEventListener('mousemove', () => showCursor(), { passive: true });
+        document.addEventListener('mouseenter', () => showCursor());
+        document.addEventListener('mouseleave', () => hideCursor());
+        document.addEventListener('touchstart', () => hideCursor(), { passive: true });
 
         function tickCursor() {
-            cursorX += (mouseX - cursorX) * 0.35;
-            cursorY += (mouseY - cursorY) * 0.35;
+            cursorX += (mouseX - cursorX) * 0.32;
+            cursorY += (mouseY - cursorY) * 0.32;
 
-            trailX += (mouseX - trailX) * 0.15;
-            trailY += (mouseY - trailY) * 0.15;
+            trailX += (mouseX - trailX) * 0.12;
+            trailY += (mouseY - trailY) * 0.12;
 
             cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
             cursorTrail.style.transform = `translate3d(${trailX}px, ${trailY}px, 0) translate(-50%, -50%)`;
@@ -577,10 +458,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         requestAnimationFrame(tickCursor);
 
-        const hoverSelectors = 'a, button, .choker-toggle-wrapper, .card-glass, .tags span, .social-link-btn, input';
+        // Expand cursor ring on hovers
+        const hoverables = 'a, button, .choker-toggle-wrapper, .card-glass, .tags span, .social-link-btn, input, .tags-cloud span';
         function initCursorHovers() {
-            const hoverables = document.querySelectorAll(hoverSelectors);
-            hoverables.forEach(el => {
+            document.querySelectorAll(hoverables).forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursor.classList.add('hovered');
                     cursorTrail.classList.add('hovered');
@@ -592,13 +473,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         initCursorHovers();
-        window.addEventListener('DOMContentLoaded', initCursorHovers);
     }
 
-    // 6. Interactive 3D Perspective Card Tilt
+    // ==========================================
+    // 7. Interactive 3D Perspective Card Tilt
+    // ==========================================
     if (canHover) {
         const glassCards = document.querySelectorAll('.card-glass');
         glassCards.forEach(card => {
+            // Append shine glare child div if not already present
             if (!card.querySelector('.shine')) {
                 const shineDiv = document.createElement('div');
                 shineDiv.className = 'shine';
@@ -613,10 +496,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const px = (x / rect.width) - 0.5;
                 const py = (y / rect.height) - 0.5;
 
-                const tiltX = -py * 6;
-                const tiltY = px * 6;
+                // Tilt angles
+                const tiltX = -py * 7;
+                const tiltY = px * 7;
 
-                card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.015, 1.015, 1.015)`;
+                card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
                 card.style.setProperty('--shine-x', `${x}px`);
                 card.style.setProperty('--shine-y', `${y}px`);
             });
@@ -629,71 +513,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. DOUBLE INTERACTIVE TERMINAL SHELLS ENGINE (Sync Interpreter)
+    // ==========================================
+    // 8. Interactive Terminal Engine
+    // ==========================================
     const terminalOutput = document.getElementById('terminal-output');
     const terminalInput = document.getElementById('terminal-input');
-    const embeddedOutput = document.getElementById('embedded-terminal-output');
-    const embeddedInput = document.getElementById('embedded-terminal-input');
-    
     let cmdHistory = [];
     let historyIndex = -1;
 
-    // Output writers for both consoles
     function printLine(text, type = '') {
         if (!terminalOutput) return;
         const line = document.createElement('div');
         line.className = `terminal-line ${type}`;
         line.textContent = text;
         terminalOutput.appendChild(line);
+        // Autoscroll
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    function printLineEmbedded(text, type = '') {
-        if (!embeddedOutput) return;
-        const line = document.createElement('div');
-        line.className = `terminal-line ${type}`;
-        line.textContent = text;
-        embeddedOutput.appendChild(line);
-        embeddedOutput.scrollTop = embeddedOutput.scrollHeight;
-    }
-
-    // Boot lines sequence
+    // Booting Sequence Logs
     const bootLogs = [
-        "REZE-OS [Version 2.0.1993]",
-        "(c) Soviet Intelligence Agency. Core Console Locked.",
+        "REZE-OS [Version 3.0.1993]",
+        "(c) Soviet Intelligence Agency. Local Shell Unlocked.",
         "",
-        "Loading memory blocks... OK",
-        "Loading classified personnel dossier... SUCCESS",
-        "Initializing core shell guest session...",
-        "READY.",
-        "Type 'help' to review classified guest protocols list."
+        "Loading memory assets... SUCCESS",
+        "Mounting portfolio database modules... OK",
+        "Starting core shell listener guest@reze_os:~$",
+        "",
+        "Ready. Type 'help' to review shell protocols list."
     ];
 
-    let bootIndex = 0;
+    let bootLogIndex = 0;
     function playBootSequence() {
-        if (bootIndex < bootLogs.length) {
-            printLine(bootLogs[bootIndex], bootLogs[bootIndex].startsWith('(') ? 'system' : '');
-            bootIndex++;
-            setTimeout(playBootSequence, 75);
+        if (bootLogIndex < bootLogs.length) {
+            printLine(bootLogs[bootLogIndex], bootLogs[bootLogIndex].startsWith('(') ? 'system' : '');
+            bootLogIndex++;
+            setTimeout(playBootSequence, 60);
         }
     }
     playBootSequence();
 
-    // Embedded console boot log
-    setTimeout(() => {
-        printLineEmbedded("REZE-OS [Version 2.0.1993]", "");
-        printLineEmbedded("Access Override Bypassed. Personal Dossier database fully active.", "system");
-        printLineEmbedded("Type 'help' to see local override command lists.", "");
-    }, 1500);
-
-    // Shared Command Interpreter
-    function processCommand(cmdText, sourceConsole = 'main') {
+    // Command Parser
+    function processCommand(cmdText) {
         const rawCmd = cmdText.trim();
         if (!rawCmd) return;
 
-        const writer = sourceConsole === 'main' ? printLine : printLineEmbedded;
-        writer(`guest@reze_os:~$ ${rawCmd}`, 'command');
-
+        printLine(`guest@reze_os:~$ ${rawCmd}`, 'command');
         cmdHistory.push(rawCmd);
         historyIndex = cmdHistory.length;
 
@@ -702,91 +567,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch (cmd) {
             case 'help':
-                writer("Available commands for this terminal:");
-                writer("  about      - Quick info about me");
-                writer("  skills     - Technical skills and languages");
-                writer("  projects   - Key featured projects");
-                writer("  resume     - Download resume PDF");
-                writer("  detonate   - Trigger Bomb Devil detonation effect");
-                if (sourceConsole === 'main') {
-                    writer("  reveal     - Bypass terminal & open full portfolio website");
-                } else {
-                    writer("  lock       - Lock portfolio and return to cockpit");
-                }
-                writer("  clear      - Wipe shell output buffers");
+                printLine("Available commands for this terminal widget:");
+                printLine("  about      - Core details of subject");
+                printLine("  skills     - Display listing of technical stack");
+                printLine("  projects   - Show featuring applications");
+                printLine("  resume     - Fetch and download resume PDF");
+                printLine("  detonate   - Trigger Bomb Devil mode shift override");
+                printLine("  clear      - Empty console logs buffer");
                 break;
             case 'about':
-                writer("PROFILE: Aaditya Srinivasan");
-                writer("ACADEMICS: B.Tech AI & Data Science (2nd Year) @ SRM Madurai.");
-                writer("OBSESSION: Custom offline search systems, local vector-level automation, and scratch-built ML engines.");
-                writer("PERSONALITY: Built four AI projects. Three were garbage. One was worth shipping.");
+                printLine("PROFILE: Aaditya Srinivasan");
+                printLine("ACADEMICS: B.Tech CS (AI & Data Science) at SRM Madurai.");
+                printLine("FOCUS: Offline screen OCR indexing (ImgSeek), ML scratch building (Neuralis), and Flask telemetry dashboards.");
                 break;
             case 'skills':
-                writer("// TECHNICAL SKILLS");
-                writer("  Languages:  [====================] Python, SQL, C#, Java, JS");
-                writer("  AI & Data:  [==================  ] Pandas, NumPy, scikit-learn, Power BI");
-                writer("  Web/Infra:  [===============     ] Django, Flask, Streamlit, Git");
+                printLine("// TECHNICAL STACK CAPABILITIES");
+                printLine("  Languages:  [██████████████████  ] Python, SQL, C#, Java, JS");
+                printLine("  AI/Data:    [████████████████    ] Pandas, NumPy, scikit-learn");
+                printLine("  Frameworks: [██████████████      ] Django, Flask, Streamlit, Git");
                 break;
             case 'projects':
-                writer("// SELECTED PROJECTS");
-                writer("  1. ImgSeek (Featured Project)");
-                writer("     - Indexed 10,000+ local screenshots with WinRT OCR, reducing keyword searches from hours to under 1.5s offline.");
-                writer("  2. Steam Games EDA");
-                writer("     - Hot-fixed a critical comma-shift parsing bug in a 114k game dataset, resolving rating skews with interactive Flask/ApexCharts.");
-                writer("  3. NEURALIS");
-                writer("     - Modular, dependency-free deep learning engine built in pure Python/NumPy with live telemetry.");
+                printLine("// FEATURED PROJECTS LIST");
+                printLine("  1. ImgSeek (C# / WinRT OCR) - Desktop image OCR query local index.");
+                printLine("  2. Steam Games EDA (Flask / Python) - Telemetry ApexCharts dataset hotfix.");
+                printLine("  3. NEURALIS (Python / NumPy) - Dependency-free deep neural network simulator.");
                 break;
             case 'resume':
-                writer("Downloading resume PDF...");
+                printLine("Initiating resume fetch protocol...", 'system');
                 const downloadLink = document.getElementById('download-btn');
                 if (downloadLink) {
                     downloadLink.click();
-                    writer("Resume PDF downloaded successfully.", 'system');
+                    printLine("Download triggered successfully.", 'system');
                 } else {
                     window.open('Aaditya_Srinivasan_Resume.pdf', '_blank');
-                    writer("Resume displayed in a new window.", 'system');
+                    printLine("Resume opened in a new tab.", 'system');
                 }
                 break;
             case 'detonate':
-                writer("Triggering detonation effect...", 'error');
+                printLine("VOLATILE OVERRIDE SIGNAL RECEIVED. IGNITING DETONATION...", 'error');
                 triggerDetonation();
                 break;
-            case 'reveal':
-                if (sourceConsole === 'main') {
-                    writer("ACCESS GRANTED. Opening portfolio website...", 'system');
-                    unlockPortfolio();
-                } else {
-                    writer("Bypass database already compromised.", 'system');
-                }
-                break;
-            case 'lock':
-            case 'exit':
-            case 'reboot':
-                if (sourceConsole === 'embedded') {
-                    writer("REBOOT SECTOR COMMAND REGISTERED. ENCRYPTING FILES...", 'error');
-                    lockPortfolio();
-                } else {
-                    writer("Cockpit shell already securely locked. Access 'reveal' to override.", 'system');
-                }
-                break;
             case 'clear':
-                if (sourceConsole === 'main' && terminalOutput) {
-                    terminalOutput.innerHTML = '';
-                } else if (sourceConsole === 'embedded' && embeddedOutput) {
-                    embeddedOutput.innerHTML = '';
-                }
+                if (terminalOutput) terminalOutput.innerHTML = '';
                 break;
             default:
-                writer(`Shell error: protocol '${cmd}' unauthorized. Access 'help' to review.`, 'error');
+                printLine(`Command error: protocol '${cmd}' unrecognized. Type 'help'.`, 'error');
         }
     }
 
-    // Main shell listeners
     if (terminalInput) {
         terminalInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 const val = terminalInput.value;
-                processCommand(val, 'main');
+                processCommand(val);
                 terminalInput.value = '';
             } else if (e.key === 'ArrowUp') {
                 if (cmdHistory.length > 0 && historyIndex > 0) {
@@ -805,8 +638,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
             }
         });
-        
-        const termPanel = document.querySelector('#secure-dashboard-view .terminal-panel');
+
+        // Refocus input on panel clicks
+        const termPanel = document.querySelector('.terminal-panel');
         if (termPanel) {
             termPanel.addEventListener('click', () => {
                 terminalInput.focus();
@@ -814,40 +648,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Embedded shell listeners
-    if (embeddedInput) {
-        embeddedInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const val = embeddedInput.value;
-                processCommand(val, 'embedded');
-                embeddedInput.value = '';
-            } else if (e.key === 'ArrowUp') {
-                if (cmdHistory.length > 0 && historyIndex > 0) {
-                    historyIndex--;
-                    embeddedInput.value = cmdHistory[historyIndex];
-                }
-                e.preventDefault();
-            } else if (e.key === 'ArrowDown') {
-                if (cmdHistory.length > 0 && historyIndex < cmdHistory.length - 1) {
-                    historyIndex++;
-                    embeddedInput.value = cmdHistory[historyIndex];
-                } else {
-                    historyIndex = cmdHistory.length;
-                    embeddedInput.value = '';
-                }
-                e.preventDefault();
-            }
-        });
-
-        const embeddedPanel = document.querySelector('#full-portfolio-view .terminal-panel');
-        if (embeddedPanel) {
-            embeddedPanel.addEventListener('click', () => {
-                embeddedInput.focus();
-            });
-        }
-    }
-
-    // 8. SYNCHRONIZED VINYL & TUNER BGM PLAYBACK BINDINGS
+    // ==========================================
+    // 9. Floating Vinyl Music Player Widget
+    // ==========================================
     const musicWidget = document.getElementById('music-widget');
     const bgmPlayer = document.getElementById('bgm-player');
     const playBtn = document.getElementById('music-play-btn');
@@ -857,33 +660,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const discToggle = document.getElementById('music-disc-toggle');
     const pulsePrompt = document.getElementById('music-pulse-prompt');
     
-    // Cockpit Tuner Deck Elements
-    const tunerDeck = document.querySelector('.tuner-deck');
-    const tunerPlayBtn = document.getElementById('tuner-play-btn');
-    const tunerPlayIcon = document.getElementById('tuner-play-icon');
-    const tunerVolumeSlider = document.getElementById('tuner-volume-slider');
-    const tunerVolumeIcon = document.getElementById('tuner-volume-icon');
-    const tunerDiscToggle = document.getElementById('tuner-disc-toggle');
-
-    if (bgmPlayer) {
-        bgmPlayer.volume = 0.5;
+    if (bgmPlayer && musicWidget) {
+        bgmPlayer.volume = 0.4;
         let isPlaying = false;
         let initialUserInteraction = false;
 
-        // Synchronized playback updating state
         function updatePlayerUI(playingState) {
             isPlaying = playingState;
             if (isPlaying) {
                 musicWidget.classList.add('playing');
-                if (tunerDeck) tunerDeck.classList.add('playing');
                 if (playIcon) playIcon.className = 'bx bx-pause';
-                if (tunerPlayIcon) tunerPlayIcon.className = 'bx bx-pause';
                 if (pulsePrompt) pulsePrompt.classList.remove('visible');
             } else {
                 musicWidget.classList.remove('playing');
-                if (tunerDeck) tunerDeck.classList.remove('playing');
                 if (playIcon) playIcon.className = 'bx bx-play';
-                if (tunerPlayIcon) tunerPlayIcon.className = 'bx bx-play';
             }
         }
 
@@ -896,102 +686,45 @@ document.addEventListener('DOMContentLoaded', () => {
                     initialUserInteraction = true;
                     updatePlayerUI(true);
                 }).catch(err => {
-                    console.log("Autoplay block: ", err);
+                    console.log("Autoplay block active:", err);
                 });
             }
         }
 
-        // Tuner BGM Clicks
-        if (tunerPlayBtn) {
-            tunerPlayBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                togglePlayback();
-            });
-        }
-        if (tunerDiscToggle) {
-            tunerDiscToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                togglePlayback();
-            });
-        }
-
-        // Widget BGM Clicks
-        if (playBtn) {
-            playBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                togglePlayback();
-            });
-        }
+        if (playBtn) playBtn.addEventListener('click', (e) => { e.stopPropagation(); togglePlayback(); });
         if (discToggle) {
             discToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 togglePlayback();
-                if (!musicWidget.classList.contains('expanded')) {
-                    musicWidget.classList.add('expanded');
-                }
+                musicWidget.classList.toggle('expanded');
             });
         }
 
-        musicWidget.addEventListener('click', () => {
-            if (!musicWidget.classList.contains('expanded')) {
-                musicWidget.classList.add('expanded');
-                if (!isPlaying) {
-                    bgmPlayer.play().then(() => {
-                        initialUserInteraction = true;
-                        updatePlayerUI(true);
-                    }).catch(() => {});
-                }
-            }
+        // Expand player widget on cursor hover, contract on leave
+        musicWidget.addEventListener('mouseenter', () => {
+            musicWidget.classList.add('expanded');
         });
 
         musicWidget.addEventListener('mouseleave', () => {
             musicWidget.classList.remove('expanded');
         });
 
-        // Sync Volumes
-        function updateVolume(vol) {
-            bgmPlayer.volume = vol;
-            if (volumeSlider) volumeSlider.value = vol;
-            if (tunerVolumeSlider) tunerVolumeSlider.value = vol;
-
-            let iconName = 'bx bx-volume-full';
-            if (vol === 0) {
-                iconName = 'bx bx-volume-mute';
-            } else if (vol < 0.4) {
-                iconName = 'bx bx-volume-low';
-            }
-            if (volumeIcon) volumeIcon.className = iconName;
-            if (tunerVolumeIcon) tunerVolumeIcon.className = iconName;
-        }
-
+        // Volume control slider
         if (volumeSlider) {
             volumeSlider.addEventListener('input', (e) => {
-                updateVolume(parseFloat(e.target.value));
+                const vol = parseFloat(e.target.value);
+                bgmPlayer.volume = vol;
+
+                let iconClass = 'bx bx-volume-full';
+                if (vol === 0) iconClass = 'bx bx-volume-mute';
+                else if (vol < 0.4) iconClass = 'bx bx-volume-low';
+                
+                if (volumeIcon) volumeIcon.className = iconClass;
             });
             volumeSlider.addEventListener('click', (e) => e.stopPropagation());
         }
 
-        if (tunerVolumeSlider) {
-            tunerVolumeSlider.addEventListener('input', (e) => {
-                updateVolume(parseFloat(e.target.value));
-            });
-            tunerVolumeSlider.addEventListener('click', (e) => e.stopPropagation());
-        }
-
-        // Autoplay sequence triggers
-        bgmPlayer.play().then(() => {
-            initialUserInteraction = true;
-            updatePlayerUI(true);
-        }).catch(() => {
-            console.log("Autoplay block active. Awaiting user interaction event.");
-        });
-
-        setTimeout(() => {
-            if (!initialUserInteraction && bgmPlayer.paused) {
-                if (pulsePrompt) pulsePrompt.classList.add('visible');
-            }
-        }, 2200);
-
+        // Handle autoplay policy - listen for a gesture to trigger lofi lofi playback
         function triggerAutoplayOnGesture() {
             if (!initialUserInteraction) {
                 bgmPlayer.play().then(() => {
@@ -1013,6 +746,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.removeEventListener(evt, triggerAutoplayOnGesture);
             });
         }
-        addAutoplayListeners();
+        
+        // Try playing immediately
+        bgmPlayer.play().then(() => {
+            initialUserInteraction = true;
+            updatePlayerUI(true);
+        }).catch(() => {
+            addAutoplayListeners();
+            // Show prompting tooltip bubble after delay if blocked
+            setTimeout(() => {
+                if (!initialUserInteraction && pulsePrompt) {
+                    pulsePrompt.classList.add('visible');
+                }
+            }, 2000);
+        });
+    }
+
+    // ==========================================
+    // 10. ScrollReveal Integration (Premium Slides)
+    // ==========================================
+    if (typeof ScrollReveal !== 'undefined') {
+        ScrollReveal().reveal('.section-badge', { origin: 'bottom', distance: '30px', duration: 800, delay: 50 });
+        ScrollReveal().reveal('.section-title', { origin: 'bottom', distance: '30px', duration: 800, delay: 120 });
+        ScrollReveal().reveal('.home-content, .bento-bio, .timeline-item:nth-child(odd) .timeline-info', { origin: 'left', distance: '40px', duration: 1000, delay: 200 });
+        ScrollReveal().reveal('.home-terminal, .bento-languages, .bento-skills, .timeline-item:nth-child(even) .timeline-info', { origin: 'right', distance: '40px', duration: 1000, delay: 200 });
+        ScrollReveal().reveal('.project-card, .bento-status-dashboard', { origin: 'bottom', distance: '40px', duration: 900, interval: 150, delay: 200 });
     }
 });
