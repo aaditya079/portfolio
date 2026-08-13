@@ -3,459 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aaditya Srinivasan | Portfolio</title>
-    <meta name="description" content="Personal portfolio of Aaditya Srinivasan - CS student building offline search engines, vector automation tools, and developer utilities.">
-    
-    <!-- Google Fonts -->
+    <meta name="theme-color" content="#0b0715">
+    <meta name="description" content="Aaditya Srinivasan — REZE_OS portfolio: offline-first AI, data, and developer tools.">
+    <meta property="og:title" content="Aaditya Srinivasan — REZE_OS / AI & Data Systems">
+    <meta property="og:description" content="Café Crossroads mode online. Selected work in offline search, data engineering, and neural network systems.">
+    <meta property="og:type" content="website">
+    <title>Aaditya Srinivasan — REZE_OS / AI & Data Systems</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Boxicons -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=3.0">
+    <link rel="stylesheet" href="style.css?v=4.0">
 </head>
 <body class="cafe-mode">
-    <!-- Retro CRT Visual Overlay -->
-    <div class="crt-overlay" id="crt-overlay"></div>
-    
-    <!-- Ambient Thematic Backgrounds -->
-    <div class="ambient-bg-container">
-        <div class="ambient-bg cafe-bg"></div>
-        <div class="ambient-bg bomb-bg"></div>
-        <div class="ambient-mask"></div>
-    </div>
+    <div class="ambient-mode-bg" aria-hidden="true"></div>
+    <div class="site-noise" aria-hidden="true"></div>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+    <div class="mode-flash" id="mode-flash" aria-hidden="true"></div>
 
-    <!-- Custom Floating Cursor (Desktop only) -->
-    <div class="custom-cursor" id="custom-cursor"></div>
-    <div class="custom-cursor-trail" id="custom-cursor-trail"></div>
+    <header class="site-header" id="site-header">
+        <div class="header-shell">
+            <a href="#home" class="brand" aria-label="Aaditya Srinivasan home">
+                <span class="brand-mark">AS</span>
+                <span class="brand-copy">
+                    <strong>Aaditya Srinivasan</strong>
+                    <small>REZE_OS / AI &amp; data systems</small>
+                </span>
+            </a>
 
-    <!-- Dual Particle Engine Canvas -->
-    <canvas id="ambient-canvas"></canvas>
-    
-    <!-- Shockwave Detonation Overlay -->
-    <div class="detonation-flash" id="detonation-flash"></div>
+            <nav class="desktop-nav" aria-label="Primary navigation">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Work</a>
+                <a href="#approach" class="nav-link">Approach</a>
+                <a href="#education" class="nav-link">Timeline</a>
+            </nav>
 
-    <!-- Header Navigation Section -->
-    <header class="header">
-        <div class="header-left">
-            <a href="#home" class="logo" id="header-logo" data-text="A.S.">A.S<span class="logo-dot">.</span></a>
-            <span class="logo-version">[ REZE_OS v3.0 ]</span>
-            <span class="system-status">// STATE: NOMINAL</span>
-        </div>
-        
-        <!-- Detonator Mode Switch -->
-        <div class="choker-toggle-wrapper" id="choker-toggle" title="Pull choker ring to detonate!">
-            <span class="toggle-mode-label cafe-label">Café Crossroads</span>
-            <div class="choker-control">
-                <div class="choker-strap"></div>
-                <div class="choker-ring"></div>
+            <div class="header-actions">
+                <div class="mode-switch" id="mode-switch" role="switch" tabindex="0" aria-checked="false" aria-label="Switch to Bomb Devil mode" title="Toggle Café Crossroads / Bomb Devil mode">
+                    <span class="mode-name cafe-mode-name">Café Crossroads</span>
+                    <span class="mode-rail" aria-hidden="true"><span class="mode-ring"></span></span>
+                    <span class="mode-name bomb-mode-name">Bomb Devil</span>
+                </div>
+                <span class="mode-readout" id="mode-readout">REZE_OS / NOMINAL</span>
+                <a class="header-cta" href="#contact">Let’s talk <i class="bx bx-arrow-up-right" aria-hidden="true"></i></a>
+                <button class="icon-button menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation">
+                    <i class="bx bx-menu" id="menu-icon" aria-hidden="true"></i>
+                </button>
             </div>
-            <span class="toggle-mode-label bomb-label">Bomb Devil</span>
         </div>
-        
-        <!-- Navigation Menu -->
-        <nav class="navbar" id="navbar-nav">
-            <a href="#home" class="nav-link active">Home</a>
+        <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
             <a href="#about" class="nav-link">About</a>
-            <a href="#projects" class="nav-link">Projects</a>
-            <a href="#education" class="nav-link">Education</a>
+            <a href="#projects" class="nav-link">Work</a>
+            <a href="#approach" class="nav-link">Approach</a>
+            <a href="#education" class="nav-link">Timeline</a>
+            <a href="#contact" class="nav-link nav-link-accent">Start a conversation <i class="bx bx-arrow-up-right" aria-hidden="true"></i></a>
         </nav>
-        
-        <div class="header-right">
-            <span id="system-clock">00:00:00 LOCAL</span>
-            <i class='bx bx-menu' id="menu-icon"></i>
-        </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="main-content">
-        <!-- Hero / Home Section -->
-        <section class="home" id="home">
-            <div class="glow-orb" id="hero-glow-1"></div>
-            <div class="glow-orb" id="hero-glow-2"></div>
-            
-            <div class="home-grid">
-                <!-- Left: Home Content Profile -->
-                <div class="home-content">
-                    <div class="codename-badge">[ DEV DOSSIER ]</div>
-                    <p class="subtitle">Hi, I am</p>
-                    <h1 class="glitch-title" data-text="Aaditya Srinivasan">
-                        <span class="first-name">Aaditya</span>
-                        <span class="last-name">Srinivasan</span>
-                    </h1>
-                    
-                    <h3 class="role">
-                        <span class="role-text">CS Student building AI search engines & developer utilities</span>
-                    </h3>
-                    
-                    <p class="description">
-                        B.Tech student at SRM Madurai. I engineer offline screenshot search utilities, neural net simulation engines, and custom telemetry pipelines. Focused on data systems, indexing, and local vector search.
-                    </p>
-                    
-                    <div class="action-group">
-                        <a href="Aaditya_Srinivasan_Resume.pdf" download class="btn primary-btn" id="download-btn">
-                            <span>Get Resume</span>
-                            <i class='bx bx-download'></i>
-                        </a>
-                        
-                        <button class="btn secondary-btn" id="copy-email-btn">
-                            <span class="btn-text">Copy Email</span>
-                            <i class='bx bx-copy' id="copy-icon"></i>
-                        </button>
-                        
-                        <div class="social-links">
-                            <a href="mailto:aadityasrinivasan079@gmail.com" aria-label="Email Address" class="social-link-btn"><i class='bx bx-envelope'></i></a>
-                            <a href="https://linkedin.com/in/fwaadi" target="_blank" aria-label="LinkedIn Profile" class="social-link-btn"><i class='bx bxl-linkedin'></i></a>
-                            <a href="https://github.com/aaditya079" target="_blank" aria-label="GitHub Profile" class="social-link-btn"><i class='bx bxl-github'></i></a>
-                        </div>
+    <main id="top">
+        <section class="hero section-shell" id="home">
+            <div class="hero-grid">
+                <div class="hero-copy" data-reveal>
+                    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Based in Madurai, India <span class="eyebrow-divider">/</span> <span id="hero-mode-label">Café Crossroads</span> <span class="eyebrow-divider">/</span> REZE_OS v3.0</p>
+                    <h1>Building useful systems for <em>messy information.</em></h1>
+                    <p class="hero-description">I’m Aaditya, a computer science student focused on AI, data systems, and developer tools that make complex work feel simpler.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#projects">Explore selected work <i class="bx bx-arrow-down-right" aria-hidden="true"></i></a>
+                        <a class="button button-ghost" href="Aaditya_Srinivasan_Resume.pdf" download>Download résumé <i class="bx bx-download" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="hero-meta" aria-label="Profile summary">
+                        <span><strong>Focus</strong> AI, indexing, local-first tools</span>
+                        <span><strong>Degree</strong> B.Tech AI &amp; Data Science</span>
                     </div>
                 </div>
-                
-                <!-- Right: Interactive Terminal Shell -->
-                <div class="home-terminal">
-                    <div class="terminal-panel card-glass">
-                        <div class="card-glow-edge"></div>
-                        <div class="terminal-bar">
-                            <div class="terminal-dots">
-                                <span class="dot red"></span>
-                                <span class="dot yellow"></span>
-                                <span class="dot green"></span>
-                            </div>
-                            <span class="terminal-title">REZE_OS_SHELL.EXE // GUEST_SESSION</span>
-                            <button class="crt-toggle-btn" id="crt-toggle-btn" title="Toggle CRT Scanline overlay">
-                                <i class='bx bx-desktop' id="crt-btn-icon"></i>
-                            </button>
-                        </div>
-                        
-                        <div class="terminal-output" id="terminal-output"></div>
-                        
-                        <div class="terminal-input-line">
-                            <span class="terminal-prompt">guest@reze_os:~$</span>
-                            <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type 'help' to start..." aria-label="Terminal Input">
+
+                <div class="hero-visual" data-reveal data-delay="120">
+                    <div class="hero-image-card">
+                        <div class="hero-image-frame">
+                            <img class="mode-image cafe-image" src="reze-hero.jpg" alt="Warm café scene inspired by the Reze arc" loading="eager">
+                            <img class="mode-image bomb-image" src="bomb-devil.jpg" alt="Ember-lit portrait for Bomb Devil mode" loading="lazy">
+                            <div class="image-gradient" aria-hidden="true"></div>
+                            <span class="image-index" id="image-index">REZE_VISUAL / 01</span>
+                            <span class="image-caption" id="image-caption">Café Crossroads — soft edges, sharp systems.</span>
+                            <span class="hero-mode-chip"><span class="status-dot" aria-hidden="true"></span><span id="hero-mode-status">REZE_OS / NOMINAL</span></span>
                         </div>
                     </div>
+                    <div class="hero-stats">
+                        <div class="stat-card"><strong>10k+</strong><span>screenshots indexed</span></div>
+                        <div class="stat-card"><strong>&lt;1.5s</strong><span>retrieval time</span></div>
+                        <div class="stat-card"><strong>100%</strong><span>offline / local</span></div>
+                    </div>
+                </div>
+            </div>
+            <a class="scroll-cue" href="#about"><span>Scroll to explore</span><i class="bx bx-down-arrow-alt" aria-hidden="true"></i></a>
+        </section>
+
+        <section class="section-shell section" id="about">
+            <div class="section-heading" data-reveal>
+                <p class="eyebrow">01 / About</p>
+                <h2>Curious about the systems beneath the surface.</h2>
+                <p class="section-intro">I like the part of software that asks better questions: where data comes from, what makes a tool dependable, and how a thoughtful constraint can improve the final experience.</p>
+            </div>
+
+            <div class="about-grid">
+                <article class="surface-card about-main" data-reveal>
+                    <div class="card-label">Profile / 001</div>
+                    <p class="large-copy">I’m a B.Tech Computer Science student specialising in Artificial Intelligence &amp; Data Science at SRM Madurai College of Engineering and Technology.</p>
+                    <p class="body-copy">My work sits between data engineering and product thinking. I build local-first utilities, telemetry systems, and learning experiments with an emphasis on clear interfaces, measurable outcomes, and code that stays useful outside a demo.</p>
+                    <div class="card-footnote"><span class="status-dot" aria-hidden="true"></span> Currently studying, prototyping, and shipping in public.</div>
+                </article>
+
+                <article class="surface-card signal-card" data-reveal data-delay="80">
+                    <div class="card-label">Current signal</div>
+                    <h3>Build locally.<br><span>Measure honestly.</span></h3>
+                    <div class="signal-mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+                    <p>Less dependency theatre. More tools that work when the network, the dataset, or the assumptions get messy.</p>
+                </article>
+
+                <article class="surface-card stack-card" data-reveal data-delay="160">
+                    <div class="card-label">Toolbox</div>
+                    <div class="stack-groups">
+                        <div><span class="stack-category">AI / DATA</span><p>Python · NumPy · Pandas · scikit-learn · Matplotlib</p></div>
+                        <div><span class="stack-category">WEB / INFRA</span><p>Flask · Django · Streamlit · C#/.NET · SQL · Git</p></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section-projects" id="projects">
+            <div class="section-shell">
+                <div class="section-heading section-heading-row" data-reveal>
+                    <div>
+                        <p class="eyebrow">02 / Selected work</p>
+                        <h2>Small systems, real constraints.</h2>
+                    </div>
+                    <p class="section-intro">A few projects where the interesting part was not just making something work, but making the result faster, clearer, or more dependable.</p>
+                </div>
+
+                <div class="project-grid">
+                    <article class="project-card project-featured" data-reveal>
+                        <div class="project-card-header">
+                            <div><span class="project-number">01 / Featured project</span><h3>ImgSeek</h3></div>
+                            <a href="https://github.com/aaditya079/ImgSeek" target="_blank" rel="noopener noreferrer" class="project-arrow" aria-label="Open ImgSeek on GitHub"><i class="bx bx-up-right-arrow-circle" aria-hidden="true"></i></a>
+                        </div>
+                        <p class="project-kicker">An offline-first screenshot search engine for people who keep too much useful information in images.</p>
+                        <p class="project-description">Built with native WinRT OCR and SQLite to index local screenshots, query them by their visible text, and generate a clean local HTML lightbox gallery. It has indexed 10,000+ images while keeping retrieval under 1.5 seconds and external APIs out of the critical path.</p>
+                        <div class="project-card-footer"><div class="tech-list"><span>C#</span><span>.NET</span><span>WinRT OCR</span><span>SQLite</span></div><span class="project-outcome">10k+ indexed · &lt;1.5s retrieval</span></div>
+                    </article>
+
+                    <article class="project-card" data-reveal data-delay="80">
+                        <div class="project-card-header">
+                            <div><span class="project-number">02 / Data engineering</span><h3>Steam Games EDA</h3></div>
+                            <a href="https://github.com/aaditya079/steam-eda" target="_blank" rel="noopener noreferrer" class="project-arrow" aria-label="Open Steam Games EDA on GitHub"><i class="bx bx-up-right-arrow-circle" aria-hidden="true"></i></a>
+                        </div>
+                        <p class="project-description">Found and hot-fixed a comma-shift parsing bug in a 114k+ row Kaggle dataset, then built a Flask cleansing pipeline and telemetry dashboard to show the corrected pricing and rating trends.</p>
+                        <div class="project-card-footer"><div class="tech-list"><span>Python</span><span>Flask</span><span>Pandas</span><span>ApexCharts</span></div><span class="project-outcome">114k+ rows cleaned</span></div>
+                    </article>
+
+                    <article class="project-card" data-reveal data-delay="160">
+                        <div class="project-card-header">
+                            <div><span class="project-number">03 / Deep learning</span><h3>NEURALIS</h3></div>
+                            <a href="https://github.com/aaditya079/NEURALIS" target="_blank" rel="noopener noreferrer" class="project-arrow" aria-label="Open NEURALIS on GitHub"><i class="bx bx-up-right-arrow-circle" aria-hidden="true"></i></a>
+                        </div>
+                        <p class="project-description">A dependency-light neural network engine written from scratch with modular activation layers, backpropagation support, custom feedforward topologies, and real-time training-loss telemetry.</p>
+                        <div class="project-card-footer"><div class="tech-list"><span>Python</span><span>NumPy</span><span>Backprop</span></div><span class="project-outcome">Modular by design</span></div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- About Me Bento Section -->
-        <section class="about" id="about">
-            <div class="section-container">
-                <div class="section-badge">[ THE CLASSIFIED SUMMARY ]</div>
-                <h2 class="section-title" data-text="About Me">About Me</h2>
-                
-                <!-- Bento Grid Layout -->
-                <div class="about-bento-grid">
-                    <!-- Bento Box 1: Bio Dossier (2 columns, 2 rows) -->
-                    <div class="bento-card bento-bio card-glass">
-                        <div class="card-glow-edge"></div>
-                        <div class="bento-card-header">
-                            <span class="badge">// SUBJECT DOSSIER</span>
-                        </div>
-                        
-                        <p class="bio-text">
-                            I am a B.Tech Computer Science student specializing in Artificial Intelligence & Data Science at SRM Madurai. I focus on developing high-performance offline tools, deep learning telemetry systems, and custom database automation scripts. I believe in writing robust code that executes locally, maximizing system resources, and avoiding fragile API calls where possible.
-                        </p>
-                        
-                        <div class="terminal-decor">
-                            <span class="status-marker"><i class='bx bxs-circle'></i> SYSTEM STATE: ACTIVE</span>
-                            <span class="loc-marker"><i class='bx bxs-map'></i> MADURAI, IN</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Bento Box 2: Languages Progress (1 column, 1 row) -->
-                    <div class="bento-card bento-languages card-glass">
-                        <div class="card-glow-edge"></div>
-                        <div class="bento-card-header">
-                            <span class="badge">// CORE LANGUAGES</span>
-                        </div>
-                        
-                        <div class="skills-progress-list">
-                            <div class="skill-progress-item">
-                                <div class="skill-info"><span>Python</span><span>90%</span></div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-                            </div>
-                            <div class="skill-progress-item">
-                                <div class="skill-info"><span>C# / .NET</span><span>80%</span></div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
-                            </div>
-                            <div class="skill-progress-item">
-                                <div class="skill-info"><span>SQL</span><span>85%</span></div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
-                            </div>
-                            <div class="skill-progress-item">
-                                <div class="skill-info"><span>Java / JS</span><span>75%</span></div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Bento Box 3: Skills Tags (1 column, 1 row) -->
-                    <div class="bento-card bento-skills card-glass">
-                        <div class="card-glow-edge"></div>
-                        <div class="bento-card-header">
-                            <span class="badge">// STACK CAPABILITIES</span>
-                        </div>
-                        
-                        <div class="tags-cloud-vertical">
-                            <div class="skill-group-mini">
-                                <span class="group-label">AI & DATA</span>
-                                <div class="tags-cloud">
-                                    <span>Pandas</span>
-                                    <span>NumPy</span>
-                                    <span>scikit-learn</span>
-                                    <span>Matplotlib</span>
-                                    <span>Seaborn</span>
-                                </div>
-                            </div>
-                            
-                            <div class="skill-group-mini">
-                                <span class="group-label">INFRA & WEB</span>
-                                <div class="tags-cloud">
-                                    <span>Flask</span>
-                                    <span>Django</span>
-                                    <span>Streamlit</span>
-                                    <span>Git</span>
-                                    <span>GCP</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <section class="section section-approach" id="approach">
+            <div class="section-shell">
+                <div class="section-heading" data-reveal>
+                    <p class="eyebrow">03 / Working principles</p>
+                    <h2>Good engineering has a point of view.</h2>
+                </div>
+                <div class="principles-grid">
+                    <article class="principle" data-reveal><span class="principle-index">01</span><h3>Local when it matters</h3><p>Offline-first is not a limitation by default. It can mean better privacy, lower latency, and a tool that remains useful in imperfect environments.</p></article>
+                    <article class="principle" data-reveal data-delay="80"><span class="principle-index">02</span><h3>Proof over adjectives</h3><p>I try to express engineering decisions through retrieval time, dataset size, failure modes, and other signals that make the work easier to evaluate.</p></article>
+                    <article class="principle" data-reveal data-delay="160"><span class="principle-index">03</span><h3>Interfaces for the next person</h3><p>Readable output, focused dashboards, and a clean handoff are part of the system. A useful tool should explain itself without a tour guide.</p></article>
                 </div>
             </div>
         </section>
 
-        <!-- Selected Projects Section -->
-        <section class="projects" id="projects">
-            <div class="section-container">
-                <div class="section-badge">[ PORTFOLIO DECK ]</div>
-                <h2 class="section-title" data-text="Featured Projects">Featured Projects</h2>
-                
-                <!-- Bento Grid Layout -->
-                <div class="projects-bento-grid">
-                    <!-- Project 1: Featured ImgSeek (2 columns, 1 row) -->
-                    <div class="bento-card project-card featured card-glass">
-                        <div class="card-glow-edge"></div>
-                        <div class="project-header">
-                            <div class="project-icon-title">
-                                <i class='bx bx-search-alt-2'></i>
-                                <h3>ImgSeek (Featured Project)</h3>
-                            </div>
-                            <a href="https://github.com/aaditya079/ImgSeek" target="_blank" aria-label="ImgSeek GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
-                        </div>
-                        <div class="project-bento-content">
-                            <div class="project-main-text">
-                                <p class="project-desc">
-                                    Built an offline-first desktop search engine that indexes local screenshots using the native WinRT OCR engine. Successfully indexed 10,000+ local screenshots, reducing manual keyword-based image retrieval times from hours to under 1.5 seconds with zero external API calls. Auto-generates a clean local HTML lightbox gallery of matching image queries.
-                                </p>
-                                <div class="tech-tags">
-                                    <span>C#</span>
-                                    <span>.NET</span>
-                                    <span>WinRT OCR</span>
-                                    <span>SQLite</span>
-                                    <span>Local Index</span>
-                                </div>
-                            </div>
-                            <div class="project-highlights-panel">
-                                <div class="highlight-stat">
-                                    <span class="stat-number">10k+</span>
-                                    <span class="stat-label">Screenshots Indexed</span>
-                                </div>
-                                <div class="highlight-stat">
-                                    <span class="stat-number">&lt;1.5s</span>
-                                    <span class="stat-label">Retrieval Time</span>
-                                </div>
-                                <div class="highlight-stat">
-                                    <span class="stat-number">100%</span>
-                                    <span class="stat-label">Offline / Local</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Project 2: Steam Games (1 column, 1 row) -->
-                    <div class="bento-card project-card card-glass">
-                        <div class="card-glow-edge"></div>
-                        <div class="project-header">
-                            <div class="project-icon-title">
-                                <i class='bx bx-bar-chart-alt-2'></i>
-                                <h3>Steam Games EDA</h3>
-                            </div>
-                            <a href="https://github.com/aaditya079/steam-eda" target="_blank" aria-label="Steam EDA GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
-                        </div>
-                        <p class="project-desc">
-                            Discovered, isolated, and hot-fixed a critical comma-shift parsing bug in a raw Kaggle CSV dataset of 114k+ game titles that had skewed pricing-to-rating correlations in prior student research studies. Engineered a custom Flask data-cleansing pipeline and built a telemetry dashboard displaying corrected trends via interactive ApexCharts.
-                        </p>
-                        <div class="tech-tags">
-                            <span>Python</span>
-                            <span>Flask</span>
-                            <span>Pandas</span>
-                            <span>ApexCharts</span>
-                            <span>Data Cleansing</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Project 3: NEURALIS (1 column, 1 row) -->
-                    <div class="bento-card project-card card-glass">
-                        <div class="card-glow-edge"></div>
-                        <div class="project-header">
-                            <div class="project-icon-title">
-                                <i class='bx bx-network-chart'></i>
-                                <h3>NEURALIS</h3>
-                            </div>
-                            <a href="https://github.com/aaditya079/NEURALIS" target="_blank" aria-label="NEURALIS GitHub Link" class="project-link"><i class='bx bx-link-external'></i></a>
-                        </div>
-                        <p class="project-desc">
-                            Developed a completely dependency-free, modular neural network engine from scratch in pure Python and NumPy to simulate, train, and visualize custom feedforward deep learning topologies. Features modular activation layers, backpropagation support, and real-time training loss telemetry.
-                        </p>
-                        <div class="tech-tags">
-                            <span>Python</span>
-                            <span>NumPy</span>
-                            <span>Neural Networks</span>
-                            <span>Deep Learning</span>
-                        </div>
-                    </div>
-
-                    <!-- Bento Box 4: Mini Dashboard Achievements (2 columns, 1 row) -->
-                    <div class="bento-card bento-status-dashboard card-glass">
-                        <div class="card-glow-edge"></div>
-                        <div class="bento-card-header">
-                            <span class="badge">// TELEMETRY DASHBOARD</span>
-                        </div>
-                        <div class="telemetry-grid">
-                            <div class="telemetry-item">
-                                <div class="telemetry-icon"><i class='bx bx-bug-alt'></i></div>
-                                <div class="telemetry-info">
-                                    <span class="telemetry-val">3rd Place</span>
-                                    <span class="telemetry-lbl">Bug Busters Dr. NGP Tech</span>
-                                </div>
-                            </div>
-                            <div class="telemetry-item">
-                                <div class="telemetry-icon"><i class='bx bx-code-curly'></i></div>
-                                <div class="telemetry-info">
-                                    <span class="telemetry-val">100%</span>
-                                    <span class="telemetry-lbl">Modular Neural Code</span>
-                                </div>
-                            </div>
-                            <div class="telemetry-item">
-                                <div class="telemetry-icon"><i class='bx bx-hdd'></i></div>
-                                <div class="telemetry-info">
-                                    <span class="telemetry-val">WinRT OCR</span>
-                                    <span class="telemetry-lbl">Local Image Extraction</span>
-                                </div>
-                            </div>
-                            <div class="telemetry-item">
-                                <div class="telemetry-icon"><i class='bx bx-certification'></i></div>
-                                <div class="telemetry-info">
-                                    <span class="telemetry-val">3 Credentials</span>
-                                    <span class="telemetry-lbl">IIT/NPTEL Certifications</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <section class="section section-timeline" id="education">
+            <div class="section-shell">
+                <div class="section-heading" data-reveal>
+                    <p class="eyebrow">04 / Timeline</p>
+                    <h2>Learning in public, one milestone at a time.</h2>
+                </div>
+                <div class="timeline-list">
+                    <article class="timeline-row" data-reveal><div class="timeline-date">2024 — 2028</div><div class="timeline-line" aria-hidden="true"></div><div><span class="timeline-type">Education</span><h3>B.Tech Artificial Intelligence &amp; Data Science</h3><p>SRM Madurai College of Engineering and Technology. Exploring machine learning, algorithms, statistics, and the systems that make data useful.</p></div></article>
+                    <article class="timeline-row" data-reveal data-delay="80"><div class="timeline-date">2025</div><div class="timeline-line" aria-hidden="true"></div><div><span class="timeline-type">Competition</span><h3>3rd place — Bug Busters</h3><p>Dr. N.G.P. Institute of Technology. A debugging competition focused on finding and patching custom bugs under time pressure.</p></div></article>
+                    <article class="timeline-row" data-reveal data-delay="160"><div class="timeline-date">2025</div><div class="timeline-line" aria-hidden="true"></div><div><span class="timeline-type">Certifications</span><h3>IIT / NPTEL credentials</h3><p>Programming in Java, Web Based Technologies, and Basic Blockchain and Its Applications through IIT Madras and IIT Kharagpur.</p></div></article>
                 </div>
             </div>
         </section>
 
-        <!-- Education & Timeline Section -->
-        <section class="education" id="education">
-            <div class="section-container">
-                <div class="section-badge">[ MILESTONES & ACHIEVEMENTS ]</div>
-                <h2 class="section-title" data-text="Timeline">Timeline</h2>
-                
-                <div class="timeline">
-                    <!-- Timeline Item 1 -->
-                    <div class="timeline-item">
-                        <div class="timeline-info card-glass">
-                            <div class="card-glow-edge"></div>
-                            <div class="timeline-header-row">
-                                <span class="timeline-meta"><i class='bx bxs-graduation'></i> UNIVERSITY</span>
-                                <span class="time-badge">2024 — 2028</span>
-                            </div>
-                            <h3>B.Tech Artificial Intelligence & Data Science</h3>
-                            <h4>SRM Madurai College of Engineering and Technology</h4>
-                            <p>Currently in 2nd Year, 4th Semester. Focusing on core AI paradigms, data structures and algorithms, mathematical statistics, and machine learning pipelines.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Timeline Item 2 -->
-                    <div class="timeline-item">
-                        <div class="timeline-info card-glass">
-                            <div class="card-glow-edge"></div>
-                            <div class="timeline-header-row">
-                                <span class="timeline-meta"><i class='bx bxs-trophy'></i> COMPETITIONS</span>
-                                <span class="time-badge">2025</span>
-                            </div>
-                            <h3>3rd Place — Bug Busters Coding Competition</h3>
-                            <h4>Dr. N.G.P. Institute of Technology</h4>
-                            <p>Competed against multiple engineering colleges in a highly technical debugging challenge, identifying and patching custom bugs under tight time constraints.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Timeline Item 3 -->
-                    <div class="timeline-item">
-                        <div class="timeline-info card-glass">
-                            <div class="card-glow-edge"></div>
-                            <div class="timeline-header-row">
-                                <span class="timeline-meta"><i class='bx bxs-award'></i> CERTIFICATIONS</span>
-                                <span class="time-badge">2025</span>
-                            </div>
-                            <h3>IIT / NPTEL Certifications</h3>
-                            <h4>IIT Madras / IIT Kharagpur</h4>
-                            <p>Successfully achieved credentials in Programming in Java, Web Based Technologies, and Basic Blockchain and Its Applications.</p>
-                        </div>
+        <section class="contact-section" id="contact">
+            <div class="section-shell contact-shell" data-reveal>
+                <div>
+                    <p class="eyebrow">05 / Contact</p>
+                    <h2>Have a difficult dataset or a useful idea?</h2>
+                    <p>Tell me what you’re working on. I’m always interested in practical problems at the intersection of data, interfaces, and dependable software.</p>
+                </div>
+                <div class="contact-actions">
+                    <a class="email-link" href="mailto:aadityasrinivasan079@gmail.com">aadityasrinivasan079@gmail.com <i class="bx bx-up-right-arrow-circle" aria-hidden="true"></i></a>
+                    <div class="contact-links">
+                        <button class="copy-button" id="copy-email-btn" type="button"><i class="bx bx-copy" id="copy-icon" aria-hidden="true"></i><span id="copy-label">Copy email</span></button>
+                        <a href="https://www.linkedin.com/in/fwaadi" target="_blank" rel="noopener noreferrer">LinkedIn <i class="bx bx-up-right-arrow-alt" aria-hidden="true"></i></a>
+                        <a href="https://github.com/aaditya079" target="_blank" rel="noopener noreferrer">GitHub <i class="bx bx-up-right-arrow-alt" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>&copy; 2026 Aaditya Srinivasan. Inspired by Reze from Chainsaw Man.</p>
-            <div class="footer-badge">[ STATUS: STEADY_APRICOT ]</div>
-        </footer>
     </main>
 
-    <!-- High-Fidelity Floating Vinyl Music Player Widget -->
-    <div class="music-player-widget card-glass" id="music-widget">
-        <audio id="bgm-player" src="jane-doe.mp3" loop autoplay></audio>
-        
-        <div class="music-disc-wrapper" id="music-disc-toggle">
-            <div class="music-disc">
-                <div class="disc-grooves"></div>
-                <div class="disc-label"></div>
-            </div>
-            <div class="music-pulse-prompt" id="music-pulse-prompt">TAP DECK 🎵</div>
-        </div>
-        
-        <!-- Expanded Panel Controls -->
-        <div class="music-player-panel">
-            <div class="music-info-scroll">
-                <span class="music-title">JANE DOE</span>
-                <span class="music-artist">Kenshi Yonezu × Hikaru Utada</span>
-                <span class="music-credits">[ Reze Arc ED Lofi ]</span>
-            </div>
-            
-            <div class="music-controls">
-                <button class="music-btn" id="music-play-btn" aria-label="Play Music">
-                    <i class='bx bx-play' id="music-play-icon"></i>
-                </button>
-                
-                <div class="music-volume-container">
-                    <i class='bx bx-volume-low' id="music-volume-icon"></i>
-                    <input type="range" class="music-volume-slider" id="music-volume-slider" min="0" max="1" step="0.05" value="0.5" aria-label="Volume Control">
-                </div>
-            </div>
-        </div>
-    </div>
+    <footer class="site-footer">
+        <div class="footer-shell"><span>© 2026 Aaditya Srinivasan</span><span>Inspired by Reze / built with intent.</span><a href="#home">Back to top <i class="bx bx-up-arrow-alt" aria-hidden="true"></i></a></div>
+    </footer>
 
-    <!-- ScrollReveal Framework -->
-    <script src="https://unpkg.com/scrollreveal"></script>
-    
-    <!-- Custom Scripts -->
-    <script src="script.js?v=3.0"></script>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="script.js?v=4.0"></script>
 </body>
 </html>
