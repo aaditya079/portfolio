@@ -220,6 +220,23 @@
         </section>
     </main>
 
+    <aside class="music-deck" id="music-deck" aria-label="REZE_OS music player">
+        <audio id="bgm-player" src="jane-doe.mp3" autoplay loop preload="auto"></audio>
+        <div class="music-deck-topline"><span class="deck-led" aria-hidden="true"></span><span id="music-status">REZE_OS AUDIO / STANDBY</span><span class="music-track-code">AUDIO_01</span></div>
+        <div class="music-deck-main">
+            <button class="music-toggle" id="music-toggle" type="button" aria-label="Play background music" aria-pressed="false">
+                <i class="bx bx-play" id="music-toggle-icon" aria-hidden="true"></i>
+            </button>
+            <div class="music-track-info"><strong>JANE DOE</strong><span>Kenshi Yonezu × Hikaru Utada</span></div>
+            <button class="music-expand" id="music-expand" type="button" aria-label="Show audio controls" aria-expanded="false"><i class="bx bx-chevron-up" id="music-expand-icon" aria-hidden="true"></i></button>
+        </div>
+        <div class="music-deck-controls" id="music-deck-controls">
+            <i class="bx bx-volume-low" id="music-volume-icon" aria-hidden="true"></i>
+            <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.28" aria-label="Music volume">
+            <span id="music-volume-label">28%</span>
+        </div>
+    </aside>
+
     <footer class="site-footer">
         <div class="footer-shell"><span>© 2026 Aaditya Srinivasan</span><span>Inspired by Reze / built with intent.</span><a href="#home">Back to top <i class="bx bx-up-arrow-alt" aria-hidden="true"></i></a></div>
     </footer>

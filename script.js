@@ -26,6 +26,92 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast.timeout = window.setTimeout(() => toast.classList.remove('visible'), 2600);
     };
 
+    // REZE_OS audio deck. Browsers may block unmuted autoplay, so the deck
+    // attempts playback first and then exposes a clear user-gesture fallback.
+    const musicDeck = document.getElementById('music-deck');
+    const bgmPlayer = document.getElementById('bgm-player');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicToggleIcon = document.getElementById('music-toggle-icon');
+    const musicStatus = document.getElementById('music-status');
+    const musicExpand = document.getElementById('music-expand');
+    const musicExpandIcon = document.getElementById('music-expand-icon');
+    const musicDeckControls = document.getElementById('music-deck-controls');
+    const musicVolume = document.getElementById('music-volume');
+    const musicVolumeLabel = document.getElementById('music-volume-label');
+    const musicVolumeIcon = document.getElementById('music-volume-icon');
+
+    if (musicDeck && bgmPlayer) {
+        const savedVolume = Number.parseFloat(localStorage.getItem('reze-volume'));
+        const startingVolume = Number.isFinite(savedVolume) ? Math.min(1, Math.max(0, savedVolume)) : 0.28;
+        bgmPlayer.volume = startingVolume;
+        if (musicVolume) musicVolume.value = String(startingVolume);
+
+        const updateMusicUI = (isPlaying) => {
+            musicDeck.classList.toggle('playing', isPlaying);
+            musicDeck.classList.remove('autoplay-blocked');
+            if (musicToggleIcon) musicToggleIcon.className = isPlaying ? 'bx bx-pause' : 'bx bx-play';
+            if (musicToggle) {
+                musicToggle.setAttribute('aria-pressed', String(isPlaying));
+                musicToggle.setAttribute('aria-label', isPlaying ? 'Pause background music' : 'Play background music');
+            }
+            if (musicStatus) musicStatus.textContent = isPlaying ? 'REZE_OS AUDIO / PLAYING' : 'REZE_OS AUDIO / PAUSED';
+        };
+
+        const markAutoplayBlocked = () => {
+            musicDeck.classList.add('autoplay-blocked');
+            if (musicStatus) musicStatus.textContent = 'REZE_OS AUDIO / TAP TO START';
+        };
+
+        const playMusic = (announce = false) => {
+            bgmPlayer.play().then(() => {
+                updateMusicUI(true);
+                if (announce) showToast('REZE_OS audio online');
+            }).catch(() => markAutoplayBlocked());
+        };
+
+        const pauseMusic = () => {
+            bgmPlayer.pause();
+            updateMusicUI(false);
+        };
+
+        musicToggle?.addEventListener('click', () => {
+            if (bgmPlayer.paused) playMusic(true);
+            else pauseMusic();
+        });
+
+        musicExpand?.addEventListener('click', () => {
+            const expanded = musicDeck.classList.toggle('expanded');
+            musicExpand.setAttribute('aria-expanded', String(expanded));
+            musicExpand.setAttribute('aria-label', expanded ? 'Hide audio controls' : 'Show audio controls');
+            if (musicExpandIcon) musicExpandIcon.className = expanded ? 'bx bx-chevron-down' : 'bx bx-chevron-up';
+            if (musicDeckControls) musicDeckControls.hidden = false;
+        });
+
+        musicVolume?.addEventListener('input', (event) => {
+            const volume = Number.parseFloat(event.target.value);
+            bgmPlayer.volume = volume;
+            localStorage.setItem('reze-volume', String(volume));
+            if (musicVolumeLabel) musicVolumeLabel.textContent = `${Math.round(volume * 100)}%`;
+            if (musicVolumeIcon) musicVolumeIcon.className = volume === 0 ? 'bx bx-volume-mute' : volume < 0.45 ? 'bx bx-volume-low' : 'bx bx-volume-full';
+        });
+
+        bgmPlayer.addEventListener('play', () => updateMusicUI(true));
+        bgmPlayer.addEventListener('pause', () => updateMusicUI(false));
+        bgmPlayer.addEventListener('error', () => {
+            if (musicStatus) musicStatus.textContent = 'REZE_OS AUDIO / FILE ERROR';
+            showToast('Audio file could not be loaded');
+        });
+
+        // Try immediately. If blocked, retry on the first meaningful gesture.
+        playMusic();
+        const retryEvents = ['click', 'keydown'];
+        const retryAutoplay = () => {
+            if (bgmPlayer.paused) playMusic();
+            retryEvents.forEach((eventName) => document.removeEventListener(eventName, retryAutoplay));
+        };
+        retryEvents.forEach((eventName) => document.addEventListener(eventName, retryAutoplay, { once: true, passive: true }));
+    }
+
     const setMode = (mode, announce = true) => {
         const isBomb = mode === 'bomb';
         body.classList.toggle('bomb-mode', isBomb);

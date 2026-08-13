@@ -256,6 +256,33 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
 .footer-shell a { color: var(--text-soft); }
 .footer-shell a:hover { color: var(--accent); }
 
+/* REZE_OS music deck */
+.music-deck { position: fixed; right: 24px; bottom: 24px; z-index: 45; width: min(330px, calc(100vw - 32px)); padding: 12px; border: 1px solid var(--line); border-radius: 5px; background: color-mix(in srgb, var(--surface) 93%, transparent); box-shadow: var(--shadow); backdrop-filter: blur(18px); transition: border-color 180ms ease, background 220ms ease, transform 220ms var(--ease); }
+.music-deck:hover { border-color: var(--accent); transform: translateY(-3px); }
+.music-deck-topline { display: flex; align-items: center; gap: 7px; padding-bottom: 9px; border-bottom: 1px solid var(--line-soft); color: var(--muted); font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.07em; text-transform: uppercase; }
+.deck-led { width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: var(--muted); box-shadow: 0 0 0 3px var(--accent-soft); }
+.music-deck.playing .deck-led { background: var(--success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 15%, transparent), 0 0 8px var(--success); }
+.music-deck.autoplay-blocked .deck-led { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft), 0 0 8px var(--accent); }
+.music-track-code { margin-left: auto; color: var(--accent); }
+.music-deck-main { display: flex; align-items: center; gap: 10px; padding-top: 11px; }
+.music-toggle, .music-expand { width: 32px; height: 32px; display: grid; place-items: center; flex: 0 0 auto; border: 1px solid var(--line); border-radius: 50%; background: var(--surface-soft); color: var(--text); cursor: pointer; transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease; }
+.music-toggle { border-color: var(--accent); color: var(--accent); }
+.music-toggle:hover, .music-expand:hover { border-color: var(--accent); background: var(--accent-soft); transform: scale(1.05); }
+.music-toggle i { font-size: 18px; }
+.music-expand { margin-left: auto; color: var(--muted); }
+.music-expand i { font-size: 17px; transition: transform 180ms var(--ease); }
+.music-deck.expanded .music-expand i { transform: rotate(180deg); }
+.music-track-info { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.music-track-info strong { color: var(--text); font-family: var(--font-display); font-size: 13px; letter-spacing: 0.02em; }
+.music-track-info span { overflow: hidden; color: var(--muted); font-family: var(--font-mono); font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+.music-deck-controls { display: flex; align-items: center; gap: 8px; max-height: 0; overflow: hidden; padding-top: 0; opacity: 0; transition: max-height 220ms var(--ease), padding-top 220ms ease, opacity 180ms ease; }
+.music-deck.expanded .music-deck-controls { max-height: 42px; padding-top: 11px; opacity: 1; }
+.music-deck-controls > i { color: var(--muted); font-size: 14px; }
+.music-deck-controls input[type="range"] { width: 100%; height: 3px; appearance: none; border-radius: 9px; background: var(--line); outline: none; }
+.music-deck-controls input[type="range"]::-webkit-slider-thumb { width: 10px; height: 10px; appearance: none; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 62%, transparent); cursor: pointer; }
+.music-deck-controls input[type="range"]::-moz-range-thumb { width: 10px; height: 10px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+#music-volume-label { min-width: 30px; color: var(--muted); font-family: var(--font-mono); font-size: 8px; text-align: right; }
+
 /* Motion and feedback */
 [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 650ms var(--ease), transform 650ms var(--ease); transition-delay: var(--delay, 0ms); }
 [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
@@ -329,6 +356,8 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
     .large-copy { font-size: 30px; }
     .image-caption { max-width: 135px; font-size: 9px; }
     .contact-links { gap: 13px; }
+    .music-deck { right: 14px; bottom: 14px; }
+    .music-deck-topline { font-size: 7px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
