@@ -17,6 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyIcon = document.getElementById('copy-icon');
     const toast = document.getElementById('toast');
     const email = 'aadityasrinivasan079@gmail.com';
+    const cafeBgVideo = document.getElementById('cafe-bg-video');
+    const bombBgVideo = document.getElementById('bomb-bg-video');
+
+    const ensureVideoPlayback = (video) => {
+        if (!video) return;
+        if (video.paused) {
+            video.play().catch(() => {
+                // Background autoplay may be deferred by browser power settings
+            });
+        }
+    };
 
     const showToast = (message) => {
         if (!toast) return;
@@ -131,6 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const themeColor = document.querySelector('meta[name="theme-color"]');
         if (themeColor) themeColor.setAttribute('content', isBomb ? '#100706' : '#0b0715');
 
+        if (isBomb) {
+            ensureVideoPlayback(bombBgVideo);
+        } else {
+            ensureVideoPlayback(cafeBgVideo);
+        }
+
         if (announce) {
             modeFlash?.classList.remove('active');
             if (modeFlash) {
@@ -147,6 +164,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const savedMode = localStorage.getItem('reze-mode');
     setMode(savedMode === 'bomb' ? 'bomb' : 'cafe', false);
+
+    // Resume video playback if tab re-enters focus
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+            if (body.classList.contains('bomb-mode')) {
+                ensureVideoPlayback(bombBgVideo);
+            } else {
+                ensureVideoPlayback(cafeBgVideo);
+            }
+        }
+    });
 
     const toggleMode = () => {
         setMode(body.classList.contains('bomb-mode') ? 'cafe' : 'bomb');

@@ -14,10 +14,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4.0">
+    <link rel="stylesheet" href="style.css?v=4.1">
 </head>
 <body class="cafe-mode">
-    <div class="ambient-mode-bg" aria-hidden="true"></div>
+    <div class="ambient-mode-bg" aria-hidden="true">
+        <video class="ambient-video cafe-video" id="cafe-bg-video" autoplay muted loop playsinline preload="auto" poster="cafe-bg.gif">
+            <source src="cafe-bg.mp4" type="video/mp4">
+        </video>
+        <video class="ambient-video bomb-video" id="bomb-bg-video" autoplay muted loop playsinline preload="auto" poster="bomb-bg.gif">
+            <source src="bomb-bg.mp4" type="video/mp4">
+        </video>
+        <div class="ambient-overlay"></div>
+    </div>
     <div class="site-noise" aria-hidden="true"></div>
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <div class="mode-flash" id="mode-flash" aria-hidden="true"></div>
@@ -242,6 +250,6 @@
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="script.js?v=4.0"></script>
+    <script src="script.js?v=4.1"></script>
 </body>
 </html>
