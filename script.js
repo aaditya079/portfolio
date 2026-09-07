@@ -22,10 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const ensureVideoPlayback = (video) => {
         if (!video) return;
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
         if (video.paused) {
-            video.play().catch(() => {
-                // Background autoplay may be deferred by browser power settings
-            });
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Deferred until user gesture
+                });
+            }
         }
     };
 
@@ -175,6 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    const retryVideoAutoplay = () => {
+        ensureVideoPlayback(body.classList.contains('bomb-mode') ? bombBgVideo : cafeBgVideo);
+        ['click', 'touchstart', 'scroll', 'keydown'].forEach((ev) => document.removeEventListener(ev, retryVideoAutoplay));
+    };
+    ['click', 'touchstart', 'scroll', 'keydown'].forEach((ev) => document.addEventListener(ev, retryVideoAutoplay, { once: true, passive: true }));
 
     const toggleMode = () => {
         setMode(body.classList.contains('bomb-mode') ? 'cafe' : 'bomb');
