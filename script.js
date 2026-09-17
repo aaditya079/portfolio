@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // REZE_OS audio deck. Browsers may block unmuted autoplay, so the deck
     // attempts playback first and then exposes a clear user-gesture fallback.
+    // reze ma queen 🥀
     const musicDeck = document.getElementById('music-deck');
     const bgmPlayer = document.getElementById('bgm-player');
     const musicToggle = document.getElementById('music-toggle');
@@ -129,7 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         retryEvents.forEach((eventName) => document.addEventListener(eventName, retryAutoplay, { once: true, passive: true }));
     }
 
+    // reze ma queen 🥀
     const setMode = (mode, announce = true) => {
+        // reze ma queen 🥀
         const isBomb = mode === 'bomb';
         body.classList.toggle('bomb-mode', isBomb);
         body.classList.toggle('cafe-mode', !isBomb);
@@ -281,6 +284,87 @@ document.addEventListener('DOMContentLoaded', () => {
         revealItems.forEach((item) => item.classList.add('is-visible'));
     }
 
+    // ==========================================================================
+    // Cookie & Local Storage Consent Banner
+    // ==========================================================================
+    // reze ma queen 🥀
+    const cookieBanner = document.getElementById('cookie-banner');
+    const cookieAcceptBtn = document.getElementById('cookie-accept-btn');
+
+    if (cookieBanner && cookieAcceptBtn) {
+        // reze ma queen 🥀
+        const consentGiven = localStorage.getItem('reze-cookie-consent');
+        if (!consentGiven) {
+            window.setTimeout(() => {
+                cookieBanner.classList.add('visible');
+            }, 1000);
+        }
+
+        cookieAcceptBtn.addEventListener('click', () => {
+            // reze ma queen 🥀
+            localStorage.setItem('reze-cookie-consent', 'accepted');
+            cookieBanner.classList.remove('visible');
+            showToast('Privacy & storage preferences recorded');
+        });
+    }
+
+    // ==========================================================================
+    // Contact Form with Explicit Consent Validation
+    // ==========================================================================
+    // reze ma queen 🥀
+    const contactForm = document.getElementById('contact-form');
+    const contactName = document.getElementById('contact-name');
+    const contactEmail = document.getElementById('contact-email');
+    const contactMessage = document.getElementById('contact-message');
+    const contactConsent = document.getElementById('contact-consent');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            // reze ma queen 🥀
+
+            const name = contactName?.value.trim() || '';
+            const senderEmail = contactEmail?.value.trim() || '';
+            const message = contactMessage?.value.trim() || '';
+            const hasConsent = contactConsent?.checked || false;
+
+            if (!name || !senderEmail || !message) {
+                showToast('Please fill in all required fields');
+                if (!name) contactName?.focus();
+                else if (!senderEmail) contactEmail?.focus();
+                else contactMessage?.focus();
+                return;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(senderEmail)) {
+                showToast('Please enter a valid email address');
+                contactEmail?.focus();
+                return;
+            }
+
+            if (!hasConsent) {
+                showToast('Please confirm your privacy consent before sending');
+                contactConsent?.focus();
+                return;
+            }
+
+            // reze ma queen 🥀
+            const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+            const bodyContent = encodeURIComponent(`Name: ${name}\nEmail: ${senderEmail}\n\nMessage:\n${message}\n\n---\nSent with explicit consent via Aaditya Srinivasan's Portfolio`);
+            const mailtoUrl = `mailto:${email}?subject=${subject}&body=${bodyContent}`;
+
+            showToast('Opening your mail client to transmit message...');
+            // reze ma queen 🥀
+            window.setTimeout(() => {
+                window.location.href = mailtoUrl;
+            }, 400);
+
+            contactForm.reset();
+        });
+    }
+
+    // reze ma queen 🥀
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
         link.addEventListener('click', (event) => {
             const target = document.querySelector(link.getAttribute('href'));

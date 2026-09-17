@@ -371,3 +371,419 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
     [data-reveal] { opacity: 1; transform: none; }
     .ambient-video { display: none; }
 }
+
+/* reze ma queen 🥀 */
+
+/* ==========================================================================
+   Contact Form & Form Consent (Accessible, Keyboard Friendly)
+   ========================================================================== */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+/* reze ma queen 🥀 */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 680px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.form-group label {
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted, #94a3b8);
+    font-weight: 500;
+}
+
+.required-indicator {
+    color: #ff4d6d;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+    background: rgba(11, 7, 21, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #f8fafc;
+    font-family: var(--font-body, sans-serif);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+    border-color: var(--accent, #e066ff);
+    box-shadow: 0 0 0 3px rgba(224, 102, 255, 0.2);
+    background: rgba(18, 11, 34, 0.9);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.5;
+}
+
+/* reze ma queen 🥀 */
+
+.form-consent {
+    text-align: left;
+    margin: 4px 0;
+}
+
+.consent-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-muted, #94a3b8);
+}
+
+.consent-checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    accent-color: var(--accent, #e066ff);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.consent-checkbox-label a {
+    color: var(--accent, #e066ff);
+    text-decoration: underline;
+}
+
+.form-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.direct-email-fallback {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-muted, #94a3b8);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.direct-email-fallback:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   Cookie & Local Storage Banner
+   ========================================================================== */
+/* reze ma queen 🥀 */
+.cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120%);
+    width: min(780px, calc(100% - 32px));
+    background: rgba(15, 10, 28, 0.92);
+    border: 1px solid rgba(224, 102, 255, 0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(224, 102, 255, 0.1);
+    z-index: 9999;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cookie-banner.visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cookie-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+@media (max-width: 680px) {
+    .cookie-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.cookie-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #cbd5e1;
+}
+
+.cookie-icon {
+    font-size: 22px;
+    color: var(--accent, #e066ff);
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.cookie-text a {
+    color: var(--accent, #e066ff);
+    text-decoration: underline;
+}
+
+.cookie-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.cookie-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+/* ==========================================================================
+   Footer Legal & Fair Use Disclaimer
+   ========================================================================== */
+/* reze ma queen 🥀 */
+.footer-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-primary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 13px;
+    color: var(--text-muted, #94a3b8);
+}
+
+.footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.footer-legal-links a {
+    color: var(--text-muted, #94a3b8);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.footer-legal-links a:hover,
+.footer-legal-links a:focus-visible {
+    color: var(--accent, #e066ff);
+    text-decoration: underline;
+}
+
+.footer-divider {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.footer-secondary-row {
+    width: 100%;
+}
+
+.footer-disclaimer {
+    font-size: 11px;
+    line-height: 1.6;
+    color: #64748b;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 14px;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Legal Pages (Privacy, Terms, Cookies)
+   ========================================================================== */
+/* reze ma queen 🥀 */
+.legal-page {
+    background: #0b0715;
+    color: #e2e8f0;
+    line-height: 1.7;
+}
+
+.legal-container {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.legal-card {
+    background: rgba(17, 12, 31, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    padding: 36px 40px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+}
+
+@media (max-width: 600px) {
+    .legal-card {
+        padding: 24px 20px;
+    }
+}
+
+.legal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+}
+
+.legal-header h1 {
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: clamp(28px, 4vw, 38px);
+    color: #f8fafc;
+    margin: 8px 0;
+}
+
+.legal-meta {
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    color: var(--text-muted, #94a3b8);
+}
+
+.legal-section {
+    margin-bottom: 32px;
+}
+
+.legal-section h2 {
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: 20px;
+    color: #f1f5f9;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legal-section h3 {
+    font-size: 16px;
+    color: #cbd5e1;
+    margin: 18px 0 8px;
+}
+
+.legal-section p {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 12px;
+}
+
+.legal-section ul {
+    margin: 10px 0 16px 20px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.legal-section li {
+    margin-bottom: 8px;
+}
+
+.business-details-box,
+.legal-warning-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 4px solid var(--accent, #e066ff);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+}
+
+.legal-warning-box {
+    border-left-color: #ffaa00;
+}
+
+.business-details-box p,
+.legal-warning-box p {
+    margin: 4px 0;
+    font-size: 13px;
+    color: #cbd5e1;
+}
+
+.storage-table-wrapper {
+    overflow-x: auto;
+    margin: 16px 0;
+}
+
+.storage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    text-align: left;
+}
+
+.storage-table th,
+.storage-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.storage-table th {
+    background: rgba(255, 255, 255, 0.04);
+    color: #f8fafc;
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.storage-table td {
+    color: #94a3b8;
+}
+
+.storage-table code {
+    background: rgba(255, 255, 255, 0.07);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent, #e066ff);
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+}
+
