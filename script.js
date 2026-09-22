@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 _captcha: 'false'
             };
 
-            fetch('https://formsubmit.co/ajax/aadityasrinivasan079@gmail.com', {
+            fetch('https://formsubmit.co/ajax/470af6490da90ee6e84f16fa2ddb22bd', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
