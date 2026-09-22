@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4.4">
+    <link rel="stylesheet" href="style.css?v=4.5">
 </head>
 <body class="cafe-mode">
     <div class="ambient-mode-bg" aria-hidden="true">
@@ -264,7 +264,14 @@
     <aside class="music-deck" id="music-deck" aria-label="REZE_OS music player">
         <!-- reze ma queen 🥀 -->
         <audio id="bgm-player" src="jane-doe.mp3" autoplay loop preload="auto"></audio>
-        <div class="music-deck-topline"><span class="deck-led" aria-hidden="true"></span><span id="music-status">REZE_OS AUDIO / STANDBY</span><span class="music-track-code">AUDIO_01</span></div>
+        <div class="music-deck-topline">
+            <span class="deck-led" aria-hidden="true"></span>
+            <span id="music-status">REZE_OS AUDIO / STANDBY</span>
+            <span class="music-track-code">AUDIO_01</span>
+            <button class="music-minimize" id="music-minimize-btn" type="button" aria-label="Minimize music player" title="Minimize player">
+                <i class="bx bx-minus" aria-hidden="true"></i>
+            </button>
+        </div>
         <div class="music-deck-main">
             <button class="music-toggle" id="music-toggle" type="button" aria-label="Play background music" aria-pressed="false">
                 <i class="bx bx-play" id="music-toggle-icon" aria-hidden="true"></i>
@@ -278,6 +285,12 @@
             <span id="music-volume-label">28%</span>
         </div>
     </aside>
+
+    <button class="music-launcher" id="music-launcher" type="button" aria-label="Open music player" aria-expanded="false" title="Open REZE_OS audio player">
+        <span class="deck-led launcher-led" aria-hidden="true"></span>
+        <i class="bx bx-music" aria-hidden="true"></i>
+        <span class="music-launcher-label">AUDIO</span>
+    </button>
 
     <!-- reze ma queen 🥀 -->
     <aside class="cookie-banner" id="cookie-banner" role="region" aria-label="Privacy &amp; Local Storage Notice">
@@ -316,6 +329,6 @@
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="script.js?v=4.4"></script>
+    <script src="script.js?v=4.5"></script>
 </body>
 </html>

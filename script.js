@@ -58,15 +58,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicVolumeLabel = document.getElementById('music-volume-label');
     const musicVolumeIcon = document.getElementById('music-volume-icon');
 
+    const musicMinimize = document.getElementById('music-minimize-btn');
+    const musicLauncher = document.getElementById('music-launcher');
+
     if (musicDeck && bgmPlayer) {
         const savedVolume = Number.parseFloat(localStorage.getItem('reze-volume'));
         const startingVolume = Number.isFinite(savedVolume) ? Math.min(1, Math.max(0, savedVolume)) : 0.28;
         bgmPlayer.volume = startingVolume;
         if (musicVolume) musicVolume.value = String(startingVolume);
 
+        const setMusicMinimized = (minimized, persist = true) => {
+            musicDeck.classList.toggle('minimized', minimized);
+            musicLauncher?.classList.toggle('visible', minimized);
+            musicDeck.setAttribute('aria-hidden', String(minimized));
+            musicLauncher?.setAttribute('aria-expanded', String(!minimized));
+            if (persist) {
+                localStorage.setItem('reze-music-minimized', minimized ? 'true' : 'false');
+            }
+        };
+
+        musicMinimize?.addEventListener('click', () => {
+            setMusicMinimized(true);
+            showToast('Audio player minimized');
+        });
+
+        musicLauncher?.addEventListener('click', () => {
+            setMusicMinimized(false);
+        });
+
+        const savedMinimize = localStorage.getItem('reze-music-minimized');
+        if (savedMinimize === 'true') {
+            setMusicMinimized(true, false);
+        }
+
         const updateMusicUI = (isPlaying) => {
             musicDeck.classList.toggle('playing', isPlaying);
             musicDeck.classList.remove('autoplay-blocked');
+            musicLauncher?.classList.toggle('playing', isPlaying);
+            musicLauncher?.classList.remove('autoplay-blocked');
             if (musicToggleIcon) musicToggleIcon.className = isPlaying ? 'bx bx-pause' : 'bx bx-play';
             if (musicToggle) {
                 musicToggle.setAttribute('aria-pressed', String(isPlaying));
@@ -77,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const markAutoplayBlocked = () => {
             musicDeck.classList.add('autoplay-blocked');
+            musicLauncher?.classList.add('autoplay-blocked');
             if (musicStatus) musicStatus.textContent = 'REZE_OS AUDIO / TAP TO START';
         };
 
