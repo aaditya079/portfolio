@@ -210,9 +210,13 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
 .project-card { min-height: 380px; display: flex; flex-direction: column; padding: clamp(25px, 4vw, 42px); border-radius: 4px; transition: transform 220ms var(--ease), border-color 220ms ease, background 220ms ease; }
 .project-card:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--accent) 52%, var(--line)); background: var(--surface-raised); }
 .project-featured { grid-column: span 2; min-height: 420px; }
-.project-card-header { display: flex; align-items: start; justify-content: space-between; gap: 20px; padding-bottom: 25px; border-bottom: 1px solid var(--line-soft); }
+.project-card-header { display: flex; align-items: start; justify-content: space-between; gap: 16px; padding-bottom: 25px; border-bottom: 1px solid var(--line-soft); flex-wrap: wrap; }
 .project-number { display: block; margin-bottom: 11px; color: var(--muted); font-size: 10px; }
 .project-card h3 { font-size: clamp(28px, 4vw, 46px); }
+.project-card-links { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.project-link-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line)); color: var(--accent); font-family: var(--font-mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; text-decoration: none; transition: all 180ms var(--ease); background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.project-link-badge i { font-size: 13px; }
+.project-link-badge:hover { background: color-mix(in srgb, var(--accent) 18%, transparent); border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 25%, transparent); }
 .project-arrow { color: var(--accent); font-size: 27px; transition: transform 180ms var(--ease); }
 .project-arrow:hover { transform: translate(3px, -3px); }
 .project-kicker { max-width: 660px; margin-top: 30px; color: var(--text); font-family: var(--font-display); font-size: clamp(22px, 3vw, 34px); letter-spacing: -0.04em; line-height: 1.14; }
