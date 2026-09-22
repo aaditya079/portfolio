@@ -12,6 +12,7 @@
     --text: #f8f1ff;
     --text-soft: #d4c8e2;
     --muted: #9686a9;
+    --text-muted: #9686a9;
     --accent: #e44bff;
     --accent-deep: #b42de2;
     --accent-soft: rgba(228, 75, 255, 0.13);
@@ -40,6 +41,7 @@ body.bomb-mode {
     --text: #fff4e7;
     --text-soft: #f0c7ad;
     --muted: #b58670;
+    --text-muted: #b58670;
     --accent: #ff7c2f;
     --accent-deep: #e54d1b;
     --accent-soft: rgba(255, 124, 47, 0.14);
@@ -243,19 +245,20 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
 .timeline-row p { max-width: 640px; margin-top: 10px; font-size: 14px; }
 
 /* Contact and footer */
-.contact-section { padding: 125px 0; background: var(--accent); color: #fff; }
-.contact-shell { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 70px; align-items: end; }
-.contact-shell .eyebrow { color: rgba(255,255,255,0.7); }
-.contact-shell .status-dot { background: #fff; box-shadow: 0 0 0 4px rgba(255,255,255,0.15); }
-.contact-shell h2 { max-width: 630px; font-size: clamp(44px, 6vw, 76px); }
-.contact-shell > div > p:last-child { max-width: 485px; margin-top: 26px; color: rgba(255,255,255,0.78); }
-.contact-actions { display: flex; flex-direction: column; gap: 27px; }
-.email-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.42); font-family: var(--font-display); font-size: clamp(17px, 2.1vw, 26px); letter-spacing: -0.03em; }
-.email-link i { font-size: 25px; transition: transform 180ms var(--ease); }
+.contact-section { padding: 130px 0; background: var(--bg-deep); color: var(--text); position: relative; overflow: hidden; border-top: 1px solid var(--line-soft); }
+.contact-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 82% 22%, var(--accent-soft), transparent 48%), radial-gradient(circle at 12% 85%, var(--signal-soft), transparent 42%); pointer-events: none; z-index: 0; }
+.contact-shell { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 70px; align-items: center; }
+.contact-shell .eyebrow { color: var(--accent); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+.contact-shell .status-dot { background: var(--success); box-shadow: 0 0 0 4px color-mix(in srgb, var(--success) 15%, transparent); }
+.contact-shell h2 { max-width: 630px; font-size: clamp(44px, 6vw, 76px); color: var(--text); letter-spacing: -0.045em; line-height: 1.05; }
+.contact-shell > div > p:last-child { max-width: 485px; margin-top: 24px; color: var(--text-soft); font-size: 16px; line-height: 1.7; }
+.contact-actions { display: flex; flex-direction: column; gap: 20px; }
+.email-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 15px; padding-bottom: 16px; border-bottom: 1px solid var(--line); font-family: var(--font-display); font-size: clamp(17px, 2.1vw, 26px); letter-spacing: -0.03em; color: var(--text); }
+.email-link i { font-size: 25px; color: var(--accent); transition: transform 180ms var(--ease); }
 .email-link:hover i { transform: translate(4px, -4px); }
 .contact-links { display: flex; flex-wrap: wrap; gap: 18px; }
-.contact-links a, .copy-button { display: inline-flex; align-items: center; gap: 6px; border: 0; color: rgba(255,255,255,0.82); background: none; font-family: var(--font-mono); font-size: 11px; cursor: pointer; }
-.contact-links a:hover, .copy-button:hover { color: #fff; }
+.contact-links a, .copy-button { display: inline-flex; align-items: center; gap: 6px; border: 0; color: var(--muted); background: none; font-family: var(--font-mono); font-size: 11px; font-weight: 500; cursor: pointer; transition: color 180ms ease, transform 180ms ease; }
+.contact-links a:hover, .copy-button:hover { color: var(--text); transform: translateY(-1px); text-decoration: underline; }
 .site-footer { position: relative; z-index: 2; background: var(--bg-deep); }
 .footer-shell { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-family: var(--font-mono); font-size: 10px; }
 .footer-shell a { color: var(--text-soft); }
@@ -375,17 +378,27 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
 /* reze ma queen 🥀 */
 
 /* ==========================================================================
-   Contact Form & Form Consent (Accessible, Keyboard Friendly)
+   Contact Form & Form Consent (Accessible, WCAG 2.2 AA Compliant)
    ========================================================================== */
 .contact-form {
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: clamp(24px, 4vw, 36px);
+    box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
+    transition: border-color 220ms ease, background 220ms ease;
 }
 
-/* reze ma queen 🥀 */
+.contact-form:focus-within {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
 
 .form-row {
     display: grid;
@@ -408,25 +421,26 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
 
 .form-group label {
     font-family: var(--font-mono, monospace);
-    font-size: 12px;
-    letter-spacing: 0.5px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-muted, #94a3b8);
-    font-weight: 500;
+    color: var(--text-soft);
+    font-weight: 600;
 }
 
 .required-indicator {
-    color: #ff4d6d;
+    color: var(--accent);
     font-weight: 700;
+    margin-left: 2px;
 }
 
 .form-group input,
 .form-group textarea {
-    background: rgba(11, 7, 21, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 8px;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+    border-radius: 6px;
     padding: 12px 14px;
-    color: #f8fafc;
+    color: var(--text);
     font-family: var(--font-body, sans-serif);
     font-size: 14px;
     outline: none;
@@ -435,11 +449,29 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
     box-sizing: border-box;
 }
 
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.75;
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+    border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+    background: rgba(255, 255, 255, 0.04);
+}
+
 .form-group input:focus-visible,
 .form-group textarea:focus-visible {
-    border-color: var(--accent, #e066ff);
-    box-shadow: 0 0 0 3px rgba(224, 102, 255, 0.2);
-    background: rgba(18, 11, 34, 0.9);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.form-group input.is-invalid,
+.form-group textarea.is-invalid {
+    border-color: #ff4d6d !important;
+    box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.25) !important;
 }
 
 .form-group textarea {
@@ -461,47 +493,107 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
     gap: 10px;
     cursor: pointer;
     font-size: 12px;
-    line-height: 1.5;
-    color: var(--text-muted, #94a3b8);
+    line-height: 1.55;
+    color: var(--text-soft);
 }
 
 .consent-checkbox-label input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     margin-top: 2px;
-    accent-color: var(--accent, #e066ff);
+    accent-color: var(--accent);
     cursor: pointer;
     flex-shrink: 0;
 }
 
+.consent-checkbox-label input[type="checkbox"].is-invalid {
+    outline: 2px solid #ff4d6d;
+    outline-offset: 2px;
+}
+
 .consent-checkbox-label a {
-    color: var(--accent, #e066ff);
+    color: var(--accent);
+    font-weight: 600;
     text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+
+.consent-checkbox-label a:hover,
+.consent-checkbox-label a:focus-visible {
+    color: var(--text);
 }
 
 .form-actions-row {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     flex-wrap: wrap;
-    margin-top: 4px;
+    margin-top: 6px;
+}
+
+.form-submit-btn {
+    background: var(--accent) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--accent) !important;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    padding: 0 22px;
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px var(--accent-soft);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-submit-btn:hover {
+    background: var(--accent-deep) !important;
+    border-color: var(--accent-deep) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px var(--accent-soft);
+}
+
+.form-submit-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
 }
 
 .direct-email-fallback {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: var(--text-muted, #94a3b8);
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text-soft);
+    background: transparent;
+    border: 1px solid var(--line);
     text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: color 0.2s, background 0.2s;
+    padding: 0 16px;
+    min-height: 46px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.2s;
 }
 
 .direct-email-fallback:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.direct-email-fallback:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
 }
 
 /* ==========================================================================
@@ -746,6 +838,18 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
     margin: 4px 0;
     font-size: 13px;
     color: #cbd5e1;
+}
+
+.business-details-box a,
+.legal-section a {
+    color: var(--accent, #e066ff);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.business-details-box a:hover,
+.legal-section a:hover {
+    color: #ffffff;
 }
 
 .storage-table-wrapper {

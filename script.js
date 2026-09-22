@@ -319,6 +319,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactConsent = document.getElementById('contact-consent');
 
     if (contactForm) {
+        const clearInvalid = (el) => {
+            el?.classList.remove('is-invalid');
+            el?.removeAttribute('aria-invalid');
+        };
+
+        [contactName, contactEmail, contactMessage, contactConsent].forEach((field) => {
+            field?.addEventListener('input', () => clearInvalid(field));
+            field?.addEventListener('change', () => clearInvalid(field));
+        });
+
         contactForm.addEventListener('submit', (event) => {
             event.preventDefault();
             // reze ma queen 🥀
@@ -328,22 +338,42 @@ document.addEventListener('DOMContentLoaded', () => {
             const message = contactMessage?.value.trim() || '';
             const hasConsent = contactConsent?.checked || false;
 
-            if (!name || !senderEmail || !message) {
+            let firstInvalid = null;
+
+            if (!name) {
+                contactName?.classList.add('is-invalid');
+                contactName?.setAttribute('aria-invalid', 'true');
+                if (!firstInvalid) firstInvalid = contactName;
+            }
+            if (!senderEmail) {
+                contactEmail?.classList.add('is-invalid');
+                contactEmail?.setAttribute('aria-invalid', 'true');
+                if (!firstInvalid) firstInvalid = contactEmail;
+            }
+            if (!message) {
+                contactMessage?.classList.add('is-invalid');
+                contactMessage?.setAttribute('aria-invalid', 'true');
+                if (!firstInvalid) firstInvalid = contactMessage;
+            }
+
+            if (firstInvalid) {
                 showToast('Please fill in all required fields');
-                if (!name) contactName?.focus();
-                else if (!senderEmail) contactEmail?.focus();
-                else contactMessage?.focus();
+                firstInvalid.focus();
                 return;
             }
 
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(senderEmail)) {
+                contactEmail?.classList.add('is-invalid');
+                contactEmail?.setAttribute('aria-invalid', 'true');
                 showToast('Please enter a valid email address');
                 contactEmail?.focus();
                 return;
             }
 
             if (!hasConsent) {
+                contactConsent?.classList.add('is-invalid');
+                contactConsent?.setAttribute('aria-invalid', 'true');
                 showToast('Please confirm your privacy consent before sending');
                 contactConsent?.focus();
                 return;
@@ -361,6 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 400);
 
             contactForm.reset();
+            [contactName, contactEmail, contactMessage, contactConsent].forEach(clearInvalid);
         });
     }
 
