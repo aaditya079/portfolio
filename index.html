@@ -240,6 +240,10 @@
                 <div class="contact-actions">
                     <!-- reze ma queen 🥀 -->
                     <form class="contact-form" id="contact-form" novalidate aria-label="Contact Aaditya Srinivasan">
+                        <!-- Spam prevention & FormSubmit configuration -->
+                        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="contact-name">Your Name <span class="required-indicator" aria-hidden="true">*</span></label>
@@ -262,7 +266,7 @@
                         </div>
                         <div class="form-actions-row">
                             <button type="submit" class="button button-primary form-submit-btn" id="contact-submit-btn">
-                                <span>Send message</span> <i class="bx bx-paper-plane" aria-hidden="true"></i>
+                                <span class="submit-btn-text">Send message</span> <i class="bx bx-paper-plane submit-btn-icon" aria-hidden="true"></i>
                             </button>
                             <a class="direct-email-fallback" href="mailto:aadityasrinivasan079@gmail.com" aria-label="Send direct email to aadityasrinivasan079@gmail.com">
                                 <i class="bx bx-envelope" aria-hidden="true"></i> <span>Direct email</span>

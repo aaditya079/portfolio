@@ -410,18 +410,74 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // reze ma queen 🥀
-            const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
-            const bodyContent = encodeURIComponent(`Name: ${name}\nEmail: ${senderEmail}\n\nMessage:\n${message}\n\n---\nSent with explicit consent via Aaditya Srinivasan's Portfolio`);
-            const mailtoUrl = `mailto:${email}?subject=${subject}&body=${bodyContent}`;
+            // Check honeypot field
+            const honeyField = contactForm.querySelector('input[name="_honey"]');
+            if (honeyField && honeyField.value) {
+                // Silent drop for automated spam bots
+                showToast('Message transmitted.');
+                contactForm.reset();
+                return;
+            }
 
-            showToast('Opening your mail client to transmit message...');
-            // reze ma queen 🥀
-            window.setTimeout(() => {
-                window.location.href = mailtoUrl;
-            }, 400);
+            const submitBtn = document.getElementById('contact-submit-btn');
+            const submitBtnText = submitBtn?.querySelector('.submit-btn-text');
+            const submitBtnIcon = submitBtn?.querySelector('.submit-btn-icon');
+            const originalText = submitBtnText ? submitBtnText.textContent : 'Send message';
+            const originalIconClass = submitBtnIcon ? submitBtnIcon.className : 'bx bx-paper-plane submit-btn-icon';
 
-            contactForm.reset();
-            [contactName, contactEmail, contactMessage, contactConsent].forEach(clearInvalid);
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('is-submitting');
+            }
+            if (submitBtnText) submitBtnText.textContent = 'Transmitting...';
+            if (submitBtnIcon) submitBtnIcon.className = 'bx bx-loader-alt bx-spin submit-btn-icon';
+
+            const payload = {
+                name: name,
+                email: senderEmail,
+                message: message,
+                _subject: `Portfolio Inquiry from ${name}`,
+                _template: 'table',
+                _captcha: 'false'
+            };
+
+            fetch('https://formsubmit.co/ajax/aadityasrinivasan079@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                showToast('Message transmitted successfully. Reaching out soon.');
+                contactForm.reset();
+                [contactName, contactEmail, contactMessage, contactConsent].forEach(clearInvalid);
+            })
+            .catch((err) => {
+                console.warn('FormSubmit AJAX failed, falling back to mailto:', err);
+                showToast('Background transmission failed. Opening mail client...');
+                const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+                const bodyContent = encodeURIComponent(`Name: ${name}\nEmail: ${senderEmail}\n\nMessage:\n${message}\n\n---\nSent with explicit consent via Aaditya Srinivasan's Portfolio`);
+                const mailtoUrl = `mailto:${email}?subject=${subject}&body=${bodyContent}`;
+                window.setTimeout(() => {
+                    window.location.href = mailtoUrl;
+                }, 600);
+            })
+            .finally(() => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('is-submitting');
+                }
+                if (submitBtnText) submitBtnText.textContent = originalText;
+                if (submitBtnIcon) submitBtnIcon.className = originalIconClass;
+            });
         });
     }
 

@@ -655,6 +655,24 @@ body.bomb-mode .hero-mode-chip { background: rgba(38, 8, 3, 0.42); }
     outline-offset: 3px;
 }
 
+.form-submit-btn.is-submitting {
+    opacity: 0.85;
+    cursor: wait !important;
+    pointer-events: none;
+    box-shadow: 0 0 18px var(--accent-soft);
+    animation: submit-pulse 1.4s ease-in-out infinite alternate;
+}
+
+.form-submit-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+@keyframes submit-pulse {
+    0% { transform: translateY(0); box-shadow: 0 0 12px var(--accent-soft); }
+    100% { transform: translateY(-1px); box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 60%, transparent); }
+}
+
 .direct-email-fallback {
     display: inline-flex;
     align-items: center;
