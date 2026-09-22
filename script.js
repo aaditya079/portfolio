@@ -456,19 +456,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then((data) => {
-                showToast('Message transmitted successfully. Reaching out soon.');
-                contactForm.reset();
-                [contactName, contactEmail, contactMessage, contactConsent].forEach(clearInvalid);
+                if (data.success === 'true' || data.success === true) {
+                    showToast('Message transmitted successfully. Reaching out soon.');
+                    contactForm.reset();
+                    [contactName, contactEmail, contactMessage, contactConsent].forEach(clearInvalid);
+                } else if (data.message && data.message.toLowerCase().includes('activation')) {
+                    showToast('Activation required: FormSubmit sent an activation link to your inbox!');
+                } else {
+                    showToast(data.message || 'Transmission failed. Please try again.');
+                }
             })
             .catch((err) => {
-                console.warn('FormSubmit AJAX failed, falling back to mailto:', err);
-                showToast('Background transmission failed. Opening mail client...');
-                const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
-                const bodyContent = encodeURIComponent(`Name: ${name}\nEmail: ${senderEmail}\n\nMessage:\n${message}\n\n---\nSent with explicit consent via Aaditya Srinivasan's Portfolio`);
-                const mailtoUrl = `mailto:${email}?subject=${subject}&body=${bodyContent}`;
-                window.setTimeout(() => {
-                    window.location.href = mailtoUrl;
-                }, 600);
+                console.warn('FormSubmit AJAX failed:', err);
+                if (window.location.protocol === 'file:') {
+                    showToast('Background send requires a web server (e.g. GitHub Pages). Not supported in file:// mode.');
+                } else {
+                    showToast('Transmission error. Please try again or use the Direct Email button.');
+                }
             })
             .finally(() => {
                 if (submitBtn) {
